@@ -6,7 +6,7 @@
     /// <summary>
     /// Represents a command or request to the Fingerprint reader
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.MessageBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule" />
     public partial class Command : MessageBase
     {
         #region Mappings

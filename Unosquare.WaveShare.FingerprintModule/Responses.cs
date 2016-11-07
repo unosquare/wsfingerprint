@@ -9,13 +9,20 @@
     /// <summary>
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
-    public sealed class Response : ResponseBase { public Response(byte[] payload) : base(payload) { } }
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    public sealed class Response : ResponseBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Response"/> class.
+        /// </summary>
+        /// <param name="payload">The payload.</param>
+        public Response(byte[] payload) : base(payload) { }
+    }
 
     /// <summary>
     /// Get DSP Version Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetDspVersionNumberResponse : ResponseBase
     {
         /// <summary>
@@ -47,7 +54,7 @@
     /// <summary>
     /// Get or Set Registration Mode Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetSetRegistrationModeResponse : ResponseBase
     {
         /// <summary>
@@ -83,7 +90,7 @@
     /// <summary>
     /// Add Fingerprint Response. This includes repsonses for all 3 iterations 1, 2, and 3
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class AddFingerprintResponse : ResponseBase
     {
         /// <summary>
@@ -116,7 +123,7 @@
     /// <summary>
     /// Get User Count Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetUserCountResponse : ResponseBase
     {
         /// <summary>
@@ -132,6 +139,13 @@
         /// Gets the number of users registered in the module's database.
         /// </summary>
         public int UserCount { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return base.ToString() + $" User Count: {UserCount}";
@@ -141,7 +155,7 @@
     /// <summary>
     /// Match 1 to N Response. Contains the User Id and the corresponding privilege
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class MatchOneToNResponse : ResponseBase
     {
         /// <summary>
@@ -190,7 +204,7 @@
     /// <summary>
     /// Get User Privilege Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetUserPrivilegeResponse : ResponseBase
     {
         /// <summary>
@@ -236,7 +250,7 @@
     /// <summary>
     /// Get or Set Matching Level Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetSetMatchingLevelResponse : ResponseBase
     {
         /// <summary>
@@ -268,7 +282,7 @@
     /// <summary>
     /// Acquire Image Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class AcquireImageResponse : ResponseBase
     {
 
@@ -306,7 +320,7 @@
     /// <summary>
     /// Acquire Image Eigenvalues Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class AcquireImageEigenvaluesResponse : ResponseBase
     {
         /// <summary>
@@ -342,7 +356,7 @@
     /// <summary>
     /// Match Eigenvalues to User Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class MatchEigenvaluesToUserResponse : ResponseBase
     {
 
@@ -379,7 +393,7 @@
     /// <summary>
     /// Get User Properties Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -427,7 +441,7 @@
     /// <summary>
     /// Set User Properties Response - Contains the User Id
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class SetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -459,9 +473,13 @@
     /// <summary>
     /// Get or Set Capture Timeout Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetSetCaptureTimeoutResponse : ResponseBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetSetCaptureTimeoutResponse"/> class.
+        /// </summary>
+        /// <param name="payload">The payload.</param>
         public GetSetCaptureTimeoutResponse(byte[] payload) : base(payload)
         {
             CaptureTimeout = payload[3];
@@ -472,6 +490,12 @@
         /// </summary>
         public int CaptureTimeout { get; private set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return base.ToString() + $" Capture Timeout: {CaptureTimeout}";
@@ -481,7 +505,7 @@
     /// <summary>
     /// Get All Users Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
     public sealed class GetAllUsersResponse : ResponseBase
     {
         /// <summary>

@@ -12,6 +12,12 @@
 * Nice sample application included for testing
 * MIT License
 
+## NuGet Installation:
+
+```
+PM> Install-Package Unosquare.WaveShare.FingerprintReader
+```
+
 ## Usage
 
 ```csharp

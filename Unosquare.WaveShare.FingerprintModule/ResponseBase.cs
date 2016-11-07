@@ -3,16 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// A base class representing response messages
     /// </summary>
-    /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.MessageBase" />
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.MessageBase" />
     public abstract class ResponseBase : MessageBase
     {
-
         #region Mappings
 
         internal static readonly Dictionary<OperationCode, MessageLengthCategory> ResponseLengthCategories = new Dictionary<OperationCode, MessageLengthCategory>
@@ -69,14 +66,36 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the response code.
+        /// </summary>
+        /// <value>
+        /// The response code.
+        /// </value>
         public MessageResponseCode ResponseCode { get; protected set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is successful.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is successful; otherwise, <c>false</c>.
+        /// </value>
         public virtual bool IsSuccessful { get { return ResponseCode == MessageResponseCode.Ok; } }
 
+        /// <summary>
+        /// Gets the length of the data packet.
+        /// </summary>
         public int DataPacketLength { get; protected set; }
 
+        /// <summary>
+        /// Gets the data packet.
+        /// </summary>
         public byte[] DataPacket { get; protected set; }
 
+        /// <summary>
+        /// Gets the bare data packet.
+        /// </summary>
+        /// <returns></returns>
         public byte[] GetBareDataPacket()
         {
             if (DataPacket == null || DataPacket.Length <= 3) return new byte[0];
@@ -84,6 +103,12 @@
             return DataPacket.Skip(1).Take(DataPacket.Length - 3).ToArray();
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             var contents = GetPayloadString();

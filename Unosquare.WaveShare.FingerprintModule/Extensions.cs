@@ -7,7 +7,6 @@
     /// </summary>
     internal static class Extensions
     {
-
         /// <summary>
         /// Converts an unsigned 16-bit integer to a Big Endian array of bytes
         /// </summary>
@@ -43,6 +42,8 @@
         /// Computes the checksum byte of the given payload by XORing bytes 2 to 6
         /// </summary>
         /// <param name="payload">The payload.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="endIndex">The end index.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentException">payload</exception>
         internal static byte ComputeChecksum(this byte[] payload, int startIndex = 1, int endIndex = 5)

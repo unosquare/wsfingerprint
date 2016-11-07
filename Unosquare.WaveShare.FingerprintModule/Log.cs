@@ -3,10 +3,16 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Static log service
+    /// </summary>
     static public class Log
     {
         static private readonly object SyncLock = new object();
 
+        /// <summary>
+        /// Prints the current code page.
+        /// </summary>
         static public void PrintCurrentCodePage()
         {
             Console.WriteLine("Output Encoding: " + Console.OutputEncoding.ToString());
@@ -39,6 +45,13 @@
             //Console.OutputEncoding = Encoding.GetEncoding(437);
         }
 
+        /// <summary>
+        /// Writes the specified color.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <param name="charCode">The character code.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="newLine">if set to <c>true</c> [new line].</param>
         static public void Write(ConsoleColor color, byte charCode, int count, bool newLine)
         {
             lock (SyncLock)
@@ -58,6 +71,11 @@
 
         }
 
+        /// <summary>
+        /// Writes the line.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <param name="text">The text.</param>
         static public void WriteLine(ConsoleColor color, string text)
         {
             lock (SyncLock)
@@ -69,6 +87,11 @@
             }
         }
 
+        /// <summary>
+        /// Writes the specified color.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <param name="text">The text.</param>
         static public void Write(ConsoleColor color, string text)
         {
             lock (SyncLock)
@@ -80,8 +103,17 @@
             }
         }
 
+        /// <summary>
+        /// Represents a Table to print in console
+        /// </summary>
         static public class Table
         {
+            /// <summary>
+            /// Gets or sets the color of the border.
+            /// </summary>
+            /// <value>
+            /// The color of the border.
+            /// </value>
             static public ConsoleColor BorderColor { get; set; } = ConsoleColor.DarkGreen;
 
             static public void Vertical()
@@ -165,6 +197,12 @@
             WriteLine(ConsoleColor.Red, $" {DateTime.Now:HH:mm:ss} ERR >> {text}");
         }
 
+        /// <summary>
+        /// Reads the key.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <param name="preventEcho">if set to <c>true</c> [prevent echo].</param>
+        /// <returns></returns>
         static public ConsoleKeyInfo ReadKey(string prompt, bool preventEcho)
         {
             Write(ConsoleColor.White, $" {DateTime.Now:HH:mm:ss} USR << {prompt} ");
@@ -174,6 +212,12 @@
             return input;
         }
 
+        /// <summary>
+        /// Reads the number.
+        /// </summary>
+        /// <param name="prompt">The prompt.</param>
+        /// <param name="defaultNumber">The default number.</param>
+        /// <returns></returns>
         static public int ReadNumber(string prompt, int defaultNumber)
         {
             Write(ConsoleColor.White, $" {DateTime.Now:HH:mm:ss} USR << {prompt} (default is {defaultNumber}): ");
@@ -187,6 +231,13 @@
             return parsedInt;
         }
 
+        /// <summary>
+        /// Reads the prompt.
+        /// </summary>
+        /// <param name="title">The title.</param>
+        /// <param name="options">The options.</param>
+        /// <param name="anyKeyOption">Any key option.</param>
+        /// <returns></returns>
         static public ConsoleKeyInfo ReadPrompt(string title, Dictionary<ConsoleKey, string> options, string anyKeyOption)
         {
             var textColor = ConsoleColor.White;

@@ -1,27 +1,24 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a Message (either a command or a response)
     /// </summary>
     public abstract class MessageBase
     {
-
         /// <summary>
         /// The payload delimiter - All messages start and end with this byte constant.
         /// </summary>
         internal const byte PayloadDelimiter = 0xF5;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageBase"/> class.
+        /// Initializes a new instance of the <see cref="MessageBase" /> class.
         /// </summary>
         /// <param name="messageType">Type of the message.</param>
         /// <param name="lengthCategory">The length category.</param>
+        /// <param name="opCode">The op code.</param>
         protected MessageBase(MessageType messageType, MessageLengthCategory lengthCategory, OperationCode opCode)
         {
             LengthCategory = lengthCategory;
@@ -65,7 +62,6 @@
         /// <summary>
         /// Gets the command or operation code.
         /// </summary>
-        /// </value>
         public OperationCode OperationCode { get; private set; }
 
         /// <summary>

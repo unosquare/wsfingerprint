@@ -116,10 +116,10 @@
         /// online is by resetting it.
         /// </summary>
         /// <returns></returns>
-        public async Task<BasicResponse> Sleep()
+        public async Task<Response> Sleep()
         {
             var command = Command.Factory.CreateSleepCommand();
-            return await GetResponseAsync<BasicResponse>(command);
+            return await GetResponseAsync<Response>(command);
         }
 
         /// <summary>
@@ -172,20 +172,20 @@
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public async Task<BasicResponse> DeleteUser(int userId)
+        public async Task<Response> DeleteUser(int userId)
         {
             var command = Command.Factory.CreateDeleteUserCommand(Convert.ToUInt16(userId));
-            return await GetResponseAsync<BasicResponse>(command);
+            return await GetResponseAsync<Response>(command);
         }
 
         /// <summary>
         /// Deletes all users.
         /// </summary>
         /// <returns></returns>
-        public async Task<BasicResponse> DeleteAllUsers()
+        public async Task<Response> DeleteAllUsers()
         {
             var command = Command.Factory.CreateDeleteAllUsersCommand();
-            return await GetResponseAsync<BasicResponse>(command, AcquireTimeout);
+            return await GetResponseAsync<Response>(command, AcquireTimeout);
         }
 
         /// <summary>
@@ -213,10 +213,10 @@
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public async Task<BasicResponse> MatchOneToOne(int userId)
+        public async Task<Response> MatchOneToOne(int userId)
         {
             var command = Command.Factory.CreateMatchOneToOneCommand(Convert.ToUInt16(userId));
-            return await GetResponseAsync<BasicResponse>(command, AcquireTimeout);
+            return await GetResponseAsync<Response>(command, AcquireTimeout);
         }
 
         /// <summary>
@@ -277,10 +277,10 @@
         /// </summary>
         /// <param name="eigenvalues">The eigenvalues.</param>
         /// <returns></returns>
-        public async Task<BasicResponse> MatchImageToEigenvalues(byte[] eigenvalues)
+        public async Task<Response> MatchImageToEigenvalues(byte[] eigenvalues)
         {
             var command = Command.Factory.CreateMatchImageToEigenvaluesCommand(eigenvalues);
-            return await GetResponseAsync<BasicResponse>(command, AcquireTimeout);
+            return await GetResponseAsync<Response>(command, AcquireTimeout);
         }
 
         /// <summary>
@@ -289,10 +289,10 @@
         /// <param name="userId">The user identifier.</param>
         /// <param name="eigenvalues">The eigenvalues.</param>
         /// <returns></returns>
-        public async Task<BasicResponse> MatchUserToEigenvalues(int userId, byte[] eigenvalues)
+        public async Task<Response> MatchUserToEigenvalues(int userId, byte[] eigenvalues)
         {
             var command = Command.Factory.CreateMatchUserToEigenvaluesCommand(Convert.ToUInt16(userId), eigenvalues);
-            return await GetResponseAsync<BasicResponse>(command);
+            return await GetResponseAsync<Response>(command);
         }
 
         /// <summary>

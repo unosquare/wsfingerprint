@@ -10,7 +10,7 @@
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
     /// <seealso cref="Unosquare.WaveSharePrintReader.Driver.ResponseBase" />
-    public sealed class BasicResponse : ResponseBase { public BasicResponse(byte[] payload) : base(payload) { } }
+    public sealed class Response : ResponseBase { public Response(byte[] payload) : base(payload) { } }
 
     /// <summary>
     /// Get DSP Version Response

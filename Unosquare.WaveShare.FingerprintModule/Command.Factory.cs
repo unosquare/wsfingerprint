@@ -268,6 +268,19 @@
                 return command;
             }
 
+            /// <summary>
+            /// Creates the change baud rate command.
+            /// </summary>
+            /// <param name="newBaudRate">The new baud rate.</param>
+            /// <returns></returns>
+            internal static Command CreateChangeBaudRateCommand(BaudRate newBaudRate)
+            {
+                var command = new Command(OperationCode.ChangeBaudRate);
+                var baudRateByte = (byte)newBaudRate;
+                command.Payload = CreateFixedLengthPayload(command.OperationCode, 0, 0, baudRateByte, 0);
+                return command;
+            }
+
         }
     }
 }

@@ -64,7 +64,7 @@
         /// <param name="b5">The b5.</param>
         /// <param name="b6">The b6.</param>
         /// <returns></returns>
-        protected static byte[] CreateFixedLengthPayload(OperationCode commandCode, byte b3 = 0, byte b4 = 0, byte b5 = 0, byte b6 = 0)
+        internal static byte[] CreateFixedLengthPayload(OperationCode commandCode, byte b3 = 0, byte b4 = 0, byte b5 = 0, byte b6 = 0)
         {
             var payload = new byte[8] { PayloadDelimiter, (byte)commandCode, b3, b4, b5, b6, 0, PayloadDelimiter, };
             payload[6] = payload.ComputeChecksum();
@@ -79,7 +79,7 @@
         /// <param name="privilege">The privilege.</param>
         /// <param name="eigenvalues">The eigenvalues.</param>
         /// <returns></returns>
-        protected static byte[] CreateVariableLengthPayload(OperationCode commandCode, ushort userId, byte privilege, byte[] eigenvalues)
+        internal static byte[] CreateVariableLengthPayload(OperationCode commandCode, ushort userId, byte privilege, byte[] eigenvalues)
         {
             var length = (Convert.ToUInt16(eigenvalues.Length + 3)).ToBigEndianArray();
             var headerPacket = CreateFixedLengthPayload(commandCode, length[0], length[1]);

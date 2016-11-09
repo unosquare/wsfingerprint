@@ -61,6 +61,21 @@
         MatchUserToEigenvalues = 0x42,
         MatchEigenvaluesToUser = 0x43,
         SetUserProperties = 0x41,
+
+        ChangeBaudRate = 0x21,
+    }
+
+    /// <summary>
+    /// The list of supported baud rates
+    /// </summary>
+    public enum BaudRate
+    {
+        Invalid = 0,
+        Baud9600 = 1,
+        Baud19200 = 2,
+        Baud38400 = 3,
+        Baud57600 = 4,
+        Baud115200 = 5,
     }
 
     /// <summary>

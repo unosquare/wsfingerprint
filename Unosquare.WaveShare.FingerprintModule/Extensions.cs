@@ -1,12 +1,49 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
     using System;
+    using System.Globalization;
+    using System.Linq;
 
     /// <summary>
     /// Extension methods
     /// </summary>
     internal static class Extensions
     {
+
+        /// <summary>
+        /// Converts the Baud enum value to an integer.
+        /// </summary>
+        /// <param name="baud">The baud.</param>
+        /// <returns></returns>
+        internal static int ToInt(this BaudRate baud)
+        {
+            int outBaud = 0;
+            var baudString = baud.ToString().ToLowerInvariant().Replace("Baud", "");
+            if (int.TryParse(baudString, out outBaud))
+            {
+                return outBaud;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Gets a baud rate enumeration from an integer
+        /// </summary>
+        /// <param name="baud">The baud.</param>
+        /// <returns></returns>
+        internal static BaudRate ToBaudRate(this int baud)
+        {
+            var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
+            foreach (var baudRate in baudRates)
+            {
+                if (baud == baudRate.ToInt())
+                    return baudRate;
+            }
+
+            return BaudRate.Invalid;
+        }
+
         /// <summary>
         /// Converts an unsigned 16-bit integer to a Big Endian array of bytes
         /// </summary>

@@ -4,8 +4,6 @@
     using System.Linq;
     using System.Text;
 
-    #region Response Message Classes
-
     /// <summary>
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
@@ -17,6 +15,38 @@
         /// </summary>
         /// <param name="payload">The payload.</param>
         public Response(byte[] payload) : base(payload) { }
+    }
+
+    /// <summary>
+    /// The Change Baud Rate Response
+    /// </summary>
+    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    public sealed class ChangeBaudRateResponse : ResponseBase
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChangeBaudRateResponse"/> class.
+        /// </summary>
+        /// <param name="payload">The payload.</param>
+        public ChangeBaudRateResponse(byte[] payload) : base(payload)
+        {
+            BaudRate = (BaudRate)payload[4];
+        }
+
+        /// <summary>
+        /// Gets the baud rate.
+        /// </summary>
+        public BaudRate BaudRate { get; private set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return base.ToString() + $" Baud Rate: {BaudRate}";
+        }
     }
 
     /// <summary>
@@ -546,5 +576,4 @@
         }
     }
 
-    #endregion
 }

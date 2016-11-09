@@ -18,14 +18,19 @@
         #region Private Declarations
 
         /// <summary>
-        /// The default baud rate at which the reader works
+        /// The read buffer length of the serial port
         /// </summary>
-        private const int DefaultBaudRate = 19200;
+        private const int ReadBufferLength = 1024 * 16;
 
         /// <summary>
         /// The default timeout
         /// </summary>
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(2);
+
+        /// <summary>
+        /// The baud rate probe timeout
+        /// </summary>
+        private static readonly TimeSpan BaudRateProbeTimeout = TimeSpan.FromMilliseconds(250);
 
         /// <summary>
         /// The image acquisition timeout
@@ -52,18 +57,29 @@
 
         /// <summary>
         /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like 
+        /// Under Windows it's something like COM3. On Linux, it's something like
         /// </summary>
         /// <param name="portName">Name of the port.</param>
+        /// <param name="baud">The baud.</param>
         /// <exception cref="System.InvalidOperationException">Device is already open. Call the Close method first.</exception>
-        public void Open(string portName)
+        public void Open(string portName, BaudRate baud)
         {
             if (SerialPort != null)
                 throw new InvalidOperationException("Device is already open. Call the Close method first.");
 
-            SerialPort = new SerialPort(portName, DefaultBaudRate, Parity.None, 8, StopBits.One);
-            SerialPort.ReadBufferSize = 1024 * 16; // 16 kb
+            SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One);
+            SerialPort.ReadBufferSize = ReadBufferLength;
             SerialPort.Open();
+        }
+
+        /// <summary>
+        /// Opens the serial port with the specified port name.
+        /// Under Windows it's something like COM3. On Linux, it's something like
+        /// </summary>
+        /// <param name="portName">Name of the port.</param>
+        public void Open(string portName)
+        {
+            Open(portName, BaudRate.Baud19200);
         }
 
         /// <summary>
@@ -120,6 +136,70 @@
         {
             var command = Command.Factory.CreateSleepCommand();
             return await GetResponseAsync<Response>(command);
+        }
+
+        /// <summary>
+        /// Gets the baud rate.
+        /// This method probes the serial port at different baud rates until communication is correctly established.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ChangeBaudRateResponse> GetBaudRate()
+        {
+            var portName = SerialPort.PortName;
+            var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
+
+            if (SerialPort.IsOpen == false)
+                throw new InvalidOperationException($"Call the {nameof(Open)} method before attampting communication with the module");
+
+            var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
+            var result = new ChangeBaudRateResponse(resultPayload);
+
+            var probeCommand = Command.Factory.CreateGetUserCountCommand();
+            var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
+            if (probeResponse != null)
+                return result;
+
+            foreach (var baudRate in baudRates)
+            {
+                Close();
+                Open(portName, baudRate);
+                probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
+                if (probeResponse != null)
+                {
+                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
+                    return new ChangeBaudRateResponse(resultPayload);
+                }
+            }
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Sets the baud rate of the module.
+        /// This closes and re-opens the serial port
+        /// </summary>
+        /// <param name="baudRate">The baud rate.</param>
+        /// <returns></returns>
+        public async Task<ChangeBaudRateResponse> SetBaudRate(BaudRate baudRate)
+        {
+
+            var currentBaudRate = await GetBaudRate();
+            if (currentBaudRate.BaudRate == baudRate)
+            {
+                return new ChangeBaudRateResponse(
+                    Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0));
+            }
+            
+
+            var command = Command.Factory.CreateChangeBaudRateCommand(baudRate);
+            var response = await GetResponseAsync<ChangeBaudRateResponse>(command);
+
+            var portName = SerialPort.PortName;
+            Close();
+            Open(portName, baudRate);
+
+            return response;
         }
 
         /// <summary>

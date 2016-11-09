@@ -61,8 +61,9 @@
         /// </summary>
         /// <param name="portName">Name of the port.</param>
         /// <param name="baud">The baud.</param>
+        /// <param name="probeBaudRates">if set to <c>true</c> [probe baud rates].</param>
         /// <exception cref="System.InvalidOperationException">Device is already open. Call the Close method first.</exception>
-        public void Open(string portName, BaudRate baud)
+        public void Open(string portName, BaudRate baud, bool probeBaudRates)
         {
             if (SerialPort != null)
                 throw new InvalidOperationException("Device is already open. Call the Close method first.");
@@ -70,6 +71,11 @@
             SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One);
             SerialPort.ReadBufferSize = ReadBufferLength;
             SerialPort.Open();
+
+            if (probeBaudRates)
+            {
+                var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
+            }
         }
 
         /// <summary>
@@ -79,7 +85,7 @@
         /// <param name="portName">Name of the port.</param>
         public void Open(string portName)
         {
-            Open(portName, BaudRate.Baud19200);
+            Open(portName, BaudRate.Baud19200, true);
         }
 
         /// <summary>
@@ -143,7 +149,7 @@
         /// This method probes the serial port at different baud rates until communication is correctly established.
         /// </summary>
         /// <returns></returns>
-        public async Task<ChangeBaudRateResponse> GetBaudRate()
+        public async Task<GetSetBaudRateResponse> GetBaudRate()
         {
             var portName = SerialPort.PortName;
             var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
@@ -152,7 +158,7 @@
                 throw new InvalidOperationException($"Call the {nameof(Open)} method before attampting communication with the module");
 
             var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
-            var result = new ChangeBaudRateResponse(resultPayload);
+            var result = new GetSetBaudRateResponse(resultPayload);
 
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
@@ -162,12 +168,14 @@
             foreach (var baudRate in baudRates)
             {
                 Close();
-                Open(portName, baudRate);
+                Open(portName, baudRate, false);
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
                 if (probeResponse != null)
                 {
                     resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0);
-                    return new ChangeBaudRateResponse(resultPayload);
+                    var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
+                    Log.Info($"RX: {baudRateResponse.ToString()}");
+                    return baudRateResponse;
                 }
             }
 
@@ -181,23 +189,25 @@
         /// </summary>
         /// <param name="baudRate">The baud rate.</param>
         /// <returns></returns>
-        public async Task<ChangeBaudRateResponse> SetBaudRate(BaudRate baudRate)
+        public async Task<GetSetBaudRateResponse> SetBaudRate(BaudRate baudRate)
         {
 
             var currentBaudRate = await GetBaudRate();
             if (currentBaudRate.BaudRate == baudRate)
             {
-                return new ChangeBaudRateResponse(
+                return new GetSetBaudRateResponse(
                     Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0));
             }
-            
+
 
             var command = Command.Factory.CreateChangeBaudRateCommand(baudRate);
-            var response = await GetResponseAsync<ChangeBaudRateResponse>(command);
-
-            var portName = SerialPort.PortName;
-            Close();
-            Open(portName, baudRate);
+            var response = await GetResponseAsync<GetSetBaudRateResponse>(command);
+            if (response != null)
+            {
+                var portName = SerialPort.PortName;
+                Close();
+                Open(portName, baudRate, false);
+            }
 
             return response;
         }
@@ -479,9 +489,9 @@
             }
 
             var response = Activator.CreateInstance(typeof(T), responseBytes) as T;
-            Log.Trace($"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
             Log.Info($"RX: {response.ToString()}");
-            
+            Log.Trace($"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
+
             return response;
         }
 
@@ -624,5 +634,5 @@
 
     }
 
-    
+
 }

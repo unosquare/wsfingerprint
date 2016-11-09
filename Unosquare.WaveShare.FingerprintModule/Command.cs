@@ -14,6 +14,7 @@
         internal static readonly Dictionary<OperationCode, MessageLengthCategory> CommandLengthCategories = new Dictionary<OperationCode, MessageLengthCategory>
         {
             { OperationCode.SleepModule, MessageLengthCategory.Fixed },
+            { OperationCode.ChangeBaudRate, MessageLengthCategory.Fixed },
             { OperationCode.GetSetRegistrationMode, MessageLengthCategory.Fixed },
             { OperationCode.AddFingerprint01, MessageLengthCategory.Fixed },
             { OperationCode.AddFingerprint02, MessageLengthCategory.Fixed },

@@ -47,9 +47,9 @@
             using (var reader = new FingerprintReader())
             {
                 reader.Open("COM3");
-
                 var t = Task.Factory.StartNew(async () =>
                 {
+                    var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud115200);
 
                     while (true)
                     {

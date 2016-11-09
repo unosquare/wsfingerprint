@@ -15,6 +15,7 @@
         internal static readonly Dictionary<OperationCode, MessageLengthCategory> ResponseLengthCategories = new Dictionary<OperationCode, MessageLengthCategory>
         {
             { OperationCode.SleepModule, MessageLengthCategory.Fixed },
+            { OperationCode.ChangeBaudRate, MessageLengthCategory.Fixed },
             { OperationCode.GetSetRegistrationMode, MessageLengthCategory.Fixed },
             { OperationCode.AddFingerprint01, MessageLengthCategory.Fixed },
             { OperationCode.AddFingerprint02, MessageLengthCategory.Fixed },
@@ -49,14 +50,13 @@
             : base(MessageType.Response, ResponseLengthCategories[(OperationCode)payload[1]], (OperationCode)payload[1])
         {
             Payload = payload;
-
             ResponseCode = (MessageResponseCode)payload[4];
             DataPacketLength = -1;
+
             if (LengthCategory == MessageLengthCategory.Variable)
             {
                 DataPacketLength = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
             }
-
 
             if (payload.Length > 8)
             {

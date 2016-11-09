@@ -21,13 +21,13 @@
     /// The Change Baud Rate Response
     /// </summary>
     /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
-    public sealed class ChangeBaudRateResponse : ResponseBase
+    public sealed class GetSetBaudRateResponse : ResponseBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChangeBaudRateResponse"/> class.
+        /// Initializes a new instance of the <see cref="GetSetBaudRateResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public ChangeBaudRateResponse(byte[] payload) : base(payload)
+        public GetSetBaudRateResponse(byte[] payload) : base(payload)
         {
             BaudRate = (BaudRate)payload[4];
         }

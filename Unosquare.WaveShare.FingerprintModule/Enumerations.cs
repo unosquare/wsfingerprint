@@ -70,7 +70,6 @@
     /// </summary>
     public enum BaudRate
     {
-        Invalid = 0,
         Baud9600 = 1,
         Baud19200 = 2,
         Baud38400 = 3,

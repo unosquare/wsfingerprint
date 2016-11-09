@@ -18,7 +18,7 @@
         internal static int ToInt(this BaudRate baud)
         {
             int outBaud = 0;
-            var baudString = baud.ToString().ToLowerInvariant().Replace("Baud", "");
+            var baudString = baud.ToString().ToLowerInvariant().Replace("baud", "");
             if (int.TryParse(baudString, out outBaud))
             {
                 return outBaud;
@@ -41,7 +41,7 @@
                     return baudRate;
             }
 
-            return BaudRate.Invalid;
+            throw new ArgumentException($"Argument {nameof(baud)} does not match any compatible baud rate");
         }
 
         /// <summary>

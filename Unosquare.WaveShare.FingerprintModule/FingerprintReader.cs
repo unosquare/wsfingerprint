@@ -166,7 +166,7 @@
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
                 if (probeResponse != null)
                 {
-                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
+                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0);
                     return new ChangeBaudRateResponse(resultPayload);
                 }
             }

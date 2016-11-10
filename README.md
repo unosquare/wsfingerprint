@@ -30,4 +30,4 @@ using (var reader = new FingerprintReader())
 ```
 
 ## Missing Stuff
-* The module can work at 115200 BAUD rate but am am yet to identify the command to change the default 19200
+* ~~The module can work at 115200 BAUD rate but am am yet to identify the command to change the default 19200~~

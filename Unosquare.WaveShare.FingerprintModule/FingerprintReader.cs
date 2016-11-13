@@ -41,6 +41,11 @@
         private SerialPort SerialPort;
         private bool IsDisposing;
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
+#if DEBUG
+        private const bool IsDebugBuild = true;
+#else
+        private const bool IsDebugBuild = false;
+#endif
 
         #endregion
 
@@ -53,9 +58,9 @@
 
         }
 
-        #endregion
+#endregion
 
-        #region Open and Close Methods
+#region Open and Close Methods
 
         /// <summary>
         /// Opens the serial port with the specified port name.
@@ -121,9 +126,9 @@
             Close();
         }
 
-        #endregion
+#endregion
 
-        #region Fingerprint Reader Protocol
+#region Fingerprint Reader Protocol
 
         /// <summary>
         /// Gets the version number of the DSP module.
@@ -176,7 +181,9 @@
                 {
                     resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0);
                     var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
-                    Log.Info($"RX: {baudRateResponse.ToString()}");
+                    if (IsDebugBuild)
+                        Log.Info($"RX: {baudRateResponse.ToString()}");
+
                     return baudRateResponse;
                 }
             }
@@ -453,9 +460,9 @@
             return await GetResponseAsync<GetAllUsersResponse>(command);
         }
 
-        #endregion
+#endregion
 
-        #region Read and Write Methods
+#region Read and Write Methods
 
         /// <summary>
         /// Given a command, gets a response object asynchronously.
@@ -474,25 +481,31 @@
             var startTime = DateTime.UtcNow;
 
             var discardedCount = await FlushReadBufferAsync();
-            if (discardedCount > 0)
+            if (discardedCount > 0 && IsDebugBuild)
             {
                 Log.Trace($"RX: Discarded {discardedCount} bytes");
             }
 
             await WriteAsync(command.Payload);
 
-            Log.Debug($"TX: {command.ToString()}");
+            if (IsDebugBuild)
+                Log.Debug($"TX: {command.ToString()}");
 
             var responseBytes = await ReadAsync(responseTimeout);
             if (responseBytes == null || responseBytes.Length <= 0)
             {
-                Log.Error($"RX: No response received after {responseTimeout.TotalMilliseconds} ms");
+                if (IsDebugBuild)
+                    Log.Error($"RX: No response received after {responseTimeout.TotalMilliseconds} ms");
+
                 return null;
             }
 
             var response = Activator.CreateInstance(typeof(T), responseBytes) as T;
-            Log.Info($"RX: {response.ToString()}");
-            Log.Trace($"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
+            if (IsDebugBuild)
+            {
+                Log.Info($"RX: {response.ToString()}");
+                Log.Trace($"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
+            }
 
             return response;
         }
@@ -620,7 +633,9 @@
                         // for larger data packets we want to give it a nicer breather
                         if (isVariableLengthResponse && response.Count < expectedBytes && expectedBytes > largePacketSize)
                         {
-                            Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
+                            if (IsDebugBuild)
+                                Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
+
                             await Task.Delay(largePacketDelayMilliseconds);
                         }
 
@@ -635,7 +650,9 @@
                                 {
                                     expectedBytes = 8 + 3 + headerByteCount;
                                     largePacketDelayMilliseconds = (int)Math.Max((double)expectedBytes / SerialPort.BaudRate * 1000d, 100d);
-                                    Log.Trace($"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
+
+                                    if (IsDebugBuild)
+                                        Log.Trace($"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
                                 }
                                 else
                                 {
@@ -653,8 +670,12 @@
 
                     if (DateTime.UtcNow.Subtract(startTime) > timeout)
                     {
-                        Log.Error($"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
-                        Log.Error($"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
+                        if (IsDebugBuild)
+                        {
+                            Log.Error($"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
+                            Log.Error($"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
+                        }
+
                         return null;
                     }
 
@@ -672,7 +693,7 @@
             }
         }
 
-        #endregion
+#endregion
 
     }
 

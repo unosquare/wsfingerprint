@@ -6,7 +6,7 @@
     /// <summary>
     /// Static log service
     /// </summary>
-    static public class Log
+    static internal class Log
     {
         static private readonly object SyncLock = new object();
 

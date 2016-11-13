@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO.Ports;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -39,6 +40,7 @@
 
         private SerialPort SerialPort;
         private bool IsDisposing;
+        private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
 
         #endregion
 
@@ -518,9 +520,22 @@
             if (SerialPort == null || SerialPort.IsOpen == false)
                 throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
 
+            SerialPortDone.Wait();
+            SerialPortDone.Reset();
 
-            await SerialPort.BaseStream.WriteAsync(payload, 0, payload.Length);
-            await SerialPort.BaseStream.FlushAsync();
+            try
+            {
+                await SerialPort.BaseStream.WriteAsync(payload, 0, payload.Length);
+                await SerialPort.BaseStream.FlushAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                SerialPortDone.Set();
+            }
         }
 
         /// <summary>
@@ -541,15 +556,28 @@
             if (SerialPort == null || SerialPort.IsOpen == false)
                 return 0;
 
-            var count = 0;
-            var buffer = new byte[1024];
-            while (SerialPort.BytesToRead > 0)
+            SerialPortDone.Wait();
+            SerialPortDone.Reset();
+
+            try
             {
-                count += await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+                var count = 0;
+                var buffer = new byte[1024];
+                while (SerialPort.BytesToRead > 0)
+                {
+                    count += await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+                }
+
+                return count;
             }
-
-            return count;
-
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                SerialPortDone.Set();
+            }
         }
 
         /// <summary>
@@ -563,71 +591,85 @@
             if (SerialPort == null || SerialPort.IsOpen == false)
                 throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
 
-            var startTime = DateTime.UtcNow;
-            var response = new List<byte>(1024 * 10);
-            var expectedBytes = 8;
-            var remainingBytes = expectedBytes;
-            var iteration = 0;
-            var isVariableLengthResponse = false;
-            var largePacketDelayMilliseconds = 0;
-            const int largePacketSize = 500;
+            SerialPortDone.Wait();
+            SerialPortDone.Reset();
 
-            startTime = DateTime.UtcNow;
-            var buffer = new byte[SerialPort.ReadBufferSize];
-
-            while (SerialPort.IsOpen && response.Count < expectedBytes)
+            try
             {
-                if (SerialPort.BytesToRead > 0)
+                var startTime = DateTime.UtcNow;
+                var response = new List<byte>(1024 * 10);
+                var expectedBytes = 8;
+                var remainingBytes = expectedBytes;
+                var iteration = 0;
+                var isVariableLengthResponse = false;
+                var largePacketDelayMilliseconds = 0;
+                const int largePacketSize = 500;
+
+                startTime = DateTime.UtcNow;
+                var buffer = new byte[SerialPort.ReadBufferSize];
+
+                while (SerialPort.IsOpen && response.Count < expectedBytes)
                 {
-                    var readBytes = await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
-                    response.AddRange(buffer.Skip(0).Take(readBytes));
-                    remainingBytes = expectedBytes - response.Count;
-                    startTime = DateTime.UtcNow;
-
-                    // for larger data packets we want to give it a nicer breather
-                    if (isVariableLengthResponse && response.Count < expectedBytes && expectedBytes > largePacketSize)
+                    if (SerialPort.BytesToRead > 0)
                     {
-                        Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
-                        await Task.Delay(largePacketDelayMilliseconds);
-                    }
+                        var readBytes = await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+                        response.AddRange(buffer.Skip(0).Take(readBytes));
+                        remainingBytes = expectedBytes - response.Count;
+                        startTime = DateTime.UtcNow;
 
-                    if (response.Count >= 4 && iteration == 0)
-                    {
-                        iteration++;
-                        isVariableLengthResponse = ResponseBase.ResponseLengthCategories[(OperationCode)response[1]] == MessageLengthCategory.Variable;
-                        if (isVariableLengthResponse)
+                        // for larger data packets we want to give it a nicer breather
+                        if (isVariableLengthResponse && response.Count < expectedBytes && expectedBytes > largePacketSize)
                         {
-                            var headerByteCount = (new byte[] { response[2], response[3] }).BigEndianArrayToUInt16();
-                            if (headerByteCount > 0)
-                            {
-                                expectedBytes = 8 + 3 + headerByteCount;
-                                largePacketDelayMilliseconds = (int)Math.Max((double)expectedBytes / SerialPort.BaudRate * 1000d, 100d);
-                                Log.Trace($"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
-                            }
-                            else
-                            {
-                                expectedBytes = 8;
-                                isVariableLengthResponse = false;
-                            }
+                            Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
+                            await Task.Delay(largePacketDelayMilliseconds);
                         }
 
+                        if (response.Count >= 4 && iteration == 0)
+                        {
+                            iteration++;
+                            isVariableLengthResponse = ResponseBase.ResponseLengthCategories[(OperationCode)response[1]] == MessageLengthCategory.Variable;
+                            if (isVariableLengthResponse)
+                            {
+                                var headerByteCount = (new byte[] { response[2], response[3] }).BigEndianArrayToUInt16();
+                                if (headerByteCount > 0)
+                                {
+                                    expectedBytes = 8 + 3 + headerByteCount;
+                                    largePacketDelayMilliseconds = (int)Math.Max((double)expectedBytes / SerialPort.BaudRate * 1000d, 100d);
+                                    Log.Trace($"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
+                                }
+                                else
+                                {
+                                    expectedBytes = 8;
+                                    isVariableLengthResponse = false;
+                                }
+                            }
+
+                        }
                     }
-                }
-                else
-                {
-                    await Task.Delay(10);
+                    else
+                    {
+                        await Task.Delay(10);
+                    }
+
+                    if (DateTime.UtcNow.Subtract(startTime) > timeout)
+                    {
+                        Log.Error($"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
+                        Log.Error($"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
+                        return null;
+                    }
+
                 }
 
-                if (DateTime.UtcNow.Subtract(startTime) > timeout)
-                {
-                    Log.Error($"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
-                    Log.Error($"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
-                    return null;
-                }
-
+                return response.ToArray();
             }
-
-            return response.ToArray();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                SerialPortDone.Set();
+            }
         }
 
         #endregion

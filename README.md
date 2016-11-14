@@ -1,3 +1,4 @@
+[![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/wsfingerprint/)](https://github.com/igrigorik/ga-beacon)
 
 # WaveShare Fingerprint Reader - Interfacing Library for .NET
 

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO.Ports;
+    using System.Linq;
     using System.Threading.Tasks;
 
     class Program
@@ -46,7 +48,21 @@
         {
             using (var reader = new FingerprintReader())
             {
-                reader.Open("COM3");
+                var baseChar = 65;
+                var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey)baseChar++, v => v);
+                var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
+                var portName = string.Empty;
+
+                if (portNames.ContainsKey(portSelection.Key))
+                {
+                    portName = portNames[portSelection.Key];
+                }
+                else
+                {
+                    return;
+                }
+
+                reader.Open(portName);
                 var t = Task.Factory.StartNew(async () =>
                 {
                     var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud115200);
@@ -222,7 +238,14 @@
 
                 });
 
-                t.Unwrap().GetAwaiter().GetResult();
+                try
+                {
+                    t.Unwrap().GetAwaiter().GetResult();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Application finished with error: {ex.GetType()} - {ex.Message}");
+                }
             }
             Console.WriteLine("Press any key to continue . . .");
             Console.ReadKey(true);

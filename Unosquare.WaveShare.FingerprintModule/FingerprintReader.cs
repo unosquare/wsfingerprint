@@ -58,9 +58,9 @@
 
         }
 
-#endregion
+        #endregion
 
-#region Open and Close Methods
+        #region Open and Close Methods
 
         /// <summary>
         /// Opens the serial port with the specified port name.
@@ -126,9 +126,9 @@
             Close();
         }
 
-#endregion
+        #endregion
 
-#region Fingerprint Reader Protocol
+        #region Fingerprint Reader Protocol
 
         /// <summary>
         /// Gets the version number of the DSP module.
@@ -460,9 +460,9 @@
             return await GetResponseAsync<GetAllUsersResponse>(command);
         }
 
-#endregion
+        #endregion
 
-#region Read and Write Methods
+        #region Read and Write Methods
 
         /// <summary>
         /// Given a command, gets a response object asynchronously.
@@ -480,10 +480,10 @@
 
             var startTime = DateTime.UtcNow;
 
-            var discardedCount = await FlushReadBufferAsync();
-            if (discardedCount > 0 && IsDebugBuild)
+            var discardedBytes = await FlushReadBufferAsync();
+            if (discardedBytes.Length > 0 && IsDebugBuild)
             {
-                Log.Trace($"RX: Discarded {discardedCount} bytes");
+                Log.Trace($"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}");
             }
 
             await WriteAsync(command.Payload);
@@ -564,10 +564,10 @@
         /// Flushes the serial port read data discarding all bytes in the read buffer
         /// </summary>
         /// <returns></returns>
-        private async Task<int> FlushReadBufferAsync()
+        private async Task<byte[]> FlushReadBufferAsync()
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                return 0;
+                return new byte[] { };
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();
@@ -575,13 +575,15 @@
             try
             {
                 var count = 0;
-                var buffer = new byte[1024];
+                var buffer = new byte[SerialPort.ReadBufferSize];
+                var offset = 0;
                 while (SerialPort.BytesToRead > 0)
                 {
-                    count += await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+                    count += await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length);
+                    offset += count;
                 }
 
-                return count;
+                return buffer.Skip(0).Take(count).ToArray();
             }
             catch (Exception ex)
             {
@@ -693,7 +695,7 @@
             }
         }
 
-#endregion
+        #endregion
 
     }
 

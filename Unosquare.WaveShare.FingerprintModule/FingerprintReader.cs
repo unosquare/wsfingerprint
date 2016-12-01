@@ -311,11 +311,12 @@
         /// <summary>
         /// Returns a User id after acquiring an image from the sensor. Match 1:N
         /// </summary>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public async Task<MatchOneToNResponse> MatchOneToN()
+        public async Task<MatchOneToNResponse> MatchOneToN(CancellationToken ct = default(CancellationToken))
         {
             var command = Command.Factory.CreateMatchOneToNCommand();
-            return await GetResponseAsync<MatchOneToNResponse>(command, AcquireTimeout);
+            return await GetResponseAsync<MatchOneToNResponse>(command, AcquireTimeout, ct);
         }
 
         /// <summary>
@@ -323,10 +324,10 @@
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
-        public async Task<Response> MatchOneToOne(int userId)
+        public async Task<Response> MatchOneToOne(int userId, CancellationToken ct = default(CancellationToken))
         {
             var command = Command.Factory.CreateMatchOneToOneCommand(Convert.ToUInt16(userId));
-            return await GetResponseAsync<Response>(command, AcquireTimeout);
+            return await GetResponseAsync<Response>(command, AcquireTimeout, ct);
         }
 
         /// <summary>
@@ -365,11 +366,10 @@
         /// Acquires an image from the sensor and returns the image bytes in grayscale nibbles. This operation is fairly slow.
         /// </summary>
         /// <returns></returns>
-        public async Task<AcquireImageResponse> AcquireImage()
+        public async Task<AcquireImageResponse> AcquireImage(CancellationToken ct = default(CancellationToken))
         {
             var command = Command.Factory.CreateAcquireImageCommand();
-            return await GetResponseAsync<AcquireImageResponse>(command, AcquireTimeout);
-
+            return await GetResponseAsync<AcquireImageResponse>(command, AcquireTimeout, ct);
         }
 
         /// <summary>
@@ -481,9 +481,10 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="command">The command.</param>
         /// <param name="responseTimeout">The response timeout.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">Open</exception>
-        private async Task<T> GetResponseAsync<T>(Command command, TimeSpan responseTimeout)
+        private async Task<T> GetResponseAsync<T>(Command command, TimeSpan responseTimeout, CancellationToken ct = default(CancellationToken))
             where T : ResponseBase
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
@@ -502,7 +503,7 @@
             if (IsDebugBuild)
                 Log.Debug($"TX: {command.ToString()}");
 
-            var responseBytes = await ReadAsync(responseTimeout);
+            var responseBytes = await ReadAsync(responseTimeout, ct);
             if (responseBytes == null || responseBytes.Length <= 0)
             {
                 if (IsDebugBuild)
@@ -610,9 +611,10 @@
         /// Reads bytes from the serial port.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">Open</exception>
-        public async Task<byte[]> ReadAsync(TimeSpan timeout)
+        public async Task<byte[]> ReadAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
                 throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
@@ -634,11 +636,11 @@
                 startTime = DateTime.UtcNow;
                 var buffer = new byte[SerialPort.ReadBufferSize];
 
-                while (SerialPort.IsOpen && response.Count < expectedBytes)
+                while (SerialPort.IsOpen && response.Count < expectedBytes && ct.IsCancellationRequested == false)
                 {
                     if (SerialPort.BytesToRead > 0)
                     {
-                        var readBytes = await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length);
+                        var readBytes = await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length, ct);
                         response.AddRange(buffer.Skip(0).Take(readBytes));
                         remainingBytes = expectedBytes - response.Count;
                         startTime = DateTime.UtcNow;
@@ -649,7 +651,7 @@
                             if (IsDebugBuild)
                                 Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
 
-                            await Task.Delay(largePacketDelayMilliseconds);
+                            await Task.Delay(largePacketDelayMilliseconds, ct);
                         }
 
                         if (response.Count >= 4 && iteration == 0)
@@ -678,7 +680,7 @@
                     }
                     else
                     {
-                        await Task.Delay(10);
+                        await Task.Delay(10, ct);
                     }
 
                     if (DateTime.UtcNow.Subtract(startTime) > timeout)
@@ -709,6 +711,4 @@
         #endregion
 
     }
-
-
 }

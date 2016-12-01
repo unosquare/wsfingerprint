@@ -9,7 +9,6 @@
         /// </summary>
         internal static class Factory
         {
-
             /// <summary>
             /// Creates the sleep command.
             /// </summary>

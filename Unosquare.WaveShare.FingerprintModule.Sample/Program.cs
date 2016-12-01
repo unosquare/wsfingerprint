@@ -93,13 +93,12 @@
 
                 Log.Info($"Opening port '{portName}' . . .");
                 reader.Open(portName);
+                
                 var t = Task.Factory.StartNew(async () =>
                 {
                     //var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
-
                     while (true)
                     {
-
                         #region Main Menu
 
                         ConsoleKeyInfo selectedOption;
@@ -302,8 +301,6 @@
 
                         #endregion
                     }
-
-
                 });
 
                 try

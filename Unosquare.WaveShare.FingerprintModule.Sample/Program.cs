@@ -10,9 +10,9 @@
     {
         #region Action Options
 
-        static private readonly Dictionary<ConsoleKey, string> ActionOptions = new Dictionary<ConsoleKey, string>
+        static private readonly Dictionary<ConsoleKey, string> ModuleActionOptions = new Dictionary<ConsoleKey, string>
         {
-            // Module COntrol Items
+            // Module Control Items
             { ConsoleKey.V, "MODULE   - Get DSP Version" },
             { ConsoleKey.M, "MODULE   - Get Fingerprint Registration Mode" },
             { ConsoleKey.R, "MODULE   - Set Fingerprint Registration Mode" },
@@ -22,7 +22,10 @@
             { ConsoleKey.K, "MODULE   - Set Fingerprint Matching Level" },
             { ConsoleKey.B, "MODULE   - Change the Baud Rate" },
             { ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)" },
+        };
 
+        static private readonly Dictionary<ConsoleKey, string> UsersActionOptions = new Dictionary<ConsoleKey, string>
+        {
             // User Control Items
             { ConsoleKey.C, "USERS    - Get User Count" },
             { ConsoleKey.J, "USERS    - List All Users and Privileges" },
@@ -32,7 +35,10 @@
             { ConsoleKey.Y, "USERS    - Create a new User providing an Id, Privilege and Eigenvalues" },
             { ConsoleKey.W, "USERS    - Delete a User" },
             { ConsoleKey.Z, "USERS    - Delete all Users (Warning: This deletes the entire database)" },
+        };
 
+        static private readonly Dictionary<ConsoleKey, string> MatchingActionOptions = new Dictionary<ConsoleKey, string>
+        {
             // Matching Items
             { ConsoleKey.F1, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)" },
             { ConsoleKey.F2, "MATCHING - Get a User Id given an Acquired Image (1:N)" },
@@ -43,39 +49,81 @@
             { ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues" },
         };
 
+
+        static private readonly Dictionary<ConsoleKey, string> ActionOptions = new Dictionary<ConsoleKey, string>
+        {
+            // Module COntrol Items
+            { ConsoleKey.Q, "MODULE   - Module Menu" },
+            { ConsoleKey.W, "USERS    - Users Menu" },
+            { ConsoleKey.E, "MATCHING - Matching Menu" },
+        };
+
         #endregion
+
+        static string PromptForSerialPort()
+        {
+            var baseChar = 65;
+            var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey)baseChar++, v => v);
+            var portName = string.Empty;
+
+            if (portNames.Count == 1)
+            {
+                portName = portNames.First().Value;
+            }
+            else
+            {
+                var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
+
+                if (portNames.ContainsKey(portSelection.Key))
+                    portName = portNames[portSelection.Key];
+                else
+                    return string.Empty;
+            }
+
+            return portName;
+        }
 
         static void Main(string[] args)
         {
             using (var reader = new FingerprintReader())
             {
-                var baseChar = 65;
-                var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey)baseChar++, v => v);
-                var portName = string.Empty;
+                var portName = PromptForSerialPort();
+                if (string.IsNullOrEmpty(portName))
+                    return;
 
-                if (portNames.Count == 1)
-                {
-                    portName = portNames.First().Value;
-                }
-                else
-                {
-                    var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
-
-                    if (portNames.ContainsKey(portSelection.Key))
-                        portName = portNames[portSelection.Key];
-                    else
-                        return;                           
-                }
-
-                Log.Info($"Opening port '{portName}'");
+                Log.Info($"Opening port '{portName}' . . .");
                 reader.Open(portName);
                 var t = Task.Factory.StartNew(async () =>
                 {
-                    var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
+                    //var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
 
                     while (true)
                     {
-                        var selectedOption = Log.ReadPrompt("Select an option", ActionOptions, "Exit this program");
+
+                        #region Main Menu
+
+                        ConsoleKeyInfo selectedOption;
+                        var menuOption = Log.ReadPrompt("Select an option", ActionOptions, "Exit this program");
+                        if (menuOption.Key == ConsoleKey.Q)
+                        {
+                            selectedOption = Log.ReadPrompt("Select an option", ModuleActionOptions, "Exit this prompt");
+                        }
+                        else if (menuOption.Key == ConsoleKey.W)
+                        {
+                            selectedOption = Log.ReadPrompt("Select an option", UsersActionOptions, "Exit this prompt");
+                        }
+                        else if (menuOption.Key == ConsoleKey.E)
+                        {
+                            selectedOption = Log.ReadPrompt("Select an option", MatchingActionOptions, "Exit this prompt");
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                        #endregion
+
+                        #region Action Options
 
                         if (selectedOption.Key == ConsoleKey.V)
                         {
@@ -105,7 +153,7 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.B)
                         {
-                            baseChar = 65;
+                            var baseChar = 65;
                             var baudRates = Enum.GetNames(typeof(BaudRate)).ToDictionary(p => (ConsoleKey)baseChar++, v => v);
                             var baudSelection = Log.ReadPrompt($"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}", baudRates, "Exit this prompt");
 
@@ -249,8 +297,10 @@
                         }
                         else
                         {
-                            break;
+                            continue;
                         }
+
+                        #endregion
                     }
 
 

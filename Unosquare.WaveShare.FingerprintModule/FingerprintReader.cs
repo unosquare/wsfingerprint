@@ -38,7 +38,6 @@
         /// </summary>
         private static readonly TimeSpan AcquireTimeout = TimeSpan.FromSeconds(60);
 
-        private SerialPort SerialPort;
         private bool IsDisposing;
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
 #if DEBUG
@@ -57,6 +56,15 @@
         {
 
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the serial port associated with this reader.
+        /// </summary>
+        public SerialPort SerialPort { get; private set; }
 
         #endregion
 
@@ -81,6 +89,7 @@
 
             if (probeBaudRates)
             {
+                Log.Trace("Will probe baud rates.");
                 var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
             }
         }
@@ -167,6 +176,7 @@
             var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
             var result = new GetSetBaudRateResponse(resultPayload);
 
+            Log.Trace($"Initial baud rate probing at {SerialPort.BaudRate}");
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
             if (probeResponse != null)
@@ -176,6 +186,7 @@
             {
                 Close();
                 Open(portName, baudRate, false);
+                Log.Trace($"Baud rate probing at {SerialPort.BaudRate}");
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
                 if (probeResponse != null)
                 {

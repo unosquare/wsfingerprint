@@ -20,6 +20,7 @@
             { ConsoleKey.G, "MODULE   - Set Capture Timeout" },
             { ConsoleKey.L, "MODULE   - Get Fingerprint Matching Level" },
             { ConsoleKey.K, "MODULE   - Set Fingerprint Matching Level" },
+            { ConsoleKey.B, "MODULE   - Change the Baud Rate" },
             { ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)" },
 
             // User Control Items
@@ -50,22 +51,27 @@
             {
                 var baseChar = 65;
                 var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey)baseChar++, v => v);
-                var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
                 var portName = string.Empty;
 
-                if (portNames.ContainsKey(portSelection.Key))
+                if (portNames.Count == 1)
                 {
-                    portName = portNames[portSelection.Key];
+                    portName = portNames.First().Value;
                 }
                 else
                 {
-                    return;
+                    var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
+
+                    if (portNames.ContainsKey(portSelection.Key))
+                        portName = portNames[portSelection.Key];
+                    else
+                        return;                           
                 }
 
+                Log.Info($"Opening port '{portName}'");
                 reader.Open(portName);
                 var t = Task.Factory.StartNew(async () =>
                 {
-                    var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud115200);
+                    var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
 
                     while (true)
                     {
@@ -96,6 +102,18 @@
                             var userId = Log.ReadNumber("Enter User Id", 1);
                             var result = await reader.GetUserProperties(userId);
                             Log.Info($"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes");
+                        }
+                        else if (selectedOption.Key == ConsoleKey.B)
+                        {
+                            baseChar = 65;
+                            var baudRates = Enum.GetNames(typeof(BaudRate)).ToDictionary(p => (ConsoleKey)baseChar++, v => v);
+                            var baudSelection = Log.ReadPrompt($"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}", baudRates, "Exit this prompt");
+
+                            if (baudRates.ContainsKey(baudSelection.Key))
+                            {
+                                var newBaudRate = (BaudRate)Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
+                                await reader.SetBaudRate(newBaudRate);
+                            }
                         }
                         else if (selectedOption.Key == ConsoleKey.Y)
                         {

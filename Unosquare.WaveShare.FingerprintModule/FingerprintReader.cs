@@ -323,6 +323,7 @@
         /// Acquires an image from the sensor and tests if it matches the supplied user id. Match 1:1
         /// </summary>
         /// <param name="userId">The user identifier.</param>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         public async Task<Response> MatchOneToOne(int userId, CancellationToken ct = default(CancellationToken))
         {
@@ -492,7 +493,7 @@
 
             var startTime = DateTime.UtcNow;
 
-            var discardedBytes = await FlushReadBufferAsync();
+            var discardedBytes = await FlushReadBufferAsync(ct);
             if (discardedBytes.Length > 0 && IsDebugBuild)
             {
                 Log.Trace($"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}");
@@ -575,15 +576,16 @@
         /// <summary>
         /// Flushes the serial port read data discarding all bytes in the read buffer
         /// </summary>
+        /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        private async Task<byte[]> FlushReadBufferAsync()
+        private async Task<byte[]> FlushReadBufferAsync(CancellationToken ct = default(CancellationToken))
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
                 return new byte[] { };
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();
-
+            
             try
             {
                 var count = 0;
@@ -591,7 +593,7 @@
                 var offset = 0;
                 while (SerialPort.BytesToRead > 0)
                 {
-                    count += await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length);
+                    count += await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length, ct);
                     offset += count;
                 }
 
@@ -617,7 +619,7 @@
         public async Task<byte[]> ReadAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
+                throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication");
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();

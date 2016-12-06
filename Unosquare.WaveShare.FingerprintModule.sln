@@ -7,6 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unosquare.WaveShare.Fingerp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unosquare.WaveShare.FingerprintModule.Sample", "Unosquare.WaveShare.FingerprintModule.Sample\Unosquare.WaveShare.FingerprintModule.Sample.csproj", "{D48E7C9E-B846-42BE-AE68-E8D480940B4C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{060B0C53-A626-46EE-B294-8F0A694C4AA1}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logos", "logos", "{7263047D-5352-4792-894C-B5180AF06372}"
+	ProjectSection(SolutionItems) = preProject
+		logos\wsfingerprint.fw.png = logos\wsfingerprint.fw.png
+		logos\wsfingerprint.ico = logos\wsfingerprint.ico
+		logos\wsfingerprint.png = logos\wsfingerprint.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +37,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7263047D-5352-4792-894C-B5180AF06372} = {060B0C53-A626-46EE-B294-8F0A694C4AA1}
 	EndGlobalSection
 EndGlobal

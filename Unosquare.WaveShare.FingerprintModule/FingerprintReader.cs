@@ -121,7 +121,6 @@
             {
                 SerialPort.Dispose();
                 SerialPort = null;
-
             }
         }
 
@@ -171,7 +170,7 @@
             var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
 
             if (SerialPort.IsOpen == false)
-                throw new InvalidOperationException($"Call the {nameof(Open)} method before attampting communication with the module");
+                throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication with the module");
 
             var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
             var result = new GetSetBaudRateResponse(resultPayload);
@@ -179,6 +178,7 @@
             Log.Trace($"Initial baud rate probing at {SerialPort.BaudRate}");
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
+
             if (probeResponse != null)
                 return result;
 
@@ -188,10 +188,12 @@
                 Open(portName, baudRate, false);
                 Log.Trace($"Baud rate probing at {SerialPort.BaudRate}");
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
+
                 if (probeResponse != null)
                 {
                     resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0);
                     var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
+
                     if (IsDebugBuild)
                         Log.Info($"RX: {baudRateResponse.ToString()}");
 
@@ -200,7 +202,6 @@
             }
 
             return null;
-
         }
 
         /// <summary>
@@ -442,7 +443,7 @@
         }
 
         /// <summary>
-        /// Gets the capture timeout. Timeout is bewteen 0 to 255. 0 denotes to wait indefinitely for a capture
+        /// Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture
         /// </summary>
         /// <returns></returns>
         public async Task<GetSetCaptureTimeoutResponse> GetCaptureTimeout()
@@ -489,7 +490,7 @@
             where T : ResponseBase
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
+                throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication");
 
             var startTime = DateTime.UtcNow;
 
@@ -544,7 +545,7 @@
         public async Task WriteAsync(byte[] payload)
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                throw new InvalidOperationException($"Call the {nameof(Open)} method befor attempting communication");
+                throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication");
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();
@@ -585,7 +586,7 @@
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();
-            
+
             try
             {
                 var count = 0;
@@ -711,6 +712,5 @@
         }
 
         #endregion
-
     }
 }

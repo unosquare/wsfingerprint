@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule.Sample
 {
+    using Swan;
     using System;
     using System.Collections.Generic;
     using System.IO.Ports;
@@ -66,13 +67,19 @@
             var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey)baseChar++, v => v);
             var portName = string.Empty;
 
+            if (portNames.Any() == false)
+            {
+                "There is not serial ports connected, please check your hardware".Error();
+                return string.Empty;
+            }
+
             if (portNames.Count == 1)
             {
                 portName = portNames.First().Value;
             }
             else
             {
-                var portSelection = Log.ReadPrompt("Select Port to Open", portNames, "Exit this program");
+                var portSelection = Terminal.ReadPrompt("Select Port to Open", portNames, "Exit this program");
 
                 if (portNames.ContainsKey(portSelection.Key))
                     portName = portNames[portSelection.Key];
@@ -91,7 +98,7 @@
                 if (string.IsNullOrEmpty(portName))
                     return;
 
-                Log.Info($"Opening port '{portName}' . . .");
+                $"Opening port '{portName}' . . .".Info();
                 reader.Open(portName);
                 
                 var t = Task.Factory.StartNew(async () =>
@@ -102,18 +109,18 @@
                         #region Main Menu
 
                         ConsoleKeyInfo selectedOption;
-                        var menuOption = Log.ReadPrompt("Select an option", ActionOptions, "Exit this program");
+                        var menuOption = Terminal.ReadPrompt("Select an option", ActionOptions, "Exit this program");
                         if (menuOption.Key == ConsoleKey.Q)
                         {
-                            selectedOption = Log.ReadPrompt("Select an option", ModuleActionOptions, "Exit this prompt");
+                            selectedOption = Terminal.ReadPrompt("Select an option", ModuleActionOptions, "Exit this prompt");
                         }
                         else if (menuOption.Key == ConsoleKey.W)
                         {
-                            selectedOption = Log.ReadPrompt("Select an option", UsersActionOptions, "Exit this prompt");
+                            selectedOption = Terminal.ReadPrompt("Select an option", UsersActionOptions, "Exit this prompt");
                         }
                         else if (menuOption.Key == ConsoleKey.E)
                         {
-                            selectedOption = Log.ReadPrompt("Select an option", MatchingActionOptions, "Exit this prompt");
+                            selectedOption = Terminal.ReadPrompt("Select an option", MatchingActionOptions, "Exit this prompt");
                         }
                         else
                         {
@@ -139,22 +146,22 @@
                             {
                                 foreach (var kvp in result.Users)
                                 {
-                                    Log.Info($"User: {kvp.Key,4}    Privilege: {kvp.Value,4}");
+                                    $"User: {kvp.Key,4}    Privilege: {kvp.Value,4}".Info();
                                 }
                             }
 
                         }
                         else if (selectedOption.Key == ConsoleKey.U)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
                             var result = await reader.GetUserProperties(userId);
-                            Log.Info($"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes");
+                            $"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes".Info();
                         }
                         else if (selectedOption.Key == ConsoleKey.B)
                         {
                             var baseChar = 65;
                             var baudRates = Enum.GetNames(typeof(BaudRate)).ToDictionary(p => (ConsoleKey)baseChar++, v => v);
-                            var baudSelection = Log.ReadPrompt($"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}", baudRates, "Exit this prompt");
+                            var baudSelection = Terminal.ReadPrompt($"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}", baudRates, "Exit this prompt");
 
                             if (baudRates.ContainsKey(baudSelection.Key))
                             {
@@ -164,8 +171,8 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.Y)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
-                            var privilege = Log.ReadNumber("Enter Privilege", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
+                            var privilege = Terminal.ReadNumber("Enter Privilege", 1);
 
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
 
@@ -173,28 +180,28 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.F3)
                         {
-                            Log.Info("Place your finger on the sensor to produce some eigenvalues");
+                            "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-                            Log.Info("Place your finger on the sensor once again to compare the eigenvalues");
+                            "Place your finger on the sensor once again to compare the eigenvalues".Info();
                             var result = await reader.MatchImageToEigenvalues(eigenvaluesResult.Eigenvalues);
                         }
                         else if (selectedOption.Key == ConsoleKey.F4)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
-                            Log.Info("Place your finger on the sensor to produce some eigenvalues");
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
+                            "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-                            Log.Info("Place your finger on the sensor once again to compare the eigenvalues");
+                            "Place your finger on the sensor once again to compare the eigenvalues".Info();
                             var result = await reader.MatchUserToEigenvalues(userId, eigenvaluesResult.Eigenvalues);
                         }
                         else if (selectedOption.Key == ConsoleKey.F5)
                         {
-                            Log.Info("Place your finger on the sensor to produce some eigenvalues");
+                            "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
                             var result = await reader.MatchEigenvaluesToUser(eigenvaluesResult.Eigenvalues);
                         }
                         else if (selectedOption.Key == ConsoleKey.P)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
                             var result = await reader.GetUserPrivilege(userId);
                         }
                         else if (selectedOption.Key == ConsoleKey.L)
@@ -203,7 +210,7 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.K)
                         {
-                            var matchingLevel = Log.ReadNumber("Enter Matching Level (0 to 9)", 5);
+                            var matchingLevel = Terminal.ReadNumber("Enter Matching Level (0 to 9)", 5);
                             if (matchingLevel < 0) matchingLevel = 0;
                             if (matchingLevel > 9) matchingLevel = 9;
 
@@ -211,7 +218,7 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.G)
                         {
-                            var timeout = Log.ReadNumber("Enter CaptureTimeout (0 to 255)", 0);
+                            var timeout = Terminal.ReadNumber("Enter CaptureTimeout (0 to 255)", 0);
                             if (timeout < 0) timeout = 0;
                             if (timeout > 255) timeout = 255;
 
@@ -235,7 +242,7 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.F1)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
                             var result = await reader.MatchOneToOne(userId);
                         }
                         else if (selectedOption.Key == ConsoleKey.F2)
@@ -244,46 +251,46 @@
                         }
                         else if (selectedOption.Key == ConsoleKey.R)
                         {
-                            var mode = Log.ReadNumber("Enter Registration Mode - 1 disallows repeated fingerprints", 1);
+                            var mode = Terminal.ReadNumber("Enter Registration Mode - 1 disallows repeated fingerprints", 1);
                             var result = await reader.SetRegistrationMode(mode == 1);
                         }
                         else if (selectedOption.Key == ConsoleKey.A)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
-                            var privilege = Log.ReadNumber("Enter Privilege", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
+                            var privilege = Terminal.ReadNumber("Enter Privilege", 1);
 
-                            Log.Info("Place your finger on the sensor");
+                            "Place your finger on the sensor".Info();
                             var fp1 = await reader.AddFingerprint(1, userId, privilege);
                             if (fp1 != null && fp1.IsSuccessful)
                             {
-                                Log.Info("Place your finger on the sensor again");
+                                "Place your finger on the sensor again".Info();
                                 var fp2 = await reader.AddFingerprint(2, userId, privilege);
                                 if (fp2 != null && fp2.IsSuccessful)
                                 {
-                                    Log.Info("Place your finger on the sensor once again");
+                                    "Place your finger on the sensor once again".Info();
                                     var fp3 = await reader.AddFingerprint(3, userId, privilege);
                                     if (fp3 != null && fp3.IsSuccessful)
                                     {
-                                        Log.Info("User added successfully");
+                                        "User added successfully".Info();
                                     }
                                     else
                                     {
-                                        Log.Error("Failed on acquisition 3");
+                                        "Failed on acquisition 3".Error();
                                     }
                                 }
                                 else
                                 {
-                                    Log.Error("Failed on acquisition 2");
+                                    "Failed on acquisition 2".Error();
                                 }
                             }
                             else
                             {
-                                Log.Error("Failed on acquisition 1");
+                                "Failed on acquisition 1".Error();
                             }
                         }
                         else if (selectedOption.Key == ConsoleKey.W)
                         {
-                            var userId = Log.ReadNumber("Enter User Id", 1);
+                            var userId = Terminal.ReadNumber("Enter User Id", 1);
                             var result = await reader.DeleteUser(userId);
                         }
                         else if (selectedOption.Key == ConsoleKey.Z)
@@ -309,12 +316,12 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"Application finished with error: {ex.GetType()} - {ex.Message}");
+                    ex.Log();
                 }
             }
+
             Console.WriteLine("Press any key to continue . . .");
             Console.ReadKey(true);
-
         }
     }
 }

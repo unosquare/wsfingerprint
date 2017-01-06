@@ -5,7 +5,13 @@
     /// </summary>
     public enum MessageType
     {
+        /// <summary>
+        /// The request type
+        /// </summary>
         Request,
+        /// <summary>
+        /// The response type
+        /// </summary>
         Response
     }
 
@@ -14,7 +20,13 @@
     /// </summary>
     public enum MessageLengthCategory
     {
+        /// <summary>
+        /// The fixed length category
+        /// </summary>
         Fixed,
+        /// <summary>
+        /// The variable length category
+        /// </summary>
         Variable
     }
 
@@ -70,10 +82,25 @@
     /// </summary>
     public enum BaudRate
     {
+        /// <summary>
+        /// The baud 9600
+        /// </summary>
         Baud9600 = 1,
+        /// <summary>
+        /// The baud 19200
+        /// </summary>
         Baud19200 = 2,
+        /// <summary>
+        /// The baud 38400
+        /// </summary>
         Baud38400 = 3,
+        /// <summary>
+        /// The baud 57600
+        /// </summary>
         Baud57600 = 4,
+        /// <summary>
+        /// The baud 115200
+        /// </summary>
         Baud115200 = 5,
     }
 
@@ -85,5 +112,4 @@
         Set = 0,
         Get = 1,
     }
-
 }

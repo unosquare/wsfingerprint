@@ -1,12 +1,13 @@
 [![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/wsfingerprint/)](https://github.com/igrigorik/ga-beacon)
 
-# WaveShare Fingerprint Reader - Interfacing Library for .NET
+# <img src="https://github.com/unosquare/wsfingerprint/raw/master/logos/wsfp-logo-32.png"></img> WaveShare Fingerprint Reader
+Interfacing Library for .NET
 
 * Wiki: http://www.waveshare.com/wiki/UART_Fingerprint_Reader
 * Reference Manual: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
 * Product Page: http://www.waveshare.com/uart-fingerprint-reader.htm
 
-<img src="http://www.waveshare.com/media/catalog/product/cache/1/image/560x560/9df78eab33525d08d6e5fb8d27136e95/u/a/uart-fingerprint-reader_l_1_2.jpg">
+<img src="https://github.com/unosquare/wsfingerprint/raw/master/logos/wsfp-image.jpg">
 
 ## Specifications
 

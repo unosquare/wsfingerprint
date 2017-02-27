@@ -1,7 +1,0 @@
-language: csharp
-solution: Unosquare.WaveShare.FingerprintModule.sln
-notifications:
-  slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
-os:
-  - osx
-  - linux

@@ -1,0 +1,1434 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class FingerprintReader
+   | WaveShare Fingerprint Reader Interfacing Library for .NET </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class FingerprintReader
+   | WaveShare Fingerprint Reader Interfacing Library for .NET ">
+    <meta name="generator" content="docfx 2.12.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content">
+              
+              
+              <h1 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader">Class FingerprintReader
+              </h1>
+              <div class="markdown level0 summary"><p>Our main character representing the WaveShare Fingerprint reader module
+Reference: <a href="http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf">http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf</a>
+WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www.waveshare.com/wiki/UART_Fingerprint_Reader</a></p>
+</div>
+              <div class="markdown level0 conceptual"></div>
+              <div class="inheritance">
+                <h5>Inheritance</h5>
+                  <div class="level0"><span class="xref">System.Object</span></div>
+                  <div class="level1"><span class="xref">FingerprintReader</span></div>
+              </div>
+              <div class="inheritedMembers">
+                <h5>Inherited Members</h5>
+                <div>
+                  <span class="xref">System.Object.ToString()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetHashCode()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.GetType()</span>
+                </div>
+                <div>
+                  <span class="xref">System.Object.MemberwiseClone()</span>
+                </div>
+              </div>
+              <h6><strong>Namespace</strong>:Unosquare.WaveShare.FingerprintModule</h6>
+              <h6><strong>Assembly</strong>:cs.temp.dll.dll</h6>
+              <h5 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_syntax">Syntax</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public sealed class FingerprintReader : IDisposable</code></pre>
+              </div>
+              <h3 id="constructors">Constructors
+              </h3>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader__ctor_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.#ctor*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader__ctor" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.#ctor">FingerprintReader()</h4>
+              <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Unosquare.WaveShare.FingerprintModule.FingerprintReader.html">FingerprintReader</a> class.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public FingerprintReader()</code></pre>
+              </div>
+              <h3 id="properties">Properties
+              </h3>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SerialPort_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SerialPort*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SerialPort" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SerialPort">SerialPort</h4>
+              <div class="markdown level1 summary"><p>Gets the serial port associated with this reader.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public SerialPort SerialPort { get; }</code></pre>
+              </div>
+              <h5 class="propertyValue">Property Value</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">SerialPort</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="methods">Methods
+              </h3>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImage_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImage*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImage_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImage(System.Threading.CancellationToken)">AcquireImage(CancellationToken)</h4>
+              <div class="markdown level1 summary"><p>Acquires an image from the sensor and returns the image bytes in grayscale nibbles. This operation is fairly slow.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageResponse&gt; AcquireImage(CancellationToken ct = null)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.CancellationToken</span></td>
+                    <td><span class="parametername">ct</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html">AcquireImageResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues">AcquireImageEigenvalues()</h4>
+              <div class="markdown level1 summary"><p>Acquires an image from the sensor and returns the computed eigenvalues.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageEigenvaluesResponse&gt; AcquireImageEigenvalues()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html">AcquireImageEigenvaluesResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_System_Int32_System_Int32_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint(System.Int32,System.Int32,System.Int32)">AddFingerprint(Int32, Int32, Int32)</h4>
+              <div class="markdown level1 summary"><p>Registers a fingerprint. You have to call this method 3 times specifying the corresponding iteration 1, 2, or 3</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;AddFingerprintResponse&gt; AddFingerprint(int iteration, int userId, int userPrivilege)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">iteration</span></td>
+                    <td><p>The iteration.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userPrivilege</span></td>
+                    <td><p>The user privilege.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html">AddFingerprintResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.ArgumentException</span></td>
+                    <td><p>iteration
+or
+userId
+or
+userPrivilege</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers">DeleteAllUsers()</h4>
+              <div class="markdown level1 summary"><p>Deletes all users.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteAllUsers()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser(System.Int32)">DeleteUser(Int32)</h4>
+              <div class="markdown level1 summary"><p>Deletes the specified user.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteUser(int userId)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Dispose_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Dispose*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Dispose" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Dispose">Dispose()</h4>
+              <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+              </div>
+              <h5 class="implements">Implements</h5>
+                  <div><span class="xref">System.IDisposable.Dispose()</span></div>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers">GetAllUsers()</h4>
+              <div class="markdown level1 summary"><p>Gets all users and their permissions. It does not retrieve User eigenvalues.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetAllUsersResponse&gt; GetAllUsers()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html">GetAllUsersResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate">GetBaudRate()</h4>
+              <div class="markdown level1 summary"><p>Gets the baud rate.
+This method probes the serial port at different baud rates until communication is correctly established.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; GetBaudRate()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout">GetCaptureTimeout()</h4>
+              <div class="markdown level1 summary"><p>Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; GetCaptureTimeout()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber">GetDspVersionNumber()</h4>
+              <div class="markdown level1 summary"><p>Gets the version number of the DSP module.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetDspVersionNumberResponse&gt; GetDspVersionNumber()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html">GetDspVersionNumberResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel">GetMatchingLevel()</h4>
+              <div class="markdown level1 summary"><p>Gets the matching level.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; GetMatchingLevel()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode">GetRegistrationMode()</h4>
+              <div class="markdown level1 summary"><p>Gets the registration mode which specifies if a fingerprint can be registered more than once.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; GetRegistrationMode()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount">GetUserCount()</h4>
+              <div class="markdown level1 summary"><p>Gets the user count.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetUserCountResponse&gt; GetUserCount()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html">GetUserCountResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege(System.Int32)">GetUserPrivilege(Int32)</h4>
+              <div class="markdown level1 summary"><p>Gets the user privilege given its id.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetUserPrivilegeResponse&gt; GetUserPrivilege(int userId)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html">GetUserPrivilegeResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties(System.Int32)">GetUserProperties(Int32)</h4>
+              <div class="markdown level1 summary"><p>Gets a user&#39;s privilege and eigenvalues.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetUserPropertiesResponse&gt; GetUserProperties(int userId)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html">GetUserPropertiesResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser(System.Byte[])">MatchEigenvaluesToUser(Byte[])</h4>
+              <div class="markdown level1 summary"><p>Finds a user id for the given eigenvalues. Match 1:N</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;MatchEigenvaluesToUserResponse&gt; MatchEigenvaluesToUser(byte[] eigenvalues)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">eigenvalues</span></td>
+                    <td><p>The eigenvalues.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html">MatchEigenvaluesToUserResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues(System.Byte[])">MatchImageToEigenvalues(Byte[])</h4>
+              <div class="markdown level1 summary"><p>Acquires an image from the sensor and determines if the supplied eigenvalues match. Match 1:1</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchImageToEigenvalues(byte[] eigenvalues)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">eigenvalues</span></td>
+                    <td><p>The eigenvalues.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToN_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToN*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToN_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToN(System.Threading.CancellationToken)">MatchOneToN(CancellationToken)</h4>
+              <div class="markdown level1 summary"><p>Returns a User id after acquiring an image from the sensor. Match 1:N</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;MatchOneToNResponse&gt; MatchOneToN(CancellationToken ct = null)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.CancellationToken</span></td>
+                    <td><span class="parametername">ct</span></td>
+                    <td><p>The cancellation token.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html">MatchOneToNResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToOne_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToOne*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToOne_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToOne(System.Int32,System.Threading.CancellationToken)">MatchOneToOne(Int32, CancellationToken)</h4>
+              <div class="markdown level1 summary"><p>Acquires an image from the sensor and tests if it matches the supplied user id. Match 1:1</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchOneToOne(int userId, CancellationToken ct = null)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Threading.CancellationToken</span></td>
+                    <td><span class="parametername">ct</span></td>
+                    <td><p>The cancellation token.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_System_Int32_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues(System.Int32,System.Byte[])">MatchUserToEigenvalues(Int32, Byte[])</h4>
+              <div class="markdown level1 summary"><p>Provides a method to test if the given user id matches the specified eigenvalues. Match 1:1</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchUserToEigenvalues(int userId, byte[] eigenvalues)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">eigenvalues</span></td>
+                    <td><p>The eigenvalues.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_System_String_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open(System.String)">Open(String)</h4>
+              <div class="markdown level1 summary"><p>Opens the serial port with the specified port name.
+Under Windows it&#39;s something like COM3. On Linux, it&#39;s something like</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Open(string portName)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">portName</span></td>
+                    <td><p>Name of the port.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_System_String_Unosquare_WaveShare_FingerprintModule_BaudRate_System_Boolean_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open(System.String,Unosquare.WaveShare.FingerprintModule.BaudRate,System.Boolean)">Open(String, BaudRate, Boolean)</h4>
+              <div class="markdown level1 summary"><p>Opens the serial port with the specified port name.
+Under Windows it&#39;s something like COM3. On Linux, it&#39;s something like</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public void Open(string portName, BaudRate baud, bool probeBaudRates)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.String</span></td>
+                    <td><span class="parametername">portName</span></td>
+                    <td><p>Name of the port.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.BaudRate.html">BaudRate</a></td>
+                    <td><span class="parametername">baud</span></td>
+                    <td><p>The baud.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">probeBaudRates</span></td>
+                    <td><p>if set to <code>true</code> [probe baud rates].</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.InvalidOperationException</span></td>
+                    <td><p>Device is already open. Call the Close method first.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync">ReadAsync()</h4>
+              <div class="markdown level1 summary"><p>Reads data from the serial port asynchronously with the default timeout</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadAsync(TimeSpan, CancellationToken)</h4>
+              <div class="markdown level1 summary"><p>Reads bytes from the serial port.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync(TimeSpan timeout, CancellationToken ct = null)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.TimeSpan</span></td>
+                    <td><span class="parametername">timeout</span></td>
+                    <td><p>The timeout.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Threading.CancellationToken</span></td>
+                    <td><span class="parametername">ct</span></td>
+                    <td><p>The cancellation token.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.InvalidOperationException</span></td>
+                    <td><p>Open</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_Unosquare_WaveShare_FingerprintModule_BaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate(Unosquare.WaveShare.FingerprintModule.BaudRate)">SetBaudRate(BaudRate)</h4>
+              <div class="markdown level1 summary"><p>Sets the baud rate of the module.
+This closes and re-opens the serial port</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; SetBaudRate(BaudRate baudRate)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.BaudRate.html">BaudRate</a></td>
+                    <td><span class="parametername">baudRate</span></td>
+                    <td><p>The baud rate.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout(System.Int32)">SetCaptureTimeout(Int32)</h4>
+              <div class="markdown level1 summary"><p>Sets the capture timeout. Timeout must be 0 to 255. 0 denotes to wait indefinitely for a capture</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; SetCaptureTimeout(int timeout)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">timeout</span></td>
+                    <td><p>The timeout.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel(System.Int32)">SetMatchingLevel(Int32)</h4>
+              <div class="markdown level1 summary"><p>Sets the matching level. 0 is the loosest, 9 is the strictest</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; SetMatchingLevel(int matchingLevel)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">matchingLevel</span></td>
+                    <td><p>The matching level.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_System_Boolean_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode(System.Boolean)">SetRegistrationMode(Boolean)</h4>
+              <div class="markdown level1 summary"><p>Sets the registration mode. Prohibit repeat disallows registration of the same fingerprint for more than 1 user.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; SetRegistrationMode(bool prohibitRepeat)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Boolean</span></td>
+                    <td><span class="parametername">prohibitRepeat</span></td>
+                    <td><p>if set to <code>true</code> [prohibit repeat].</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_System_Int32_System_Int32_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties(System.Int32,System.Int32,System.Byte[])">SetUserProperties(Int32, Int32, Byte[])</h4>
+              <div class="markdown level1 summary"><p>Sets or overwrites a specified user with the given privilege and eigenvalues</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;SetUserPropertiesResponse&gt; SetUserProperties(int userId, int privilege, byte[] eigenvalues)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">userId</span></td>
+                    <td><p>The user identifier.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Int32</span></td>
+                    <td><span class="parametername">privilege</span></td>
+                    <td><p>The privilege.</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">eigenvalues</span></td>
+                    <td><p>The eigenvalues.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html">SetUserPropertiesResponse</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep">Sleep()</h4>
+              <div class="markdown level1 summary"><p>Makes the module go to sleep and stop processing commands. The only way to bring it back
+online is by resetting it.</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; Sleep()</code></pre>
+              </div>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_WriteAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync*"></a>
+              <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_WriteAsync_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync(System.Byte[])">WriteAsync(Byte[])</h4>
+              <div class="markdown level1 summary"><p>Writes data to the serial port asynchronously</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task WriteAsync(byte[] payload)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Byte</span>[]</td>
+                    <td><span class="parametername">payload</span></td>
+                    <td><p>The payload.</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.Threading.Tasks.Task</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xref">System.InvalidOperationException</span></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="seealso">See Also</h3>
+              <div class="seealso">
+                  <div><span class="xref">System.IDisposable</span></div>
+              </div>
+                        </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

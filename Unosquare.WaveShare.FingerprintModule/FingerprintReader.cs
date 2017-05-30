@@ -1,8 +1,13 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
+    using Swan;
     using System;
     using System.Collections.Generic;
+#if NET452
     using System.IO.Ports;
+#else
+    using RJCP.IO.Ports;
+#endif
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -15,7 +20,6 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class FingerprintReader : IDisposable
     {
-
         #region Private Declarations
 
         /// <summary>
@@ -49,6 +53,7 @@
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FingerprintReader"/> class.
         /// </summary>
@@ -61,10 +66,17 @@
 
         #region Properties
 
+#if NET452
+/// <summary>
+/// Gets the serial port associated with this reader.
+/// </summary>
+        public SerialPort SerialPort { get; private set; }
+#else
         /// <summary>
         /// Gets the serial port associated with this reader.
         /// </summary>
-        public SerialPort SerialPort { get; private set; }
+        public SerialPortStream SerialPort { get; private set; }
+#endif
 
         #endregion
 
@@ -83,13 +95,18 @@
             if (SerialPort != null)
                 throw new InvalidOperationException("Device is already open. Call the Close method first.");
 
+#if NET452
             SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One);
+#else
+            SerialPort = new SerialPortStream(portName, baud.ToInt(), 8, Parity.None,
+                StopBits.One);
+#endif
             SerialPort.ReadBufferSize = ReadBufferLength;
             SerialPort.Open();
-
+            
             if (probeBaudRates)
             {
-                Log.Trace("Will probe baud rates.");
+                "Will probe baud rates.".Trace();
                 var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
             }
         }
@@ -133,10 +150,10 @@
             IsDisposing = true;
             Close();
         }
+        
+#endregion
 
-        #endregion
-
-        #region Fingerprint Reader Protocol
+#region Fingerprint Reader Protocol
 
         /// <summary>
         /// Gets the version number of the DSP module.
@@ -170,12 +187,14 @@
             var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
 
             if (SerialPort.IsOpen == false)
-                throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication with the module");
+                throw new InvalidOperationException(
+                    $"Call the {nameof(Open)} method before attempting communication with the module");
 
-            var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)SerialPort.BaudRate.ToBaudRate(), 0);
+            var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0,
+                (byte) SerialPort.BaudRate.ToBaudRate(), 0);
             var result = new GetSetBaudRateResponse(resultPayload);
 
-            Log.Trace($"Initial baud rate probing at {SerialPort.BaudRate}");
+            $"Initial baud rate probing at {SerialPort.BaudRate}".Trace();
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
 
@@ -186,16 +205,17 @@
             {
                 Close();
                 Open(portName, baudRate, false);
-                Log.Trace($"Baud rate probing at {SerialPort.BaudRate}");
+                $"Baud rate probing at {SerialPort.BaudRate}".Trace();
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
 
                 if (probeResponse != null)
                 {
-                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0);
+                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate,
+                        0);
                     var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
 
                     if (IsDebugBuild)
-                        Log.Info($"RX: {baudRateResponse.ToString()}");
+                        $"RX: {baudRateResponse}".Info();
 
                     return baudRateResponse;
                 }
@@ -212,12 +232,11 @@
         /// <returns></returns>
         public async Task<GetSetBaudRateResponse> SetBaudRate(BaudRate baudRate)
         {
-
             var currentBaudRate = await GetBaudRate();
             if (currentBaudRate.BaudRate == baudRate)
             {
                 return new GetSetBaudRateResponse(
-                    Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte)baudRate, 0));
+                    Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate, 0));
             }
 
 
@@ -270,11 +289,15 @@
         /// </exception>
         public async Task<AddFingerprintResponse> AddFingerprint(int iteration, int userId, int userPrivilege)
         {
-            if (iteration < 0 || iteration > 3) throw new ArgumentException($"{nameof(iteration)} must be a number between 1 and 3");
-            if (userId < 1 || userId > 4095) throw new ArgumentException($"{nameof(userId)} must be a number between 1 and 4095");
-            if (userPrivilege < 0 || userPrivilege > 3) throw new ArgumentException($"{nameof(userPrivilege)} must be a number between 1 and 3");
+            if (iteration < 0 || iteration > 3)
+                throw new ArgumentException($"{nameof(iteration)} must be a number between 1 and 3");
+            if (userId < 1 || userId > 4095)
+                throw new ArgumentException($"{nameof(userId)} must be a number between 1 and 4095");
+            if (userPrivilege < 0 || userPrivilege > 3)
+                throw new ArgumentException($"{nameof(userPrivilege)} must be a number between 1 and 3");
 
-            var command = Command.Factory.CreateAddFingerprintCommand(Convert.ToByte(iteration), Convert.ToUInt16(userId), Convert.ToByte(userPrivilege));
+            var command = Command.Factory.CreateAddFingerprintCommand(Convert.ToByte(iteration),
+                Convert.ToUInt16(userId), Convert.ToByte(userPrivilege));
             return await GetResponseAsync<AddFingerprintResponse>(command, AcquireTimeout);
         }
 
@@ -438,7 +461,8 @@
         /// <returns></returns>
         public async Task<SetUserPropertiesResponse> SetUserProperties(int userId, int privilege, byte[] eigenvalues)
         {
-            var command = Command.Factory.CreateSetUserPropertiesCommand(Convert.ToUInt16(userId), Convert.ToByte(privilege), eigenvalues);
+            var command = Command.Factory.CreateSetUserPropertiesCommand(Convert.ToUInt16(userId),
+                Convert.ToByte(privilege), eigenvalues);
             return await GetResponseAsync<SetUserPropertiesResponse>(command);
         }
 
@@ -473,9 +497,9 @@
             return await GetResponseAsync<GetAllUsersResponse>(command);
         }
 
-        #endregion
+#endregion
 
-        #region Read and Write Methods
+#region Read and Write Methods
 
         /// <summary>
         /// Given a command, gets a response object asynchronously.
@@ -486,7 +510,8 @@
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
         /// <exception cref="System.InvalidOperationException">Open</exception>
-        private async Task<T> GetResponseAsync<T>(Command command, TimeSpan responseTimeout, CancellationToken ct = default(CancellationToken))
+        private async Task<T> GetResponseAsync<T>(Command command, TimeSpan responseTimeout,
+            CancellationToken ct = default(CancellationToken))
             where T : ResponseBase
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
@@ -497,19 +522,20 @@
             var discardedBytes = await FlushReadBufferAsync(ct);
             if (discardedBytes.Length > 0 && IsDebugBuild)
             {
-                Log.Trace($"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}");
+                $"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}"
+                    .Trace();
             }
 
             await WriteAsync(command.Payload);
 
             if (IsDebugBuild)
-                Log.Debug($"TX: {command.ToString()}");
+                $"TX: {command}".Debug();
 
             var responseBytes = await ReadAsync(responseTimeout, ct);
             if (responseBytes == null || responseBytes.Length <= 0)
             {
                 if (IsDebugBuild)
-                    Log.Error($"RX: No response received after {responseTimeout.TotalMilliseconds} ms");
+                    $"RX: No response received after {responseTimeout.TotalMilliseconds} ms".Error();
 
                 return null;
             }
@@ -517,8 +543,8 @@
             var response = Activator.CreateInstance(typeof(T), responseBytes) as T;
             if (IsDebugBuild)
             {
-                Log.Info($"RX: {response.ToString()}");
-                Log.Trace($"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
+                $"RX: {response}".Info();
+                $"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms".Trace();
             }
 
             return response;
@@ -552,8 +578,13 @@
 
             try
             {
+#if NET452
                 await SerialPort.BaseStream.WriteAsync(payload, 0, payload.Length);
                 await SerialPort.BaseStream.FlushAsync();
+#else
+                await SerialPort.WriteAsync(payload, 0, payload.Length);
+                await SerialPort.FlushAsync();
+#endif
             }
             catch (Exception ex)
             {
@@ -582,7 +613,7 @@
         private async Task<byte[]> FlushReadBufferAsync(CancellationToken ct = default(CancellationToken))
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                return new byte[] { };
+                return new byte[] {};
 
             SerialPortDone.Wait();
             SerialPortDone.Reset();
@@ -594,7 +625,12 @@
                 var offset = 0;
                 while (SerialPort.BytesToRead > 0)
                 {
-                    count += await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length, ct);
+                    count +=
+#if NET452
+                        await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length, ct);
+#else
+                        await SerialPort.ReadAsync(buffer, offset, buffer.Length, ct);
+#endif
                     offset += count;
                 }
 
@@ -643,16 +679,23 @@
                 {
                     if (SerialPort.BytesToRead > 0)
                     {
-                        var readBytes = await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length, ct);
+                        var readBytes =
+#if NET452
+                            await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length, ct);
+#else
+                            await SerialPort.ReadAsync(buffer, 0, buffer.Length, ct);
+#endif
                         response.AddRange(buffer.Skip(0).Take(readBytes));
                         remainingBytes = expectedBytes - response.Count;
                         startTime = DateTime.UtcNow;
 
                         // for larger data packets we want to give it a nicer breather
-                        if (isVariableLengthResponse && response.Count < expectedBytes && expectedBytes > largePacketSize)
+                        if (isVariableLengthResponse && response.Count < expectedBytes &&
+                            expectedBytes > largePacketSize)
                         {
                             if (IsDebugBuild)
-                                Log.Trace($"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms");
+                                $"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms"
+                                    .Trace();
 
                             await Task.Delay(largePacketDelayMilliseconds, ct);
                         }
@@ -660,17 +703,21 @@
                         if (response.Count >= 4 && iteration == 0)
                         {
                             iteration++;
-                            isVariableLengthResponse = ResponseBase.ResponseLengthCategories[(OperationCode)response[1]] == MessageLengthCategory.Variable;
+                            isVariableLengthResponse =
+                                ResponseBase.ResponseLengthCategories[(OperationCode) response[1]] ==
+                                MessageLengthCategory.Variable;
                             if (isVariableLengthResponse)
                             {
-                                var headerByteCount = (new byte[] { response[2], response[3] }).BigEndianArrayToUInt16();
+                                var headerByteCount = (new byte[] {response[2], response[3]}).BigEndianArrayToUInt16();
                                 if (headerByteCount > 0)
                                 {
                                     expectedBytes = 8 + 3 + headerByteCount;
-                                    largePacketDelayMilliseconds = (int)Math.Max((double)expectedBytes / SerialPort.BaudRate * 1000d, 100d);
+                                    largePacketDelayMilliseconds =
+                                        (int) Math.Max((double) expectedBytes / SerialPort.BaudRate * 1000d, 100d);
 
                                     if (IsDebugBuild)
-                                        Log.Trace($"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
+                                        $"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms"
+                                            .Trace();
                                 }
                                 else
                                 {
@@ -690,8 +737,9 @@
                     {
                         if (IsDebugBuild)
                         {
-                            Log.Error($"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
-                            Log.Error($"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
+                            $"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}"
+                                .Error();
+                            $"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}".Error();
                         }
 
                         return null;
@@ -711,6 +759,6 @@
             }
         }
 
-        #endregion
+#endregion
     }
 }

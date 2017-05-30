@@ -1,0 +1,20 @@
+{
+  "version": "1.1.0-*",
+  "title": "Unosquare.WaveShare.FingerprintModule.Sample",
+  "buildOptions": {"emitEntryPoint": true},
+  "dependencies": {
+    "Unosquare.WaveShare.FingerprintModule": { "target": "project" }
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": "1.0.5"
+      }
+    },
+    "net452": {
+    }
+  },
+  "runtimes": {
+    "win8-x64": "" 
+  }
+}

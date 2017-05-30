@@ -3,7 +3,11 @@
     using Swan;
     using System;
     using System.Collections.Generic;
+#if NET452
     using System.IO.Ports;
+#else
+    using RJCP.IO.Ports;
+#endif
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -64,6 +68,7 @@
 
         static string PromptForSerialPort()
         {
+#if NET452
             var baseChar = 65;
             var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey) baseChar++, v => v);
             var portName = string.Empty;
@@ -89,6 +94,10 @@
             }
 
             return portName;
+#else
+            "Select Port to Open:".Info();
+            return Terminal.ReadLine();
+#endif
         }
 
         static void Main(string[] args)
@@ -322,7 +331,7 @@
                 }
                 catch (Exception ex)
                 {
-                    ex.Log();
+                    ex.Log(nameof(Program));
                 }
             }
 

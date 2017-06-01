@@ -47,7 +47,7 @@
 #if DEBUG
         private const bool IsDebugBuild = true;
 #else
-        private const bool IsDebugBuild = false;
+        private const bool IsDebugBuild = true;
 #endif
 
         #endregion
@@ -183,15 +183,15 @@
         /// <returns></returns>
         public async Task<GetSetBaudRateResponse> GetBaudRate()
         {
-            var portName = SerialPort.PortName;
-            var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
-
             if (SerialPort.IsOpen == false)
                 throw new InvalidOperationException(
                     $"Call the {nameof(Open)} method before attempting communication with the module");
 
+            var portName = SerialPort.PortName;
+            var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
+
             var resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0,
-                (byte) SerialPort.BaudRate.ToBaudRate(), 0);
+                (byte) SerialPort.BaudRate.ToBaudRate());
             var result = new GetSetBaudRateResponse(resultPayload);
 
             $"Initial baud rate probing at {SerialPort.BaudRate}".Trace();
@@ -210,8 +210,7 @@
 
                 if (probeResponse != null)
                 {
-                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate,
-                        0);
+                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate);
                     var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
 
                     if (IsDebugBuild)
@@ -238,8 +237,7 @@
                 return new GetSetBaudRateResponse(
                     Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate, 0));
             }
-
-
+            
             var command = Command.Factory.CreateChangeBaudRateCommand(baudRate);
             var response = await GetResponseAsync<GetSetBaudRateResponse>(command);
             if (response != null)
@@ -527,10 +525,10 @@
             }
 
             await WriteAsync(command.Payload);
-
+            
             if (IsDebugBuild)
                 $"TX: {command}".Debug();
-
+            
             var responseBytes = await ReadAsync(responseTimeout, ct);
             if (responseBytes == null || responseBytes.Length <= 0)
             {
@@ -694,7 +692,7 @@
                             expectedBytes > largePacketSize)
                         {
                             if (IsDebugBuild)
-                                $"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} reamining - Delay: {largePacketDelayMilliseconds} ms"
+                                $"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} remaining - Delay: {largePacketDelayMilliseconds} ms"
                                     .Trace();
 
                             await Task.Delay(largePacketDelayMilliseconds, ct);

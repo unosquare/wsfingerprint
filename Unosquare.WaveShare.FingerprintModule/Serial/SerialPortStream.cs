@@ -16,12 +16,9 @@ namespace RJCP.IO.Ports
     using System.Threading;
     using Datastructures;
     using Native;
-
+    using System.Runtime.InteropServices;
 #if !NETSTANDARD15
     using System.Runtime.Remoting.Messaging;
-    using System.Runtime.InteropServices;
-#else
-    using System.Runtime.InteropServices;
 #endif
 
     /// <summary>
@@ -35,32 +32,55 @@ namespace RJCP.IO.Ports
     /// http://msdn.microsoft.com/en-us/library/ms810467.aspx</para>
     /// <para>When instantiating.</para>
     /// </remarks>
-    public partial class SerialPortStream : Stream
+    public class SerialPortStream : Stream
     {
         private INativeSerial m_NativeSerial;
         private SerialBuffer m_Buffer;
         private ReadToCache m_ReadTo = new ReadToCache();
 
         #region Public constants
+
         /// <summary>
         /// Indicates that no time out should occur.
         /// </summary>
         public const int InfiniteTimeout = -1;
+
         #endregion
 
         #region Constructor, Port Name, Open
+
         /// <summary>
         /// Constructor. Create a stream that doesn't connect to any port.
         /// </summary>
         /// <remarks>
-        /// This constructor initialises a stream object, but doesn't assign it to any COM port.
+        /// This constructor initializes a stream object, but doesn't assign it to any COM port.
         /// The properties then assume default settings. No COM port is opened and queried.
         /// </remarks>
         public SerialPortStream()
         {
             m_NativeSerial = CreateNativeSerial();
+
             if (m_NativeSerial == null)
                 throw new NotSupportedException("SerialPortStream is not supported on this platform");
+
+            InitialiseEvents();
+            SerialTrace.AddRef();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SerialPortStream" /> class.
+        /// </summary>
+        /// <param name="nativeSerial">The native serial.</param>
+        /// <param name="port">The port.</param>
+        /// <exception cref="ArgumentNullException">nativeSerial</exception>
+        public SerialPortStream(INativeSerial nativeSerial, string port = null)
+        {
+            if (nativeSerial == null)
+                throw new ArgumentNullException(nameof(nativeSerial));
+
+            m_NativeSerial = nativeSerial;
+
+            if (port != null) m_NativeSerial.PortName = port;
 
             InitialiseEvents();
             SerialTrace.AddRef();
@@ -135,10 +155,7 @@ namespace RJCP.IO.Ports
         /// Get the version of this assembly (or components driving this assembly).
         /// </summary>
         /// <value>The version of the assembly and/or subcomponents.</value>
-        public string Version
-        {
-            get { return m_NativeSerial.Version; }
-        }
+        public string Version => m_NativeSerial.Version;
 
         /// <summary>
         /// Gets the port for communications, including but not limited to all available COM ports.
@@ -162,12 +179,15 @@ namespace RJCP.IO.Ports
             set
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Must provide a valid name for a COM port");
-                if (IsOpen && value != m_NativeSerial.PortName) throw new InvalidOperationException("Serial Port already opened");
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Must provide a valid name for a COM port");
+                if (IsOpen && value != m_NativeSerial.PortName)
+                    throw new InvalidOperationException("Serial Port already opened");
 
                 m_NativeSerial.PortName = value;
             }
         }
+
         /// <summary>
         /// Update properties based on the current port, overwriting already existing properties.
         /// </summary>
@@ -245,21 +265,28 @@ namespace RJCP.IO.Ports
 
             m_ReadCheckDeviceErrorNotified = false;
             m_NativeSerial.Open();
-            try {
-                if (setCommState) {
+            try
+            {
+                if (setCommState)
+                {
                     m_NativeSerial.SetPortSettings();
                     // Fetch the actual settings and get the capabilities
                     m_NativeSerial.GetPortSettings();
                 }
 
                 // Create threads and start working with local buffers
-                if (m_Buffer == null) {
+                if (m_Buffer == null)
+                {
                     m_Buffer = m_NativeSerial.CreateSerialBuffer(m_ReadBufferSize, m_WriteBufferSize);
-                } else {
+                }
+                else
+                {
                     m_Buffer.Stream.Reset(true);
                 }
                 m_NativeSerial.StartMonitor(m_Buffer, PortName);
-            } catch {
+            }
+            catch
+            {
                 m_NativeSerial.Close();
                 throw;
             }
@@ -279,14 +306,15 @@ namespace RJCP.IO.Ports
         {
             get
             {
-                lock (m_CloseLock) {
+                lock (m_CloseLock)
+                {
                     if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                     return m_NativeSerial.IsOpen;
                 }
             }
         }
 
-        private object m_CloseLock = new object();
+        private readonly object m_CloseLock = new object();
 
         /// <summary>
         /// Closes the port connection, sets the IsOpen property to false. Does not dispose the object.
@@ -301,23 +329,28 @@ namespace RJCP.IO.Ports
         public void Close()
 #endif
         {
-            lock (m_CloseLock) {
+            lock (m_CloseLock)
+            {
                 if (IsDisposed) return;
-                if (m_Buffer != null) m_Buffer.Stream.AbortWait();
+                m_Buffer?.Stream.AbortWait();
                 m_NativeSerial.Close();
             }
         }
+
         #endregion
 
         #region Computer Configuration and Ports
+
         /// <summary>
         /// Gets an array of serial port names for the current computer.
         /// </summary>
         /// <returns>An array of serial port names for the current computer.</returns>
         public static string[] GetPortNames()
         {
-            using (INativeSerial serial = CreateNativeSerial()) {
-                if (serial == null) throw new NotSupportedException("SerialPortStream is not supported on this platform");
+            using (var serial = CreateNativeSerial())
+            {
+                if (serial == null)
+                    throw new NotSupportedException("SerialPortStream is not supported on this platform");
                 return serial.GetPortNames();
             }
         }
@@ -335,14 +368,18 @@ namespace RJCP.IO.Ports
         /// <returns>An array of serial ports for the current computer.</returns>
         public static PortDescription[] GetPortDescriptions()
         {
-            using (INativeSerial serial = CreateNativeSerial()) {
-                if (serial == null) throw new NotSupportedException("SerialPortStream is not supported on this platform");
+            using (var serial = CreateNativeSerial())
+            {
+                if (serial == null)
+                    throw new NotSupportedException("SerialPortStream is not supported on this platform");
                 return serial.GetPortDescriptions();
             }
         }
+
         #endregion
 
         #region Reading and Writing Configuration
+
         /// <summary>
         /// Gets or sets the byte encoding for pre- and post-transmission conversion of text.
         /// </summary>
@@ -377,14 +414,16 @@ namespace RJCP.IO.Ports
             set
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (value == null) throw new ArgumentNullException("value", "Newline string may not be null");
-                if (string.IsNullOrEmpty(value)) throw new ArgumentException("Newline may not be empty", "value");
+                if (value == null) throw new ArgumentNullException(nameof(value), "Newline string may not be null");
+                if (string.IsNullOrEmpty(value)) throw new ArgumentException("Newline may not be empty", nameof(value));
                 m_NewLine = value;
             }
         }
+
         #endregion
 
         #region Driver Settings
+
         /// <summary>
         /// Specify the driver In Queue at the time it is opened.
         /// </summary>
@@ -426,25 +465,24 @@ namespace RJCP.IO.Ports
                 m_NativeSerial.DriverOutQueue = value;
             }
         }
+
         #endregion
 
         /// <summary>
         /// Gets a value that determines whether the current stream can time out.
         /// </summary>
         /// <returns>A value that determines whether the current stream can time out.</returns>
-        public override bool CanTimeout { get { return true; } }
+        public override bool CanTimeout => true;
 
         #region Reading
+
         /// <summary>
         /// Check if this stream supports reading.
         /// </summary>
         /// <remarks>
         /// Supported so long as the stream is not disposed.
         /// </remarks>
-        public override bool CanRead
-        {
-            get { return !IsDisposed; }
-        }
+        public override bool CanRead => !IsDisposed;
 
         private int m_ReadTimeout = -1;
 
@@ -465,9 +503,12 @@ namespace RJCP.IO.Ports
             set
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (value < 0) {
+                if (value < 0)
+                {
                     m_ReadTimeout = -1;
-                } else {
+                }
+                else
+                {
                     m_ReadTimeout = value;
                 }
             }
@@ -496,13 +537,16 @@ namespace RJCP.IO.Ports
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                 if (IsOpen) throw new InvalidOperationException("Serial Port already opened");
-                if (value <= 0) throw new ArgumentOutOfRangeException("value", "WriteBufferSize must be greater than zero");
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "WriteBufferSize must be greater than zero");
 
-                int newBufferSize = value;
+                var newBufferSize = value;
                 if (newBufferSize < 1024) newBufferSize = 1024;
 
-                if (m_ReadBufferSize != newBufferSize) {
-                    if (m_Buffer != null) {
+                if (m_ReadBufferSize != newBufferSize)
+                {
+                    if (m_Buffer != null)
+                    {
                         m_Buffer.Dispose();
                         m_Buffer = null;
                     }
@@ -519,48 +563,49 @@ namespace RJCP.IO.Ports
         /// </summary>
         public int ReceivedBytesThreshold
         {
-            get
-            {
-                return m_RxThreshold;
-            }
+            get { return m_RxThreshold; }
             set
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (value <= 0) throw new ArgumentOutOfRangeException("value", "Must be a positive value (1 or greater)");
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "Must be a positive value (1 or greater)");
                 if (value > m_ReadBufferSize)
-                    throw new ArgumentOutOfRangeException("value", "Must be less or equal to the ReadBufferSize");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Must be less or equal to the ReadBufferSize");
 
                 // Only raise an event if we think that we wouldn't have received an event otherwise
-                int btr = m_NativeSerial.BytesToRead;
-                if (btr < m_RxThreshold && btr > value) {
+                var btr = m_NativeSerial.BytesToRead;
+                if (btr < m_RxThreshold && btr > value)
+                {
                     m_RxThreshold = value;
                     NativeSerial_DataReceived(this, new SerialDataReceivedEventArgs(SerialData.Chars));
-                } else {
+                }
+                else
+                {
                     m_RxThreshold = value;
                 }
             }
         }
 
 #if DRIVERBUFFEREDBYTES
-        /// <summary>
-        /// Gets the number of bytes of data in the receive buffer and in the serial driver.
-        /// </summary>
-        /// <remarks>
-        /// This method returns the number of bytes available in the input read buffer.
-        /// Bytes that are cached by the driver itself are also (generally) accounted for.
-        /// <para>A small error in determining the number of bytes available to read
-        /// may occur, in particularly, an amount less than what is actually available
-        /// for reading may be returned.</para>
-        /// <para>Why we sometimes don't return the total number of bytes is due to
-        /// the asynchronous behaviour of reading from the serial port with consideration
-        /// to performance. Particularly, there might be a small time where the number
-        /// of bytes in the cached buffer is "x", and the number of bytes in the serial
-        /// driver is "y". Normally, the result will be the sum, "X+y". However, there
-        /// may be a very small window of opportunity that the size of the buffer will
-        /// be "x" and the number of bytes in the serial driver is zero, or less than
-        /// "y", because it has just been transferred to the local buffer, but has not
-        /// yet been accounted for.</para>
-        /// </remarks>
+/// <summary>
+/// Gets the number of bytes of data in the receive buffer and in the serial driver.
+/// </summary>
+/// <remarks>
+/// This method returns the number of bytes available in the input read buffer.
+/// Bytes that are cached by the driver itself are also (generally) accounted for.
+/// <para>A small error in determining the number of bytes available to read
+/// may occur, in particularly, an amount less than what is actually available
+/// for reading may be returned.</para>
+/// <para>Why we sometimes don't return the total number of bytes is due to
+/// the asynchronous behavior of reading from the serial port with consideration
+/// to performance. Particularly, there might be a small time where the number
+/// of bytes in the cached buffer is "x", and the number of bytes in the serial
+/// driver is "y". Normally, the result will be the sum, "X+y". However, there
+/// may be a very small window of opportunity that the size of the buffer will
+/// be "x" and the number of bytes in the serial driver is zero, or less than
+/// "y", because it has just been transferred to the local buffer, but has not
+/// yet been accounted for.</para>
+/// </remarks>
         public int BytesToRead
         {
             get
@@ -599,19 +644,21 @@ namespace RJCP.IO.Ports
         private void ReadCheck(byte[] buffer, int offset, int count)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (buffer == null) throw new ArgumentNullException("buffer", "NULL buffer provided");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Negative offset provided");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Negative count provided");
-            if (buffer.Length - offset < count) throw new ArgumentException("offset and count exceed buffer boundaries");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer), "NULL buffer provided");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Negative offset provided");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Negative count provided");
+            if (buffer.Length - offset < count)
+                throw new ArgumentException("offset and count exceed buffer boundaries");
         }
 
         private void ReadCheck(char[] buffer, int offset, int count)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (buffer == null) throw new ArgumentNullException("buffer", "NULL buffer provided");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Negative offset provided");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Negative count provided");
-            if (buffer.Length - offset < count) throw new ArgumentException("offset and count exceed buffer boundaries");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer), "NULL buffer provided");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Negative offset provided");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Negative count provided");
+            if (buffer.Length - offset < count)
+                throw new ArgumentException("offset and count exceed buffer boundaries");
         }
 
         private bool m_ReadCheckDeviceErrorNotified;
@@ -623,9 +670,12 @@ namespace RJCP.IO.Ports
 
         private bool ReadCheckDeviceError(bool immediate)
         {
-            if (m_Buffer != null) {
-                if (IsOpen && !m_NativeSerial.IsRunning && m_Buffer.Stream.BytesToRead == 0) {
-                    if (immediate || m_ReadCheckDeviceErrorNotified) {
+            if (m_Buffer != null)
+            {
+                if (IsOpen && !m_NativeSerial.IsRunning && m_Buffer.Stream.BytesToRead == 0)
+                {
+                    if (immediate || m_ReadCheckDeviceErrorNotified)
+                    {
                         // This should only happen if the monitoring/buffering threads
                         // have died without explicitly closing the serial port.
                         throw new System.IO.IOException("Device Error");
@@ -673,16 +723,17 @@ namespace RJCP.IO.Ports
             if (m_Buffer == null) return 0;
             if (ReadCheckDeviceError()) return 0;
 
-            if (count == 0) return 0;
-            return InternalBlockingRead(buffer, offset, count);
+            return count == 0 ? 0 : InternalBlockingRead(buffer, offset, count);
         }
 
         private int InternalBlockingRead(byte[] buffer, int offset, int count)
         {
-            if (m_NativeSerial.IsRunning) {
-                bool ready = m_Buffer.Stream.WaitForRead(m_ReadTimeout);
+            if (m_NativeSerial.IsRunning)
+            {
+                var ready = m_Buffer.Stream.WaitForRead(m_ReadTimeout);
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (!ready) {
+                if (!ready)
+                {
                     ReadCheckDeviceError();
                     return 0;
                 }
@@ -693,8 +744,9 @@ namespace RJCP.IO.Ports
 
         private int InternalRead(byte[] buffer, int offset, int count)
         {
-            int bytes = m_Buffer.Stream.Read(buffer, offset, count);
-            if (bytes > 0) {
+            var bytes = m_Buffer.Stream.Read(buffer, offset, count);
+            if (bytes > 0)
+            {
                 m_ReadTo.Reset(false);
             }
             return bytes;
@@ -771,13 +823,15 @@ namespace RJCP.IO.Ports
             if (m_Buffer == null) return -1;
             if (ReadCheckDeviceError()) return -1;
 
-            if (m_NativeSerial.IsRunning) {
-                if (!m_Buffer.Stream.WaitForRead(m_ReadTimeout)) {
+            if (m_NativeSerial.IsRunning)
+            {
+                if (!m_Buffer.Stream.WaitForRead(m_ReadTimeout))
+                {
                     ReadCheckDeviceError();
                     return -1;
                 }
             }
-            int value = m_Buffer.Stream.ReadByte();
+            var value = m_Buffer.Stream.ReadByte();
             if (value != -1) m_ReadTo.Reset(false);
             return value;
         }
@@ -805,12 +859,15 @@ namespace RJCP.IO.Ports
 
             if (count == 0) return 0;
 
-            TimerExpiry te = new TimerExpiry(m_ReadTimeout);
+            var te = new TimerExpiry(m_ReadTimeout);
             int chars;
-            do {
+            do
+            {
                 chars = m_ReadTo.Read(m_Buffer, buffer, offset, count);
-                if (chars == 0) {
-                    if (!m_Buffer.Stream.WaitForRead(te.Timeout)) {
+                if (chars == 0)
+                {
+                    if (!m_Buffer.Stream.WaitForRead(te.Timeout))
+                    {
                         ReadCheckDeviceError();
                         return 0;
                     }
@@ -830,12 +887,15 @@ namespace RJCP.IO.Ports
             if (m_Buffer == null) return -1;
             if (ReadCheckDeviceError()) return -1;
 
-            TimerExpiry te = new TimerExpiry(m_ReadTimeout);
+            var te = new TimerExpiry(m_ReadTimeout);
             int chars;
-            do {
+            do
+            {
                 chars = m_ReadTo.ReadChar(m_Buffer);
-                if (chars == -1) {
-                    if (!m_Buffer.Stream.WaitForRead(te.Timeout)) {
+                if (chars == -1)
+                {
+                    if (!m_Buffer.Stream.WaitForRead(te.Timeout))
+                    {
                         ReadCheckDeviceError();
                         return -1;
                     }
@@ -890,13 +950,15 @@ namespace RJCP.IO.Ports
         public string ReadTo(string text)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (string.IsNullOrEmpty(text)) throw new ArgumentException("Parameter text shall not be null or empty", "text");
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentException("Parameter text shall not be null or empty", nameof(text));
             if (m_Buffer == null) return null;
             if (ReadCheckDeviceError()) return null;
 
-            TimerExpiry te = new TimerExpiry(m_ReadTimeout);
-            bool dataAvailable = false;
-            do {
+            var te = new TimerExpiry(m_ReadTimeout);
+            var dataAvailable = false;
+            do
+            {
                 string line;
                 if (m_ReadTo.ReadTo(m_Buffer, text, out line)) return line;
                 dataAvailable =
@@ -944,24 +1006,24 @@ namespace RJCP.IO.Ports
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
             if (m_Buffer == null) return;
 
-            lock (m_Buffer.ReadLock) {
+            lock (m_Buffer.ReadLock)
+            {
                 m_Buffer.Stream.DiscardInBuffer();
                 if (m_NativeSerial.IsOpen) m_NativeSerial.DiscardInBuffer();
             }
         }
+
         #endregion
 
         #region Writing
+
         /// <summary>
         /// Check if this stream supports writing.
         /// </summary>
         /// <remarks>
         /// Supported so long as the stream is not disposed.
         /// </remarks>
-        public override bool CanWrite
-        {
-            get { return !IsDisposed && IsOpen && m_NativeSerial.IsRunning; }
-        }
+        public override bool CanWrite => !IsDisposed && IsOpen && m_NativeSerial.IsRunning;
 
         private int m_WriteTimeout = -1;
 
@@ -988,9 +1050,12 @@ namespace RJCP.IO.Ports
             set
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (value < 0) {
+                if (value < 0)
+                {
                     m_WriteTimeout = -1;
-                } else {
+                }
+                else
+                {
                     m_WriteTimeout = value;
                 }
             }
@@ -1020,13 +1085,16 @@ namespace RJCP.IO.Ports
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                 if (IsOpen) throw new InvalidOperationException("Serial Port already opened");
-                if (value <= 0) throw new ArgumentOutOfRangeException("value", "WriteBufferSize must be greater than zero");
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), "WriteBufferSize must be greater than zero");
 
-                int newBufferSize = value;
+                var newBufferSize = value;
                 if (newBufferSize < 1024) newBufferSize = 1024;
 
-                if (m_WriteBufferSize != newBufferSize) {
-                    if (m_Buffer != null) {
+                if (m_WriteBufferSize != newBufferSize)
+                {
+                    if (m_Buffer != null)
+                    {
                         m_Buffer.Dispose();
                         m_Buffer = null;
                     }
@@ -1048,7 +1116,8 @@ namespace RJCP.IO.Ports
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                 if (m_Buffer == null) return 0;
-                lock (m_Buffer.WriteLock) {
+                lock (m_Buffer.WriteLock)
+                {
                     return m_Buffer.Stream.BytesToWrite + m_NativeSerial.BytesToWrite;
                 }
             }
@@ -1067,11 +1136,12 @@ namespace RJCP.IO.Ports
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
             if (!IsOpen) throw new InvalidOperationException("Serial Port not opened");
 
-            bool flushed = m_Buffer.Stream.Flush(m_WriteTimeout);
+            var flushed = m_Buffer.Stream.Flush(m_WriteTimeout);
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
             if (!IsOpen) throw new IOException("SerialPortStream was closed during write operation");
             WriteCheckDeviceError();
-            if (!flushed) {
+            if (!flushed)
+            {
                 throw new TimeoutException("Flush write time out exceeded");
             }
         }
@@ -1079,17 +1149,19 @@ namespace RJCP.IO.Ports
         private bool WriteCheck(byte[] buffer, int offset, int count)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (buffer == null) throw new ArgumentNullException("buffer", "NULL buffer provided");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Negative offset provided");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Negative count provided");
-            if (buffer.Length - offset < count) throw new ArgumentException("offset and count exceed buffer boundaries");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer), "NULL buffer provided");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Negative offset provided");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Negative count provided");
+            if (buffer.Length - offset < count)
+                throw new ArgumentException("offset and count exceed buffer boundaries");
             if (count == 0) return false;
             if (!IsOpen) throw new InvalidOperationException("Serial Port is closed");
             WriteCheckDeviceError();
 
             // Check that count is less than the total size of the buffer, else raise
             // an exception immediately that the local buffer is too small.
-            if (count > m_WriteBufferSize) {
+            if (count > m_WriteBufferSize)
+            {
                 throw new InvalidOperationException("Insufficient buffer for the data requested");
             }
             return true;
@@ -1097,10 +1169,10 @@ namespace RJCP.IO.Ports
 
         private void WriteCheckDeviceError()
         {
-            if (m_Buffer != null) {
-                if (IsOpen && !m_NativeSerial.IsRunning) {
-                    throw new System.IO.IOException("Device Error");
-                }
+            if (m_Buffer == null) return;
+            if (IsOpen && !m_NativeSerial.IsRunning)
+            {
+                throw new System.IO.IOException("Device Error");
             }
         }
 
@@ -1144,11 +1216,12 @@ namespace RJCP.IO.Ports
 
         private void InternalBlockingWrite(byte[] buffer, int offset, int count)
         {
-            bool ready = m_Buffer.Stream.WaitForWrite(count, m_WriteTimeout);
+            var ready = m_Buffer.Stream.WaitForWrite(count, m_WriteTimeout);
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
             if (!IsOpen) throw new IOException("SerialPortStream was closed during write operation");
 
-            if (!ready) {
+            if (!ready)
+            {
                 WriteCheckDeviceError();
                 throw new TimeoutException("Couldn't write into buffer");
             }
@@ -1243,15 +1316,17 @@ namespace RJCP.IO.Ports
         public void Write(char[] buffer, int offset, int count)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (buffer == null) throw new ArgumentNullException("buffer", "NULL buffer provided");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Negative offset provided");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Negative count provided");
-            if (buffer.Length - offset < count) throw new ArgumentException("offset and count exceed buffer boundaries");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer), "NULL buffer provided");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Negative offset provided");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Negative count provided");
+            if (buffer.Length - offset < count)
+                throw new ArgumentException("offset and count exceed buffer boundaries");
             if (count == 0) return;
             if (!m_NativeSerial.IsRunning) throw new InvalidOperationException("Serial I/O Thread not running");
 
-            byte[] bbuffer = Encoding.GetBytes(buffer, offset, count);
-            if (bbuffer.Length > m_WriteBufferSize) throw new InvalidOperationException("Insufficient buffer for the data requested");
+            var bbuffer = Encoding.GetBytes(buffer, offset, count);
+            if (bbuffer.Length > m_WriteBufferSize)
+                throw new InvalidOperationException("Insufficient buffer for the data requested");
             InternalBlockingWrite(bbuffer, 0, bbuffer.Length);
         }
 
@@ -1271,12 +1346,13 @@ namespace RJCP.IO.Ports
         public void Write(string text)
         {
             if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-            if (text == null) throw new ArgumentNullException("text", "may not be null");
+            if (text == null) throw new ArgumentNullException(nameof(text), "may not be null");
             if (text.Length == 0) return;
             if (!m_NativeSerial.IsRunning) throw new InvalidOperationException("Serial I/O Thread not running");
 
-            byte[] bbuffer = Encoding.GetBytes(text);
-            if (bbuffer.Length > m_WriteBufferSize) throw new InvalidOperationException("Insufficient buffer for the data requested");
+            var bbuffer = Encoding.GetBytes(text);
+            if (bbuffer.Length > m_WriteBufferSize)
+                throw new InvalidOperationException("Insufficient buffer for the data requested");
             InternalBlockingWrite(bbuffer, 0, bbuffer.Length);
         }
 
@@ -1314,9 +1390,11 @@ namespace RJCP.IO.Ports
             // to purge.
             if (m_NativeSerial.IsOpen) m_NativeSerial.DiscardOutBuffer();
         }
+
         #endregion
 
         #region Modem Information and Serial State
+
         /// <summary>
         /// Gets the state of the Carrier Detect line for the port.
         /// </summary>
@@ -1385,9 +1463,11 @@ namespace RJCP.IO.Ports
                 return m_NativeSerial.RingHolding;
             }
         }
+
         #endregion
 
         #region Serial Configuration Settings
+
         /// <summary>
         /// Gets or sets the serial baud rate.
         /// </summary>
@@ -1461,7 +1541,7 @@ namespace RJCP.IO.Ports
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                 if (!Enum.IsDefined(typeof(StopBits), value))
-                    throw new ArgumentOutOfRangeException("value", "Unknown setting for StopBits");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Unknown setting for StopBits");
 
                 m_NativeSerial.StopBits = value;
             }
@@ -1487,7 +1567,7 @@ namespace RJCP.IO.Ports
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
                 if (!Enum.IsDefined(typeof(Parity), value))
-                    throw new ArgumentOutOfRangeException("value", "Unknown setting for Parity");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Unknown setting for Parity");
 
                 m_NativeSerial.Parity = value;
             }
@@ -1717,16 +1797,15 @@ namespace RJCP.IO.Ports
                 m_NativeSerial.BreakState = value;
             }
         }
+
         #endregion
 
         #region Seeking
+
         /// <summary>
         /// This stream is not seekable, so always returns false.
         /// </summary>
-        public override bool CanSeek
-        {
-            get { return false; }
-        }
+        public override bool CanSeek => false;
 
         /// <summary>
         /// This stream does not support the Length property.
@@ -1768,9 +1847,11 @@ namespace RJCP.IO.Ports
         {
             throw new NotSupportedException();
         }
+
         #endregion
 
         #region Event Handling and Abstraction
+
         private object m_EventLock = new object();
         private ManualResetEvent m_EventProcessing = new ManualResetEvent(false);
         private SerialData m_SerialDataFlags = SerialData.NoData;
@@ -1796,10 +1877,8 @@ namespace RJCP.IO.Ports
         /// <param name="args">The <see cref="SerialDataReceivedEventArgs"/> instance containing the event data.</param>
         protected virtual void OnDataReceived(object sender, SerialDataReceivedEventArgs args)
         {
-            EventHandler<SerialDataReceivedEventArgs> handler = DataReceived;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            var handler = DataReceived;
+            handler?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -1814,10 +1893,8 @@ namespace RJCP.IO.Ports
         /// <param name="args">The <see cref="SerialErrorReceivedEventArgs"/> instance containing the event data.</param>
         protected virtual void OnCommError(object sender, SerialErrorReceivedEventArgs args)
         {
-            EventHandler<SerialErrorReceivedEventArgs> handler = ErrorReceived;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            var handler = ErrorReceived;
+            handler?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -1832,15 +1909,14 @@ namespace RJCP.IO.Ports
         /// <param name="args">The <see cref="SerialPinChangedEventArgs"/> instance containing the event data.</param>
         protected virtual void OnPinChanged(object sender, SerialPinChangedEventArgs args)
         {
-            EventHandler<SerialPinChangedEventArgs> handler = PinChanged;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            var handler = PinChanged;
+            handler?.Invoke(sender, args);
         }
 
         private void NativeSerial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            lock (m_EventLock) {
+            lock (m_EventLock)
+            {
                 m_SerialDataFlags |= e.EventType;
             }
             CallEvent();
@@ -1848,7 +1924,8 @@ namespace RJCP.IO.Ports
 
         private void NativeSerial_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
-            lock (m_EventLock) {
+            lock (m_EventLock)
+            {
                 m_SerialErrorFlags |= e.EventType;
             }
             CallEvent();
@@ -1856,7 +1933,8 @@ namespace RJCP.IO.Ports
 
         private void NativeSerial_PinChanged(object sender, SerialPinChangedEventArgs e)
         {
-            lock (m_EventLock) {
+            lock (m_EventLock)
+            {
                 m_SerialPinChange |= e.EventType;
             }
             CallEvent();
@@ -1864,7 +1942,8 @@ namespace RJCP.IO.Ports
 
         private void CallEvent()
         {
-            lock (m_EventLock) {
+            lock (m_EventLock)
+            {
                 if (IsDisposed || m_EventProcessing.WaitOne(0)) return;
                 m_EventProcessing.Set();
             }
@@ -1874,74 +1953,98 @@ namespace RJCP.IO.Ports
 
         private void HandleEvent(object state)
         {
-            SerialData serialDataFlags = SerialData.NoData;
-            SerialError serialErrorFlags = SerialError.NoError;
-            SerialPinChange serialPinChange = SerialPinChange.NoChange;
+            var serialDataFlags = SerialData.NoData;
+            var serialErrorFlags = SerialError.NoError;
+            var serialPinChange = SerialPinChange.NoChange;
 
             bool handleEvent;
-            do {
-                lock (m_EventLock) {
+            do
+            {
+                lock (m_EventLock)
+                {
                     if (IsDisposed) return;
                     handleEvent = (m_SerialDataFlags != 0 || m_SerialErrorFlags != 0 || m_SerialPinChange != 0);
-                    serialDataFlags = m_SerialDataFlags; m_SerialDataFlags = SerialData.NoData;
-                    serialErrorFlags = m_SerialErrorFlags; m_SerialErrorFlags = SerialError.NoError;
-                    serialPinChange = m_SerialPinChange; m_SerialPinChange = SerialPinChange.NoChange;
+                    serialDataFlags = m_SerialDataFlags;
+                    m_SerialDataFlags = SerialData.NoData;
+                    serialErrorFlags = m_SerialErrorFlags;
+                    m_SerialErrorFlags = SerialError.NoError;
+                    serialPinChange = m_SerialPinChange;
+                    m_SerialPinChange = SerialPinChange.NoChange;
                 }
 
-                if (handleEvent) {
-                    SerialTrace.TraceSer.TraceEvent(TraceEventType.Verbose, 0, "{0}: HandleEvent: {1}; {2}; {3};", m_NativeSerial.PortName, serialDataFlags, serialErrorFlags, serialPinChange);
+                if (handleEvent)
+                {
+                    SerialTrace.TraceSer.TraceEvent(TraceEventType.Verbose, 0, "{0}: HandleEvent: {1}; {2}; {3};",
+                        m_NativeSerial.PortName, serialDataFlags, serialErrorFlags, serialPinChange);
                     // Received Data
                     bool aboveThreshold;
-                    lock (m_EventLock) {
+                    lock (m_EventLock)
+                    {
                         aboveThreshold = m_Buffer.Stream.BytesToRead >= m_RxThreshold;
                     }
-                    if (aboveThreshold) {
+                    if (aboveThreshold)
+                    {
                         OnDataReceived(this, new SerialDataReceivedEventArgs(serialDataFlags));
-                    } else if (serialDataFlags.HasFlag(SerialData.Eof)) {
+                    }
+                    else if (serialDataFlags.HasFlag(SerialData.Eof))
+                    {
                         OnDataReceived(this, new SerialDataReceivedEventArgs(SerialData.Eof));
                     }
 
                     // Modem Pin States
-                    if (serialPinChange.HasFlag(SerialPinChange.CtsChanged)) {
+                    if (serialPinChange.HasFlag(SerialPinChange.CtsChanged))
+                    {
                         OnPinChanged(this, new SerialPinChangedEventArgs(SerialPinChange.CtsChanged));
                     }
-                    if (serialPinChange.HasFlag(SerialPinChange.Ring)) {
+                    if (serialPinChange.HasFlag(SerialPinChange.Ring))
+                    {
                         OnPinChanged(this, new SerialPinChangedEventArgs(SerialPinChange.Ring));
                     }
-                    if (serialPinChange.HasFlag(SerialPinChange.CDChanged)) {
+                    if (serialPinChange.HasFlag(SerialPinChange.CDChanged))
+                    {
                         OnPinChanged(this, new SerialPinChangedEventArgs(SerialPinChange.CDChanged));
                     }
-                    if (serialPinChange.HasFlag(SerialPinChange.DsrChanged)) {
+                    if (serialPinChange.HasFlag(SerialPinChange.DsrChanged))
+                    {
                         OnPinChanged(this, new SerialPinChangedEventArgs(SerialPinChange.DsrChanged));
                     }
-                    if (serialPinChange.HasFlag(SerialPinChange.Break)) {
+                    if (serialPinChange.HasFlag(SerialPinChange.Break))
+                    {
                         OnPinChanged(this, new SerialPinChangedEventArgs(SerialPinChange.Break));
                     }
 
                     // Error States
-                    if (serialErrorFlags.HasFlag(SerialError.TXFull)) {
+                    if (serialErrorFlags.HasFlag(SerialError.TXFull))
+                    {
                         OnCommError(this, new SerialErrorReceivedEventArgs(SerialError.TXFull));
                     }
-                    if (serialErrorFlags.HasFlag(SerialError.Frame)) {
+                    if (serialErrorFlags.HasFlag(SerialError.Frame))
+                    {
                         OnCommError(this, new SerialErrorReceivedEventArgs(SerialError.Frame));
                     }
-                    if (serialErrorFlags.HasFlag(SerialError.RXParity)) {
+                    if (serialErrorFlags.HasFlag(SerialError.RXParity))
+                    {
                         OnCommError(this, new SerialErrorReceivedEventArgs(SerialError.RXParity));
                     }
-                    if (serialErrorFlags.HasFlag(SerialError.Overrun)) {
+                    if (serialErrorFlags.HasFlag(SerialError.Overrun))
+                    {
                         OnCommError(this, new SerialErrorReceivedEventArgs(SerialError.Overrun));
                     }
-                    if (serialErrorFlags.HasFlag(SerialError.RXOver)) {
+                    if (serialErrorFlags.HasFlag(SerialError.RXOver))
+                    {
                         OnCommError(this, new SerialErrorReceivedEventArgs(SerialError.RXOver));
                     }
                 }
             } while (handleEvent);
 
-            lock (m_EventLock) {
+            lock (m_EventLock)
+            {
                 if (IsDisposed) return;
                 m_EventProcessing.Reset();
-            };
+            }
+            ;
         }
+
         #endregion
 
         private volatile bool m_IsDisposed;
@@ -1964,24 +2067,28 @@ namespace RJCP.IO.Ports
         {
             if (IsDisposed) return;
 
-            if (disposing) {
+            if (disposing)
+            {
                 // Wait for events to finish before we dispose
                 IsDisposed = true;
-                bool eventRunning = false;
-                lock (m_EventLock) {
-                    if (m_EventProcessing.WaitOne(0)) {
+                var eventRunning = false;
+                lock (m_EventLock)
+                {
+                    if (m_EventProcessing.WaitOne(0))
+                    {
                         eventRunning = true;
                     }
                 }
                 if (eventRunning) m_EventProcessing.WaitOne();
                 m_EventProcessing.Dispose();
 
-                if (m_Buffer != null) m_Buffer.Stream.AbortWait();
+                m_Buffer?.Stream.AbortWait();
 
                 m_NativeSerial.Dispose();
                 m_NativeSerial = null;
 
-                if (m_Buffer != null) {
+                if (m_Buffer != null)
+                {
                     m_Buffer.Dispose();
                     m_Buffer = null;
                     m_ReadTo = null;
@@ -2004,56 +2111,87 @@ namespace RJCP.IO.Ports
             if (string.IsNullOrWhiteSpace(PortName)) return "SerialPortStream: Invalid configuration";
 
             char p;
-            switch (Parity) {
-            case Parity.Even: p = 'E'; break;
-            case Parity.Mark: p = 'M'; break;
-            case Parity.None: p = 'N'; break;
-            case Parity.Odd: p = 'O'; break;
-            case Parity.Space: p = 'S'; break;
-            default: p = '?'; break;
+            switch (Parity)
+            {
+                case Parity.Even:
+                    p = 'E';
+                    break;
+                case Parity.Mark:
+                    p = 'M';
+                    break;
+                case Parity.None:
+                    p = 'N';
+                    break;
+                case Parity.Odd:
+                    p = 'O';
+                    break;
+                case Parity.Space:
+                    p = 'S';
+                    break;
+                default:
+                    p = '?';
+                    break;
             }
 
             string s;
-            switch (StopBits) {
-            case StopBits.One: s = "1"; break;
-            case StopBits.One5: s = "1.5"; break;
-            case StopBits.Two: s = "2"; break;
-            default: s = "?"; break;
+            switch (StopBits)
+            {
+                case StopBits.One:
+                    s = "1";
+                    break;
+                case StopBits.One5:
+                    s = "1.5";
+                    break;
+                case StopBits.Two:
+                    s = "2";
+                    break;
+                default:
+                    s = "?";
+                    break;
             }
 
             string dsrStatus;
-            try {
+            try
+            {
                 dsrStatus = Handshake.HasFlag(Handshake.Dtr) ? "hs" : (IsOpen ? (DsrHolding ? "on" : "off") : "-");
-            } catch (IOException) {
+            }
+            catch (IOException)
+            {
                 dsrStatus = "err";
             }
 
             string ctsStatus;
-            try {
+            try
+            {
                 ctsStatus = Handshake.HasFlag(Handshake.Rts) ? "hs" : (IsOpen ? (CtsHolding ? "on" : "off") : "-");
-            } catch (IOException) {
+            }
+            catch (IOException)
+            {
                 ctsStatus = "err";
             }
 
             string dtrStatus;
-            try {
+            try
+            {
                 dtrStatus = Handshake.HasFlag(Handshake.Dtr) ? "hs" : (IsOpen ? (DtrEnable ? "on" : "off") : "-");
-            } catch (IOException) {
+            }
+            catch (IOException)
+            {
                 dtrStatus = "err";
             }
 
             string rtsStatus;
-            try {
+            try
+            {
                 rtsStatus = Handshake.HasFlag(Handshake.Rts) ? "hs" : (IsOpen ? (RtsEnable ? "on" : "off") : "-");
-            } catch (IOException) {
+            }
+            catch (IOException)
+            {
                 rtsStatus = "err";
             }
 
-            return string.Format("{0}:{1},{2},{3},{4},to={5},xon={6},idsr={7},icts={8},odtr={9},orts={10}",
-                PortName, BaudRate, DataBits, p, s,
-                TxContinueOnXOff ? "on" : "off",
-                Handshake.HasFlag(Handshake.XOn) ? "on" : "off",
-                dsrStatus, ctsStatus, dtrStatus, rtsStatus);
+            return
+                $"{PortName}:{BaudRate},{DataBits},{p},{s},to={(TxContinueOnXOff ? "on" : "off")},xon={(Handshake.HasFlag(Handshake.XOn) ? "on" : "off")},idsr={dsrStatus},icts={ctsStatus},odtr={dtrStatus},orts={rtsStatus}";
         }
     }
 }

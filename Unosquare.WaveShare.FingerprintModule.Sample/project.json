@@ -6,15 +6,19 @@
     "Unosquare.WaveShare.FingerprintModule": { "target": "project" }
   },
   "frameworks": {
-    "netcoreapp1.0": {
+    "netcoreapp1.1": {
       "dependencies": {
-        "Microsoft.NETCore.App": "1.0.5"
+        "System.IO": "4.3.0",
+        "Microsoft.NETCore.App": {
+          "version": "1.1.0",
+          "type": "platform"
+        }
       }
     },
     "net452": {
     }
   },
   "runtimes": {
-    "win8-x64": "" 
+    "win8-x64": ""
   }
 }

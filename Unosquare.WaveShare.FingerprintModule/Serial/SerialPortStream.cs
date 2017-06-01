@@ -635,8 +635,7 @@ namespace RJCP.IO.Ports
             get
             {
                 if (IsDisposed) throw new ObjectDisposedException("SerialPortStream");
-                if (m_Buffer == null) return 0;
-                return m_Buffer.Stream.BytesToRead;
+                return m_Buffer?.Stream.BytesToRead ?? 0;
             }
         }
 #endif

@@ -7,7 +7,7 @@
     /// <summary>
     /// Container structure for properties and methods related to the Native Serial object.
     /// </summary>
-    internal interface ISerialBufferSerialData
+    public interface ISerialBufferSerialData
     {
         /// <summary>
         /// Access the read buffer directly.

@@ -5,7 +5,7 @@
     /// <summary>
     /// Container structure for properties and methods related to the Stream object.
     /// </summary>
-    internal interface ISerialBufferStreamData
+    public interface ISerialBufferStreamData
     {
         /// <summary>
         /// Waits up to a specified time out for data to be available to read.

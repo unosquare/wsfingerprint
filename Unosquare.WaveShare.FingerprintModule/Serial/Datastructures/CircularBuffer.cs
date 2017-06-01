@@ -30,7 +30,7 @@ namespace RJCP.Datastructures
     /// </remarks>
     /// <typeparam name="T">Type to use for the array.</typeparam>
     [DebuggerDisplay("Start = {Start}; Length = {Length}; Free = {Free}")]
-    internal class CircularBuffer<T>
+    public class CircularBuffer<T>
     {
         /// <summary>
         /// Circular buffer itself. Exposed by property "Array".

@@ -88,10 +88,7 @@ namespace RJCP.IO.Ports.Native
         /// <value>
         /// The version of the implementation in use.
         /// </value>
-        public string Version
-        {
-            get { return m_Dll.serial_version(); }
-        }
+        public string Version => m_Dll.serial_version();
 
         /// <summary>
         /// Gets or sets the port device path.
@@ -661,7 +658,7 @@ namespace RJCP.IO.Ports.Native
         public void StartMonitor(SerialBuffer buffer, string name)
         {
             if (m_IsDisposed) throw new ObjectDisposedException("WinNativeSerial");
-            if (buffer == null) throw new ArgumentNullException("buffer");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
             if (!IsOpen) throw new InvalidOperationException("Serial Port not open");
 
             m_Buffer = buffer;
@@ -893,7 +890,7 @@ namespace RJCP.IO.Ports.Native
         /// not running for whatever reason, we can expect no data updates in the buffer provided
         /// to <see cref="StartMonitor(SerialBuffer, string)"/>.
         /// </remarks>
-        public bool IsRunning { get { return m_IsRunning; } }
+        public bool IsRunning => m_IsRunning;
 
         /// <summary>
         /// Occurs when data is received, or the EOF character is detected by the driver.
@@ -903,9 +900,7 @@ namespace RJCP.IO.Ports.Native
         protected virtual void OnDataReceived(object sender, SerialDataReceivedEventArgs args)
         {
             EventHandler<SerialDataReceivedEventArgs> handler = DataReceived;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            handler?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -916,9 +911,7 @@ namespace RJCP.IO.Ports.Native
         protected virtual void OnCommError(object sender, SerialErrorReceivedEventArgs args)
         {
             EventHandler<SerialErrorReceivedEventArgs> handler = ErrorReceived;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            handler?.Invoke(sender, args);
         }
 
         /// <summary>
@@ -929,9 +922,7 @@ namespace RJCP.IO.Ports.Native
         protected virtual void OnPinChanged(object sender, SerialPinChangedEventArgs args)
         {
             EventHandler<SerialPinChangedEventArgs> handler = PinChanged;
-            if (handler != null) {
-                handler(sender, args);
-            }
+            handler?.Invoke(sender, args);
         }
 
 #region IDisposable Support

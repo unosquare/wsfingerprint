@@ -7,20 +7,22 @@
     /// <summary>
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class Response : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Response"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public Response(byte[] payload) : base(payload) { }
+        public Response(byte[] payload) : base(payload)
+        {
+        }
     }
 
     /// <summary>
     /// The Change Baud Rate Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetSetBaudRateResponse : ResponseBase
     {
         /// <summary>
@@ -29,13 +31,13 @@
         /// <param name="payload">The payload.</param>
         public GetSetBaudRateResponse(byte[] payload) : base(payload)
         {
-            BaudRate = (BaudRate)payload[4];
+            BaudRate = (BaudRate) payload[4];
         }
 
         /// <summary>
         /// Gets the baud rate.
         /// </summary>
-        public BaudRate BaudRate { get; private set; }
+        public BaudRate BaudRate { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -52,7 +54,7 @@
     /// <summary>
     /// Get DSP Version Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetDspVersionNumberResponse : ResponseBase
     {
         /// <summary>
@@ -67,7 +69,7 @@
         /// <summary>
         /// Gets the version.
         /// </summary>
-        public string Version { get; private set; }
+        public string Version { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -84,7 +86,7 @@
     /// <summary>
     /// Get or Set Registration Mode Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetSetRegistrationModeResponse : ResponseBase
     {
         /// <summary>
@@ -103,7 +105,7 @@
         /// <value>
         ///   <c>true</c> if [prohibit repeat]; otherwise, <c>false</c>.
         /// </value>
-        public bool ProhibitRepeat { get; private set; }
+        public bool ProhibitRepeat { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -120,7 +122,7 @@
     /// <summary>
     /// Add Fingerprint Response. This includes repsonses for all 3 iterations 1, 2, and 3
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class AddFingerprintResponse : ResponseBase
     {
         /// <summary>
@@ -136,7 +138,7 @@
         /// Gets the iteration of the fingerprint acquisition
         /// 
         /// </summary>
-        public int Iteration { get; private set; }
+        public int Iteration { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -153,7 +155,7 @@
     /// <summary>
     /// Get User Count Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetUserCountResponse : ResponseBase
     {
         /// <summary>
@@ -162,13 +164,13 @@
         /// <param name="payload">The payload.</param>
         public GetUserCountResponse(byte[] payload) : base(payload)
         {
-            UserCount = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
+            UserCount = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
         }
 
         /// <summary>
         /// Gets the number of users registered in the module's database.
         /// </summary>
-        public int UserCount { get; private set; }
+        public int UserCount { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -185,7 +187,7 @@
     /// <summary>
     /// Match 1 to N Response. Contains the User Id and the corresponding privilege
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class MatchOneToNResponse : ResponseBase
     {
         /// <summary>
@@ -194,19 +196,19 @@
         /// <param name="payload">The payload.</param>
         public MatchOneToNResponse(byte[] payload) : base(payload)
         {
-            UserId = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
+            UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             UserPrivilege = payload[4];
         }
 
         /// <summary>
         /// Gets the user identifier.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// Gets the user privilege.
         /// </summary>
-        public int UserPrivilege { get; private set; }
+        public int UserPrivilege { get; }
 
         /// <summary>
         /// Gets a value indicating whether the match was successful
@@ -215,7 +217,8 @@
         {
             get
             {
-                return UserId > 0 && ResponseCode != MessageResponseCode.TimedOut && ResponseCode != MessageResponseCode.NoSuchUser;
+                return UserId > 0 && ResponseCode != MessageResponseCode.TimedOut &&
+                       ResponseCode != MessageResponseCode.NoSuchUser;
             }
         }
 
@@ -234,7 +237,7 @@
     /// <summary>
     /// Get User Privilege Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetUserPrivilegeResponse : ResponseBase
     {
         /// <summary>
@@ -249,7 +252,7 @@
         /// <summary>
         /// Gets or sets the user privilege.
         /// </summary>
-        public int UserPrivilege { get; private set; }
+        public int UserPrivilege { get; }
 
         /// <summary>
         /// Gets a value indicating whether the response is successful
@@ -259,10 +262,7 @@
         /// </value>
         public override bool IsSuccessful
         {
-            get
-            {
-                return ResponseCode != MessageResponseCode.NoSuchUser;
-            }
+            get { return ResponseCode != MessageResponseCode.NoSuchUser; }
         }
 
         /// <summary>
@@ -280,7 +280,7 @@
     /// <summary>
     /// Get or Set Matching Level Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetSetMatchingLevelResponse : ResponseBase
     {
         /// <summary>
@@ -295,7 +295,7 @@
         /// <summary>
         /// Gets the matching level.
         /// </summary>
-        public int MatchingLevel { get; private set; }
+        public int MatchingLevel { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -312,7 +312,7 @@
     /// <summary>
     /// Acquire Image Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class AcquireImageResponse : ResponseBase
     {
 
@@ -332,7 +332,7 @@
         /// <summary>
         /// Gets the image raw data.
         /// </summary>
-        public byte[] ImageRawData { get; private set; }
+        public byte[] ImageRawData { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -350,7 +350,7 @@
     /// <summary>
     /// Acquire Image Eigenvalues Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class AcquireImageEigenvaluesResponse : ResponseBase
     {
         /// <summary>
@@ -369,7 +369,7 @@
         /// <summary>
         /// Gets the eigenvalues.
         /// </summary>
-        public byte[] Eigenvalues { get; private set; }
+        public byte[] Eigenvalues { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -386,7 +386,7 @@
     /// <summary>
     /// Match Eigenvalues to User Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class MatchEigenvaluesToUserResponse : ResponseBase
     {
 
@@ -399,14 +399,14 @@
         {
             if (IsSuccessful)
             {
-                UserId = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
+                UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             }
         }
 
         /// <summary>
         /// Gets the user identifier.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -423,7 +423,7 @@
     /// <summary>
     /// Get User Properties Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -436,7 +436,7 @@
             {
                 var dataPacket = GetBareDataPacket();
                 Eigenvalues = dataPacket.Skip(3).Take(dataPacket.Length - 3).ToArray();
-                UserId = (new byte[] { dataPacket[0], dataPacket[1] }).BigEndianArrayToUInt16();
+                UserId = (new byte[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
                 UserPrivilege = dataPacket[2];
             }
         }
@@ -444,17 +444,17 @@
         /// <summary>
         /// Gets the eigenvalues.
         /// </summary>
-        public byte[] Eigenvalues { get; private set; }
+        public byte[] Eigenvalues { get; }
 
         /// <summary>
         /// Gets the user identifier.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// Gets the user privilege.
         /// </summary>
-        public int UserPrivilege { get; private set; }
+        public int UserPrivilege { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -464,14 +464,15 @@
         /// </returns>
         public override string ToString()
         {
-            return base.ToString() + $" User Id: {UserId}  Privilege: {UserPrivilege}  Eigenvalues: {Eigenvalues?.Length}";
+            return base.ToString() +
+                   $" User Id: {UserId}  Privilege: {UserPrivilege}  Eigenvalues: {Eigenvalues?.Length}";
         }
     }
 
     /// <summary>
     /// Set User Properties Response - Contains the User Id
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class SetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -480,13 +481,13 @@
         /// <param name="payload">The payload.</param>
         public SetUserPropertiesResponse(byte[] payload) : base(payload)
         {
-            UserId = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
+            UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
         }
 
         /// <summary>
         /// Gets the user identifier.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -503,7 +504,7 @@
     /// <summary>
     /// Get or Set Capture Timeout Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetSetCaptureTimeoutResponse : ResponseBase
     {
         /// <summary>
@@ -518,7 +519,7 @@
         /// <summary>
         /// Gets the capture timeout.
         /// </summary>
-        public int CaptureTimeout { get; private set; }
+        public int CaptureTimeout { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -535,7 +536,7 @@
     /// <summary>
     /// Get All Users Response
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule.ResponseBase" />
+    /// <seealso cref="FingerprintModule.ResponseBase" />
     public sealed class GetAllUsersResponse : ResponseBase
     {
         /// <summary>
@@ -549,11 +550,11 @@
 
 
             var dataPacket = GetBareDataPacket();
-            var userCount = (new byte[] { dataPacket[0], dataPacket[1] }).BigEndianArrayToUInt16();
+            var userCount = (new byte[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
             if (userCount == 0) return;
             for (int offset = 2; offset < dataPacket.Length; offset += 3)
             {
-                var userId = (new byte[] { dataPacket[offset], dataPacket[offset + 1] }).BigEndianArrayToUInt16();
+                var userId = (new byte[] {dataPacket[offset], dataPacket[offset + 1]}).BigEndianArrayToUInt16();
                 var privilege = dataPacket[offset + 2];
                 Users[userId] = privilege;
             }
@@ -562,7 +563,7 @@
         /// <summary>
         /// Gets the users. The Keys are the user Ids. The values are their privileges.
         /// </summary>
-        public Dictionary<int, int> Users { get; private set; }
+        public Dictionary<int, int> Users { get; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -575,5 +576,4 @@
             return base.ToString() + $" Users: {Users?.Count}";
         }
     }
-
 }

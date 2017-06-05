@@ -12,33 +12,34 @@
     {
         #region Mappings
 
-        internal static readonly Dictionary<OperationCode, MessageLengthCategory> ResponseLengthCategories = new Dictionary<OperationCode, MessageLengthCategory>
-        {
-            { OperationCode.SleepModule, MessageLengthCategory.Fixed },
-            { OperationCode.ChangeBaudRate, MessageLengthCategory.Fixed },
-            { OperationCode.GetSetRegistrationMode, MessageLengthCategory.Fixed },
-            { OperationCode.AddFingerprint01, MessageLengthCategory.Fixed },
-            { OperationCode.AddFingerprint02, MessageLengthCategory.Fixed },
-            { OperationCode.AddFingerprint03, MessageLengthCategory.Fixed },
-            { OperationCode.DeleteUser, MessageLengthCategory.Fixed },
-            { OperationCode.DeleteAllUsers, MessageLengthCategory.Fixed },
-            { OperationCode.GetUserCount, MessageLengthCategory.Fixed },
-            { OperationCode.MatchOnteToOne, MessageLengthCategory.Fixed },
-            { OperationCode.MatchOneToN, MessageLengthCategory.Fixed },
-            { OperationCode.GetUserPrivilege, MessageLengthCategory.Fixed },
-            { OperationCode.GetDspVersionNumber, MessageLengthCategory.Variable },
-            { OperationCode.GetSetMatchingLevel, MessageLengthCategory.Fixed },
-            { OperationCode.AcquireImage, MessageLengthCategory.Variable },
-            { OperationCode.AcquireImageEigenvalues, MessageLengthCategory.Variable },
-            { OperationCode.GetUserProperties, MessageLengthCategory.Variable },
-            { OperationCode.GetAllUsers, MessageLengthCategory.Variable },
-            { OperationCode.GetSetCaptureTimeout, MessageLengthCategory.Fixed },
+        internal static readonly Dictionary<OperationCode, MessageLengthCategory> ResponseLengthCategories = new Dictionary
+            <OperationCode, MessageLengthCategory>
+            {
+                {OperationCode.SleepModule, MessageLengthCategory.Fixed},
+                {OperationCode.ChangeBaudRate, MessageLengthCategory.Fixed},
+                {OperationCode.GetSetRegistrationMode, MessageLengthCategory.Fixed},
+                {OperationCode.AddFingerprint01, MessageLengthCategory.Fixed},
+                {OperationCode.AddFingerprint02, MessageLengthCategory.Fixed},
+                {OperationCode.AddFingerprint03, MessageLengthCategory.Fixed},
+                {OperationCode.DeleteUser, MessageLengthCategory.Fixed},
+                {OperationCode.DeleteAllUsers, MessageLengthCategory.Fixed},
+                {OperationCode.GetUserCount, MessageLengthCategory.Fixed},
+                {OperationCode.MatchOnteToOne, MessageLengthCategory.Fixed},
+                {OperationCode.MatchOneToN, MessageLengthCategory.Fixed},
+                {OperationCode.GetUserPrivilege, MessageLengthCategory.Fixed},
+                {OperationCode.GetDspVersionNumber, MessageLengthCategory.Variable},
+                {OperationCode.GetSetMatchingLevel, MessageLengthCategory.Fixed},
+                {OperationCode.AcquireImage, MessageLengthCategory.Variable},
+                {OperationCode.AcquireImageEigenvalues, MessageLengthCategory.Variable},
+                {OperationCode.GetUserProperties, MessageLengthCategory.Variable},
+                {OperationCode.GetAllUsers, MessageLengthCategory.Variable},
+                {OperationCode.GetSetCaptureTimeout, MessageLengthCategory.Fixed},
 
-            { OperationCode.MatchImageToEigenvalues, MessageLengthCategory.Fixed },
-            { OperationCode.MatchUserToEigenvalues, MessageLengthCategory.Fixed },
-            { OperationCode.MatchEigenvaluesToUser, MessageLengthCategory.Fixed },
-            { OperationCode.SetUserProperties, MessageLengthCategory.Fixed },
-        };
+                {OperationCode.MatchImageToEigenvalues, MessageLengthCategory.Fixed},
+                {OperationCode.MatchUserToEigenvalues, MessageLengthCategory.Fixed},
+                {OperationCode.MatchEigenvaluesToUser, MessageLengthCategory.Fixed},
+                {OperationCode.SetUserProperties, MessageLengthCategory.Fixed},
+            };
 
         #endregion
 
@@ -47,15 +48,16 @@
         /// </summary>
         /// <param name="payload">The payload.</param>
         public ResponseBase(byte[] payload)
-            : base(MessageType.Response, ResponseLengthCategories[(OperationCode)payload[1]], (OperationCode)payload[1])
+            : base(
+                MessageType.Response, ResponseLengthCategories[(OperationCode) payload[1]], (OperationCode) payload[1])
         {
             Payload = payload;
-            ResponseCode = (MessageResponseCode)payload[4];
+            ResponseCode = (MessageResponseCode) payload[4];
             DataPacketLength = -1;
 
             if (LengthCategory == MessageLengthCategory.Variable)
             {
-                DataPacketLength = (new byte[] { payload[2], payload[3] }).BigEndianArrayToUInt16();
+                DataPacketLength = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             }
 
             if (payload.Length > 8)
@@ -80,7 +82,7 @@
         /// <value>
         /// <c>true</c> if this instance is successful; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool IsSuccessful { get { return ResponseCode == MessageResponseCode.Ok; } }
+        public virtual bool IsSuccessful => ResponseCode == MessageResponseCode.Ok;
 
         /// <summary>
         /// Gets the length of the data packet.
@@ -111,10 +113,8 @@
         /// </returns>
         public override string ToString()
         {
-            var contents = GetPayloadString();
-            return $"{MessageType,-8} {LengthCategory,10} SZ: {Payload.Length,4} - {OperationCode,10}  - {(IsSuccessful ? MessageResponseCode.Ok : ResponseCode),10}, ({DataPacketLength}b)";
+            return
+                $"{MessageType,-8} {LengthCategory,10} SZ: {Payload.Length,4} - {OperationCode,10}  - {(IsSuccessful ? MessageResponseCode.Ok : ResponseCode),10}, ({DataPacketLength}b)";
         }
-
     }
-
 }

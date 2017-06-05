@@ -3,10 +3,14 @@
     using Swan;
     using System;
     using System.Collections.Generic;
+#if NET452
     using System.IO.Ports;
+#else
+    using Unosquare.IO.Ports;
+#endif
     using System.Linq;
     using System.Threading.Tasks;
-
+    
     class Program
     {
         #region Action Options
@@ -22,7 +26,7 @@
             {ConsoleKey.L, "MODULE   - Get Fingerprint Matching Level"},
             {ConsoleKey.K, "MODULE   - Set Fingerprint Matching Level"},
             {ConsoleKey.B, "MODULE   - Change the Baud Rate"},
-            {ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)"},
+            {ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)"}
         };
 
         private static readonly Dictionary<ConsoleKey, string> UsersActionOptions = new Dictionary<ConsoleKey, string>
@@ -35,20 +39,20 @@
             {ConsoleKey.U, "USERS    - Get a User's Privilege and Eigenvalues"},
             {ConsoleKey.Y, "USERS    - Create a new User providing an Id, Privilege and Eigenvalues"},
             {ConsoleKey.W, "USERS    - Delete a User"},
-            {ConsoleKey.Z, "USERS    - Delete all Users (Warning: This deletes the entire database)"},
+            {ConsoleKey.Z, "USERS    - Delete all Users (Warning: This deletes the entire database)"}
         };
 
         private static readonly Dictionary<ConsoleKey, string> MatchingActionOptions = new Dictionary
             <ConsoleKey, string>
             {
                 // Matching Items
-                {ConsoleKey.F1, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)"},
-                {ConsoleKey.F2, "MATCHING - Get a User Id given an Acquired Image (1:N)"},
+                {ConsoleKey.Q, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)"},
+                {ConsoleKey.W, "MATCHING - Get a User Id given an Acquired Image (1:N)"},
                 {ConsoleKey.F3, "MATCHING - Test if an Acquired Image matches the provided Eigenvalues (1:1)"},
                 {ConsoleKey.F4, "MATCHING - Test if a given User ,atches the supplied Eigenvalues (1:1)"},
                 {ConsoleKey.F5, "MATCHING - Get a User Id given an array with Eigenvalues (1:N)"},
                 {ConsoleKey.F6, "MATCHING - Acquire Image"},
-                {ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues"},
+                {ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues"}
             };
 
 
@@ -57,7 +61,7 @@
             // Module COntrol Items
             {ConsoleKey.Q, "MODULE   - Module Menu"},
             {ConsoleKey.W, "USERS    - Users Menu"},
-            {ConsoleKey.E, "MATCHING - Matching Menu"},
+            {ConsoleKey.E, "MATCHING - Matching Menu"}
         };
 
         #endregion
@@ -66,7 +70,7 @@
         {
             var baseChar = 65;
             var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey) baseChar++, v => v);
-            var portName = string.Empty;
+            string portName;
 
             if (portNames.Any() == false)
             {
@@ -93,18 +97,20 @@
 
         static void Main(string[] args)
         {
+            $"Mode: {FingerprintReader.Mode}".Info();
+
+            var portName = PromptForSerialPort();
+            
+            if (string.IsNullOrEmpty(portName))
+                return;
+            
             using (var reader = new FingerprintReader())
             {
-                var portName = PromptForSerialPort();
-                if (string.IsNullOrEmpty(portName))
-                    return;
-
                 $"Opening port '{portName}' . . .".Info();
                 reader.Open(portName);
 
                 var t = Task.Factory.StartNew(async () =>
                 {
-                    //var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
                     while (true)
                     {
                         #region Main Menu
@@ -163,14 +169,14 @@
                         {
                             var baseChar = 65;
                             var baudRates = Enum.GetNames(typeof(BaudRate))
-                                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
+                                .ToDictionary(p => (ConsoleKey)baseChar++, v => v);
                             var baudSelection =
                                 $"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}".ReadPrompt(
                                     baudRates, "Exit this prompt");
 
                             if (baudRates.ContainsKey(baudSelection.Key))
                             {
-                                var newBaudRate = (BaudRate) Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
+                                var newBaudRate = (BaudRate)Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
                                 await reader.SetBaudRate(newBaudRate);
                             }
                         }
@@ -246,12 +252,12 @@
                         {
                             var result = await reader.AcquireImageEigenvalues();
                         }
-                        else if (selectedOption.Key == ConsoleKey.F1)
+                        else if (selectedOption.Key == ConsoleKey.Q)
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var result = await reader.MatchOneToOne(userId);
                         }
-                        else if (selectedOption.Key == ConsoleKey.F2)
+                        else if (selectedOption.Key == ConsoleKey.W)
                         {
                             var result = await reader.MatchOneToN();
                         }
@@ -307,10 +313,6 @@
                         {
                             var result = await reader.Sleep();
                         }
-                        else
-                        {
-                            continue;
-                        }
 
                         #endregion
                     }
@@ -322,7 +324,7 @@
                 }
                 catch (Exception ex)
                 {
-                    ex.Log();
+                    ex.Log(nameof(Program));
                 }
             }
 

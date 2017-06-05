@@ -69,6 +69,7 @@
         {
             var payload = new byte[8] { PayloadDelimiter, (byte)commandCode, b3, b4, b5, b6, 0, PayloadDelimiter, };
             payload[6] = payload.ComputeChecksum();
+
             return payload;
         }
 
@@ -98,7 +99,7 @@
             var fullPayload = new byte[headerPacket.Length + dataPacket.Length];
             Array.Copy(headerPacket, fullPayload, headerPacket.Length);
             Array.Copy(dataPacket, 0, fullPayload, headerPacket.Length, dataPacket.Length);
-
+            
             return fullPayload;
         }
 

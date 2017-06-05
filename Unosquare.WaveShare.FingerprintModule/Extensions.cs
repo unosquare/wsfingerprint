@@ -1,7 +1,6 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
     using System;
-    using System.Globalization;
     using System.Linq;
 
     /// <summary>
@@ -91,7 +90,7 @@
             byte checksum = payload[startIndex];
             for (var i = startIndex + 1; i <= endIndex; i++)
             {
-                checksum = (byte)(checksum ^ payload[i]);
+                checksum = (byte) (checksum ^ payload[i]);
             }
 
             return checksum;

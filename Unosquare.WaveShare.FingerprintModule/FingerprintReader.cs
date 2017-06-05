@@ -9,8 +9,7 @@
 #if NET452
     using System.IO.Ports;
 #else
-    using RJCP.IO.Ports.Native;
-    using RJCP.IO.Ports;
+    using Unosquare.IO.Ports;
 #endif
 
     /// <summary>
@@ -19,14 +18,14 @@
     /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader
     /// </summary>
     /// <seealso cref="System.IDisposable" />
-    public abstract class FingerprintReaderBase : IDisposable
+    public sealed class FingerprintReader : IDisposable
     {
         #region Private Declarations
 
         /// <summary>
         /// The read buffer length of the serial port
         /// </summary>
-        protected const int ReadBufferLength = 1024 * 16;
+        private const int ReadBufferLength = 1024 * 16;
 
         /// <summary>
         /// The default timeout
@@ -54,23 +53,15 @@
         #endregion
 
         #region Properties
-
-#if NET452
+        
         /// <summary>
         /// Gets the serial port associated with this reader.
         /// </summary>
         public SerialPort SerialPort { get; protected set; }
-#else
-        /// <summary>
-        /// Gets the serial port associated with this reader.
-        /// </summary>
-        public SerialPortStream SerialPort { get; protected set; }
-#endif
 
         #endregion
 
         #region Open and Close Methods
-
         /// <summary>
         /// Opens the serial port with the specified port name.
         /// Under Windows it's something like COM3. On Linux, it's something like
@@ -79,7 +70,24 @@
         /// <param name="baud">The baud.</param>
         /// <param name="probeBaudRates">if set to <c>true</c> [probe baud rates].</param>
         /// <exception cref="System.InvalidOperationException">Device is already open. Call the Close method first.</exception>
-        public abstract void Open(string portName, BaudRate baud, bool probeBaudRates);
+        public void Open(string portName, BaudRate baud, bool probeBaudRates)
+        {
+            if (SerialPort != null)
+                throw new InvalidOperationException("Device is already open. Call the Close method first.");
+
+            SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One)
+            {
+                ReadBufferSize = ReadBufferLength
+            };
+
+            SerialPort.Open();
+
+            if (probeBaudRates)
+            {
+                "Will probe baud rates.".Trace();
+                var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
+            }
+        }
 
         /// <summary>
         /// Opens the serial port with the specified port name.
@@ -549,13 +557,8 @@
 
             try
             {
-#if NET452
                 await SerialPort.BaseStream.WriteAsync(payload, 0, payload.Length);
                 await SerialPort.BaseStream.FlushAsync();
-#else
-                await SerialPort.WriteAsync(payload, 0, payload.Length);
-                await SerialPort.FlushAsync();
-#endif
             }
             catch (Exception ex)
             {
@@ -597,11 +600,7 @@
                 while (SerialPort.BytesToRead > 0)
                 {
                     count +=
-#if NET452
                         await SerialPort.BaseStream.ReadAsync(buffer, offset, buffer.Length, ct);
-#else
-                        await SerialPort.ReadAsync(buffer, offset, buffer.Length, ct);
-#endif
                     offset += count;
                 }
 
@@ -651,11 +650,8 @@
                     if (SerialPort.BytesToRead > 0)
                     {
                         var readBytes =
-#if NET452
                             await SerialPort.BaseStream.ReadAsync(buffer, 0, buffer.Length, ct);
-#else
-                            await SerialPort.ReadAsync(buffer, 0, buffer.Length, ct);
-#endif
+
                         response.AddRange(buffer.Skip(0).Take(readBytes));
                         remainingBytes = expectedBytes - response.Count;
                         startTime = DateTime.UtcNow;
@@ -732,95 +728,4 @@
 
         #endregion
     }
-
-    /// <summary>
-    /// Our main character representing the WaveShare Fingerprint reader module
-    /// Reference: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
-    /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader
-    /// </summary>
-    /// <seealso cref="System.IDisposable" />
-    public sealed class FingerprintReader : FingerprintReaderBase
-    {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FingerprintReader"/> class.
-        /// </summary>
-        public FingerprintReader()
-        {
-
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like
-        /// </summary>
-        /// <param name="portName">Name of the port.</param>
-        /// <param name="baud">The baud.</param>
-        /// <param name="probeBaudRates">if set to <c>true</c> [probe baud rates].</param>
-        /// <exception cref="System.InvalidOperationException">Device is already open. Call the Close method first.</exception>
-        public override void Open(string portName, BaudRate baud, bool probeBaudRates)
-        {
-            if (SerialPort != null)
-                throw new InvalidOperationException("Device is already open. Call the Close method first.");
-
-#if NET452
-            SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One);
-#else
-            SerialPort = new SerialPortStream(portName, baud.ToInt(), 8, Parity.None, StopBits.One);
-#endif
-            SerialPort.ReadBufferSize = ReadBufferLength;
-            SerialPort.Open();
-
-            if (probeBaudRates)
-            {
-                "Will probe baud rates.".Trace();
-                var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
-            }
-        }
-    }
-
-#if !NET452
-    /// <summary>
-    /// Our main character representing the WaveShare Fingerprint reader module
-    /// Reference: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
-    /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader
-    /// </summary>
-    /// <seealso cref="System.IDisposable" />
-    public sealed class FingerprintReader<T> : FingerprintReaderBase
-        where T : INativeSerial
-    {
-        /// <summary>
-        /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like
-        /// </summary>
-        /// <param name="portName">Name of the port.</param>
-        /// <param name="baud">The baud.</param>
-        /// <param name="probeBaudRates">if set to <c>true</c> [probe baud rates].</param>
-        /// <exception cref="System.InvalidOperationException">Device is already open. Call the Close method first.</exception>
-        public override void Open(string portName, BaudRate baud, bool probeBaudRates)
-        {
-            if (SerialPort != null)
-                throw new InvalidOperationException("Device is already open. Call the Close method first.");
-            
-            SerialPort = new SerialPortStream(Activator.CreateInstance<T>())
-            {
-                ReadBufferSize = ReadBufferLength,
-                PortName = portName,
-                BaudRate = baud.ToInt()
-            };
-
-            SerialPort.Open();
-
-            if (probeBaudRates)
-            {
-                "Will probe baud rates.".Trace();
-                var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
-            }
-        }
-    }
-
-#endif
 }

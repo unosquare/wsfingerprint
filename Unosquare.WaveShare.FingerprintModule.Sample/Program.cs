@@ -6,9 +6,7 @@
 #if NET452
     using System.IO.Ports;
 #else
-    using RJCP.IO.Ports;
-    using RaspberryIO;
-    using RaspberryIO.Native;
+    
 #endif
     using System.Linq;
     using System.Threading.Tasks;
@@ -106,35 +104,12 @@
         {
             var wiringPiMode = args.Any();
             var portName = "/dev/ttyS0"; //PromptForSerialPort();
-
-#if !NET452
-            // Test
-            //$"Running PI: {Pi.Info.OperatingSystem}".Info();
-            //var id = open_serial(portName);
-            //$"Opening {id}".Info();
-
-            //var sts = set_attributes(id, 9600, Parity.None, 8, StopBits.One, Handshake.None);
-            //$"Set {sts}".Info();
-
-            //var payload = new byte[] {0xf5, 0x21, 0x00, 0x00, 0x02, 0x00, 0x23, 0xf5};
-
-            //var w = write_serial(id, payload, 0, payload.Length, 1000);
-            //var r = read_serial(id, payload, 0, payload.Length);
-
-            //$"w? {w} r? {r} TO? {payload.ToLowerHex()}".Info();
             
-            //Console.ReadLine();
-#endif
 
             if (string.IsNullOrEmpty(portName))
                 return;
             
-
-#if NET452
             using (var reader = new FingerprintReader())
-#else
-            using (var reader = new FingerprintReader<MonoSerial>())
-#endif
             {
                 $"Opening port '{portName}' . . .".Info();
                 reader.Open(portName, BaudRate.Baud9600, true);

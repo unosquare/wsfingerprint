@@ -1,17 +1,22 @@
 {
   "version": "1.1.0-*",
   "title": "Unosquare.WaveShare.FingerprintModule.Sample",
-  "buildOptions": {"emitEntryPoint": true},
+  "buildOptions": {"emitEntryPoint": true, "allowUnsafe": true},
   "dependencies": {
     "Unosquare.WaveShare.FingerprintModule": { "target": "project" }
   },
   "frameworks": {
     "netcoreapp1.1": {
       "dependencies": {
+        "Unosquare.RaspberryIO": { "target": "project" },
         "System.IO": "4.3.0",
         "Microsoft.NETCore.App": {
           "version": "1.1.0",
           "type": "platform"
+        },
+        "System.ComponentModel.Primitives": {
+          "version": "4.3.0",
+          "exclude": "runtime"
         }
       }
     },

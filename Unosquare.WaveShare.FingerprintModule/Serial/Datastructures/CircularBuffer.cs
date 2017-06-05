@@ -91,7 +91,7 @@ namespace RJCP.Datastructures
         /// <param name="count">Length of data in array, beginning from offset 0.</param>
         public CircularBuffer(T[] array, int count)
         {
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "must be positive");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "must be positive");
             if (count > array.Length)
                 throw new ArgumentOutOfRangeException("Count (" + count +
                     ") exceeds the array boundaries (" + array.Length + ")");
@@ -118,8 +118,8 @@ namespace RJCP.Datastructures
         /// <param name="count">Length of data in array, wrapping to the start of the array.</param>
         public CircularBuffer(T[] array, int offset, int count)
         {
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "must be positive");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "must be positive");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "must be positive");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "must be positive");
             if (count > array.Length)
                 throw new ArgumentOutOfRangeException("Count (" + count +
                     ") exceeds the array boundaries (" + array.Length + ")");
@@ -259,7 +259,7 @@ namespace RJCP.Datastructures
         /// <returns>Length.</returns>
         public int GetReadBlock(int offset)
         {
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "offset must be zero or greater");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "offset must be zero or greater");
             if (offset >= m_Count) return 0;
 
             int s = (m_Start + offset) % m_Array.Length;
@@ -287,7 +287,7 @@ namespace RJCP.Datastructures
         /// <param name="length">Amount of data to consume.</param>
         public void Consume(int length)
         {
-            if (length < 0) throw new ArgumentOutOfRangeException("length", "must be positive");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "must be positive");
             if (length > m_Count)
                 throw new ArgumentOutOfRangeException("Can't consume more data than exists: Length=" +
                     m_Count + "; Consume=" + length);
@@ -306,9 +306,9 @@ namespace RJCP.Datastructures
         /// of the array if overlapped.</param>
         public void Produce(int length)
         {
-            if (length < 0) throw new ArgumentOutOfRangeException("length", "must be positive");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "must be positive");
             if (m_Count + length > m_Array.Length)
-                throw new ArgumentOutOfRangeException("length", "Can't produce more data than buffer size: Free=" +
+                throw new ArgumentOutOfRangeException(nameof(length), "Can't produce more data than buffer size: Free=" +
                     Free + "; Produce=" + length);
             m_Count += length;
         }
@@ -327,8 +327,8 @@ namespace RJCP.Datastructures
         /// </remarks>
         public void Revert(int length)
         {
-            if (length < 0) throw new ArgumentOutOfRangeException("length", "must be positive");
-            if (m_Count < length) throw new ArgumentOutOfRangeException("length", "must be less than number of elements in the circular buffer");
+            if (length < 0) throw new ArgumentOutOfRangeException(nameof(length), "must be positive");
+            if (m_Count < length) throw new ArgumentOutOfRangeException(nameof(length), "must be less than number of elements in the circular buffer");
 
             m_Count -= length;
         }
@@ -351,7 +351,7 @@ namespace RJCP.Datastructures
         /// <see cref="ReadLength"/>, <see cref="End"/> and <see cref="WriteLength"/> for knowing
         /// where in the buffer to read and write.
         /// </remarks>
-        public T[] Array { get { return m_Array; } }
+        public T[] Array => m_Array;
 
         /// <summary>
         /// Access an element in the array using the Start as index 0.
@@ -378,7 +378,7 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int Append(T[] array)
         {
-            if (array == null) throw new ArgumentNullException("array");
+            if (array == null) throw new ArgumentNullException(nameof(array));
             return Append(array, 0, array.Length);
         }
 
@@ -398,9 +398,9 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int Append(T[] array, int offset, int count)
         {
-            if (array == null) throw new ArgumentNullException("array");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Offset must be positive");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Count must be positive");
+            if (array == null) throw new ArgumentNullException(nameof(array));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Offset must be positive");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive");
             if (offset + count > array.Length) throw new ArgumentException("Parameters exceed array boundary");
             if (m_Count == Capacity) return 0;
             if (count == 0) return 0;
@@ -432,7 +432,7 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int Append(CircularBuffer<T> buffer)
         {
-            if (buffer == null) throw new ArgumentNullException("buffer");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
             return Append(buffer, 0, buffer.Length);
         }
 
@@ -470,9 +470,9 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int Append(CircularBuffer<T> buffer, int offset, int count)
         {
-            if (buffer == null) throw new ArgumentNullException("buffer");
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Offset must be positive");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Count must be positive");
+            if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Offset must be positive");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive");
             if (offset + count > buffer.Length) throw new ArgumentException("Parameters exceed buffer boundary");
             if (m_Count == Capacity) return 0;
             if (count == 0) return 0;
@@ -565,7 +565,7 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int CopyTo(T[] array)
         {
-            if (array == null) throw new ArgumentNullException("array");
+            if (array == null) throw new ArgumentNullException(nameof(array));
             return CopyTo(array, 0, array.Length);
         }
 
@@ -583,10 +583,10 @@ namespace RJCP.Datastructures
         /// </remarks>
         public int CopyTo(T[] array, int offset, int count)
         {
-            if (array == null) throw new ArgumentNullException("array");
+            if (array == null) throw new ArgumentNullException(nameof(array));
             if (count == 0) return 0;
-            if (offset < 0) throw new ArgumentOutOfRangeException("offset", "Offset must be positive");
-            if (count < 0) throw new ArgumentOutOfRangeException("count", "Count must be positive");
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Offset must be positive");
+            if (count < 0) throw new ArgumentOutOfRangeException(nameof(count), "Count must be positive");
             if (array.Length < offset + count) throw new ArgumentException("Offset and count exceed boundary length");
 
             int length = Math.Min(count, Length);
@@ -718,10 +718,10 @@ namespace RJCP.Datastructures
         /// </remarks>
         public static void Convert(this Decoder decoder, CircularBuffer<byte> bytes, char[] chars, int charIndex, int charCount, bool flush, out int bytesUsed, out int charsUsed, out bool completed)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes", "Circular buffer bytes may not be null");
-            if (chars == null) throw new ArgumentNullException("chars", "Array chars may not be null");
-            if (charIndex < 0) throw new ArgumentOutOfRangeException("charIndex", "Negative offset provided");
-            if (charCount < 0) throw new ArgumentOutOfRangeException("charCount", "Negative count provided");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes), "Circular buffer bytes may not be null");
+            if (chars == null) throw new ArgumentNullException(nameof(chars), "Array chars may not be null");
+            if (charIndex < 0) throw new ArgumentOutOfRangeException(nameof(charIndex), "Negative offset provided");
+            if (charCount < 0) throw new ArgumentOutOfRangeException(nameof(charCount), "Negative count provided");
             if (chars.Length - charIndex < charCount) throw new ArgumentException("charIndex and charCount exceed char buffer boundaries");
 
             bytesUsed = 0;
@@ -777,8 +777,8 @@ namespace RJCP.Datastructures
         /// converted input.</exception>
         public static void Convert(this Decoder decoder, CircularBuffer<byte> bytes, CircularBuffer<char> chars, int charCount, bool flush, out int bytesUsed, out int charsUsed, out bool completed)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes", "Circular buffer bytes may not be null");
-            if (chars == null) throw new ArgumentNullException("chars", "Circular buffer chars may not be null");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes), "Circular buffer bytes may not be null");
+            if (chars == null) throw new ArgumentNullException(nameof(chars), "Circular buffer chars may not be null");
 
             charCount = Math.Min(chars.Free, charCount);
             bytesUsed = 0;
@@ -846,8 +846,8 @@ namespace RJCP.Datastructures
         /// converted input.</exception>
         public static void Convert(this Decoder decoder, CircularBuffer<byte> bytes, CircularBuffer<char> chars, bool flush, out int bytesUsed, out int charsUsed, out bool completed)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes", "Circular buffer bytes may not be null");
-            if (chars == null) throw new ArgumentNullException("chars", "Circular buffer chars may not be null");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes), "Circular buffer bytes may not be null");
+            if (chars == null) throw new ArgumentNullException(nameof(chars), "Circular buffer chars may not be null");
             decoder.Convert(bytes, chars, chars.Free, flush, out bytesUsed, out charsUsed, out completed);
         }
 
@@ -869,10 +869,10 @@ namespace RJCP.Datastructures
         /// passed uninitialized.</param>
         public static void Convert(this Decoder decoder, byte[] bytes, int byteIndex, int byteCount, CircularBuffer<char> chars, bool flush, out int bytesUsed, out int charsUsed, out bool completed)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes", "Array bytes may not be null");
-            if (chars == null) throw new ArgumentNullException("chars", "CircularBuffer chars may not be null");
-            if (byteIndex < 0) throw new ArgumentOutOfRangeException("byteIndex", "Negative offset provided");
-            if (byteCount < 0) throw new ArgumentOutOfRangeException("byteCount", "Negative count provided");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes), "Array bytes may not be null");
+            if (chars == null) throw new ArgumentNullException(nameof(chars), "CircularBuffer chars may not be null");
+            if (byteIndex < 0) throw new ArgumentOutOfRangeException(nameof(byteIndex), "Negative offset provided");
+            if (byteCount < 0) throw new ArgumentOutOfRangeException(nameof(byteCount), "Negative count provided");
             if (bytes.Length - byteIndex < byteCount) throw new ArgumentException("byteIndex and byteCount exceed byte buffer boundaries");
 
             bytesUsed = 0;
@@ -945,10 +945,10 @@ namespace RJCP.Datastructures
             // The code here is the same as the "Decoder" version as they do the same thing. Unfortunately,
             // .NET doesn't have a base class for this, so we need two separate encoder/decoder methods.
 
-            if (chars == null) throw new ArgumentNullException("chars", "chars may not be null");
-            if (bytes == null) throw new ArgumentNullException("bytes", "Circular buffer bytes may not be null");
-            if (charIndex < 0) throw new ArgumentOutOfRangeException("charIndex", "Negative offset provided");
-            if (charCount < 0) throw new ArgumentOutOfRangeException("charCount", "Negative count provided");
+            if (chars == null) throw new ArgumentNullException(nameof(chars), "chars may not be null");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes), "Circular buffer bytes may not be null");
+            if (charIndex < 0) throw new ArgumentOutOfRangeException(nameof(charIndex), "Negative offset provided");
+            if (charCount < 0) throw new ArgumentOutOfRangeException(nameof(charCount), "Negative count provided");
             if (chars.Length - charIndex < charCount) throw new ArgumentException("charIndex and charCount exceed char buffer boundaries");
 
             bytesUsed = 0;

@@ -2,6 +2,8 @@
 // Sources at https://github.com/jcurl/SerialPortStream
 // Licensed under the Microsoft Public License (Ms-PL)
 
+using Unosquare.Swan;
+
 namespace RJCP.IO.Ports.Native
 {
     using System;
@@ -390,6 +392,7 @@ namespace RJCP.IO.Ports.Native
             lock (m_WriteLock)
             {
                 int bytes = m_WriteBuffer.Append(buffer, offset, count);
+                
                 m_WriteBufferNotEmptyEvent.Set();
                 m_TxEmptyEvent.Reset();
                 if (m_WriteBuffer.Free == 0)

@@ -7,6 +7,8 @@
 // this implementation.
 //#define DRIVERBUFFEREDBYTES
 
+using Unosquare.Swan;
+
 namespace RJCP.IO.Ports
 {
     using System;
@@ -1169,6 +1171,7 @@ namespace RJCP.IO.Ports
         private void WriteCheckDeviceError()
         {
             if (m_Buffer == null) return;
+
             if (IsOpen && !m_NativeSerial.IsRunning)
             {
                 throw new System.IO.IOException("Device Error");

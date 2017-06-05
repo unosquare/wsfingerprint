@@ -7,10 +7,12 @@
     using System.IO.Ports;
 #else
     using RJCP.IO.Ports;
+    using RaspberryIO;
+    using RaspberryIO.Native;
 #endif
     using System.Linq;
     using System.Threading.Tasks;
-
+    
     class Program
     {
         #region Action Options
@@ -102,18 +104,43 @@
 
         static void Main(string[] args)
         {
-            using (var reader = new FingerprintReader())
-            {
-                var portName = PromptForSerialPort();
-                if (string.IsNullOrEmpty(portName))
-                    return;
+            var wiringPiMode = args.Any();
+            var portName = "/dev/ttyS0"; //PromptForSerialPort();
 
+#if !NET452
+            // Test
+            //$"Running PI: {Pi.Info.OperatingSystem}".Info();
+            //var id = open_serial(portName);
+            //$"Opening {id}".Info();
+
+            //var sts = set_attributes(id, 9600, Parity.None, 8, StopBits.One, Handshake.None);
+            //$"Set {sts}".Info();
+
+            //var payload = new byte[] {0xf5, 0x21, 0x00, 0x00, 0x02, 0x00, 0x23, 0xf5};
+
+            //var w = write_serial(id, payload, 0, payload.Length, 1000);
+            //var r = read_serial(id, payload, 0, payload.Length);
+
+            //$"w? {w} r? {r} TO? {payload.ToLowerHex()}".Info();
+            
+            //Console.ReadLine();
+#endif
+
+            if (string.IsNullOrEmpty(portName))
+                return;
+            
+
+#if NET452
+            using (var reader = new FingerprintReader())
+#else
+            using (var reader = new FingerprintReader<MonoSerial>())
+#endif
+            {
                 $"Opening port '{portName}' . . .".Info();
-                reader.Open(portName);
+                reader.Open(portName, BaudRate.Baud9600, true);
 
                 var t = Task.Factory.StartNew(async () =>
                 {
-                    //var changeBaudResult = await reader.SetBaudRate(BaudRate.Baud19200);
                     while (true)
                     {
                         #region Main Menu
@@ -172,14 +199,14 @@
                         {
                             var baseChar = 65;
                             var baudRates = Enum.GetNames(typeof(BaudRate))
-                                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
+                                .ToDictionary(p => (ConsoleKey)baseChar++, v => v);
                             var baudSelection =
                                 $"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}".ReadPrompt(
                                     baudRates, "Exit this prompt");
 
                             if (baudRates.ContainsKey(baudSelection.Key))
                             {
-                                var newBaudRate = (BaudRate) Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
+                                var newBaudRate = (BaudRate)Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
                                 await reader.SetBaudRate(newBaudRate);
                             }
                         }
@@ -315,10 +342,6 @@
                         else if (selectedOption.Key == ConsoleKey.S)
                         {
                             var result = await reader.Sleep();
-                        }
-                        else
-                        {
-                            continue;
                         }
 
                         #endregion

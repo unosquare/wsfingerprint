@@ -1,4 +1,6 @@
-﻿namespace Unosquare.WaveShare.FingerprintModule
+﻿using Unosquare.Swan;
+
+namespace Unosquare.WaveShare.FingerprintModule
 {
     using System;
     using System.Collections.Generic;
@@ -69,6 +71,8 @@
         {
             var payload = new byte[8] { PayloadDelimiter, (byte)commandCode, b3, b4, b5, b6, 0, PayloadDelimiter, };
             payload[6] = payload.ComputeChecksum();
+            $"Payload {commandCode} - {payload.ToLowerHex()}".Info();
+
             return payload;
         }
 
@@ -99,6 +103,7 @@
             Array.Copy(headerPacket, fullPayload, headerPacket.Length);
             Array.Copy(dataPacket, 0, fullPayload, headerPacket.Length, dataPacket.Length);
 
+            $"Payload {commandCode} - {fullPayload.ToLowerHex()}".Info();
             return fullPayload;
         }
 

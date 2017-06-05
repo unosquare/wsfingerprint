@@ -20,7 +20,7 @@
         "System.Diagnostics.FileVersionInfo": "4.3.0",
         "Microsoft.Win32.Registry": "4.3.0"
       },
-      "buildOptions": { "define": ["NETSTANDARD15"] }
+      "buildOptions": { "define": [ "WIRINGPI" ] }
     },
     "net452": {
       "frameworkAssemblies": {

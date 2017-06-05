@@ -20,7 +20,17 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class FingerprintReader : IDisposable
     {
-        #region Private Declarations
+        /// <summary>
+        /// The mode how is running the reader
+        /// </summary>
+        public const string Mode =
+#if WIRINGPI
+            "WiringPi";
+#else
+            "Normal";
+#endif
+
+#region Private Declarations
 
         /// <summary>
         /// The read buffer length of the serial port
@@ -50,18 +60,18 @@
         private const bool IsDebugBuild = false;
 #endif
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
         
         /// <summary>
         /// Gets the serial port associated with this reader.
         /// </summary>
         public SerialPort SerialPort { get; protected set; }
 
-        #endregion
+#endregion
 
-        #region Open and Close Methods
+#region Open and Close Methods
         /// <summary>
         /// Opens the serial port with the specified port name.
         /// Under Windows it's something like COM3. On Linux, it's something like
@@ -129,9 +139,9 @@
             Close();
         }
 
-        #endregion
+#endregion
 
-        #region Fingerprint Reader Protocol
+#region Fingerprint Reader Protocol
 
         /// <summary>
         /// Gets the version number of the DSP module.
@@ -172,8 +182,7 @@
                 (byte) SerialPort.BaudRate.ToBaudRate());
 
             var result = new GetSetBaudRateResponse(resultPayload);
-
-            $"Initial baud rate probing at {SerialPort.BaudRate}".Info();
+            
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
 
@@ -182,11 +191,9 @@
 
             foreach (var baudRate in baudRates)
             {
-                $"Closing this {baudRate}".Info();
-
                 Close();
                 Open(portName, baudRate, false);
-                $"Baud rate probing at {SerialPort.BaudRate}".Info();
+
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
 
                 if (probeResponse != null)
@@ -476,9 +483,9 @@
             return await GetResponseAsync<GetAllUsersResponse>(command);
         }
 
-        #endregion
+#endregion
 
-        #region Read and Write Methods
+#region Read and Write Methods
 
         /// <summary>
         /// Given a command, gets a response object asynchronously.
@@ -670,7 +677,6 @@
                         if (response.Count >= 4 && iteration == 0)
                         {
                             iteration++;
-                            $"Checking ByteCode {response[1]}".Info();
 
                             isVariableLengthResponse =
                                 ResponseBase.ResponseLengthCategories[(OperationCode) response[1]] ==
@@ -728,6 +734,6 @@
             }
         }
 
-        #endregion
+#endregion
     }
 }

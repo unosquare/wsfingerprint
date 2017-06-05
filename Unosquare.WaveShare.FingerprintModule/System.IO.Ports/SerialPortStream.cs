@@ -16,24 +16,6 @@ using System.Runtime.InteropServices;
 
 namespace Unosquare.IO.Ports
 {
-    interface ISerialStream : IDisposable
-    {
-        int Read(byte[] buffer, int offset, int count);
-        void Write(byte[] buffer, int offset, int count);
-        void SetAttributes(int baud_rate, Parity parity, int data_bits, StopBits sb, Handshake hs);
-        void DiscardInBuffer();
-        void DiscardOutBuffer();
-        SerialSignal GetSignals();
-        void SetSignal(SerialSignal signal, bool value);
-        void SetBreakState(bool value);
-        void Close();
-
-        int BytesToRead { get; }
-        int BytesToWrite { get; }
-        int ReadTimeout { get; set; }
-        int WriteTimeout { get; set; }
-    }
-
     public enum SerialSignal
     {
         None = 0,
@@ -69,20 +51,35 @@ namespace Unosquare.IO.Ports
         RequestToSendXOnXOff
     }
 
-    class SerialPortStream : Stream, ISerialStream, IDisposable
+    class SerialPortStream : Stream, IDisposable
     {
         int fd;
         int read_timeout;
         int write_timeout;
         bool disposed;
 
+#if WIRINGPI
+        internal const string WiringPiLibrary = "libwiringPi.so.2.42";
+#endif
+
+#if WIRINGPI
+        [DllImport(WiringPiLibrary, EntryPoint = nameof(serialOpen), SetLastError = true)]
+        public static extern int serialOpen(string device, int baud);
+#else
         [DllImport("MonoPosixHelper", SetLastError = true)]
         static extern int open_serial(string portName);
+#endif
 
         public SerialPortStream(string portName, int baudRate, int dataBits, Parity parity, StopBits stopBits,
-                bool dtrEnable, bool rtsEnable, Handshake handshake, int readTimeout, int writeTimeout,
-                int readBufferSize, int writeBufferSize)
+            bool dtrEnable, bool rtsEnable, Handshake handshake, int readTimeout, int writeTimeout,
+            int readBufferSize, int writeBufferSize)
         {
+
+#if WIRINGPI
+            fd = serialOpen(portName, baudRate);
+
+            // TODO: Setup the attributes?
+#else
             fd = open_serial(portName);
             if (fd == -1)
                 ThrowIOException();
@@ -91,59 +88,34 @@ namespace Unosquare.IO.Ports
 
             if (!set_attributes(fd, baudRate, parity, dataBits, stopBits, handshake))
                 ThrowIOException(); // Probably Win32Exc for compatibility
-
+#endif
             read_timeout = readTimeout;
             write_timeout = writeTimeout;
 
+#if !WIRINGPI
             SetSignal(SerialSignal.Dtr, dtrEnable);
 
             if (handshake != Handshake.RequestToSend &&
                     handshake != Handshake.RequestToSendXOnXOff)
                 SetSignal(SerialSignal.Rts, rtsEnable);
+#endif
         }
 
-        public override bool CanRead
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanSeek
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanWrite
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool CanWrite => true;
 
-        public override bool CanTimeout
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool CanTimeout => true;
 
         public override int ReadTimeout
         {
-            get
-            {
-                return read_timeout;
-            }
+            get { return read_timeout; }
             set
             {
                 if (value < 0 && value != SerialPort.InfiniteTimeout)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 read_timeout = value;
             }
@@ -151,14 +123,11 @@ namespace Unosquare.IO.Ports
 
         public override int WriteTimeout
         {
-            get
-            {
-                return write_timeout;
-            }
+            get { return write_timeout; }
             set
             {
                 if (value < 0 && value != SerialPort.InfiniteTimeout)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 write_timeout = value;
             }
@@ -166,22 +135,13 @@ namespace Unosquare.IO.Ports
 
         public override long Length
         {
-            get
-            {
-                throw new NotSupportedException();
-            }
+            get { throw new NotSupportedException(); }
         }
 
         public override long Position
         {
-            get
-            {
-                throw new NotSupportedException();
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            get { throw new NotSupportedException(); }
+            set { throw new NotSupportedException(); }
         }
 
         public override void Flush()
@@ -190,25 +150,43 @@ namespace Unosquare.IO.Ports
             // buffer (not the SerialPort class buffer)
         }
 
+#if WIRINGPI
+        /// <summary>
+        /// Returns the number of characters available for reading, or -1 for any error condition, 
+        /// in which case errno will be set appropriately.
+        /// </summary>
+        /// <param name="fd">The fd.</param>
+        /// <returns></returns>
+        [DllImport(WiringPiLibrary, EntryPoint = nameof(serialDataAvail), SetLastError = true)]
+        public static extern int serialDataAvail(int fd);
+
+        [DllImport("libc")]
+        static extern int read(int handle, byte[] buf, int n);
+#else
         [DllImport("MonoPosixHelper", SetLastError = true)]
         static extern int read_serial(int fd, byte[] buffer, int offset, int count);
 
 
         [DllImport("MonoPosixHelper", SetLastError = true)]
         static extern bool poll_serial(int fd, out int error, int timeout);
+#endif
 
         public override int Read([In, Out] byte[] buffer, int offset, int count)
         {
             CheckDisposed();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException("offset or count less than zero.");
 
             if (buffer.Length - offset < count)
                 throw new ArgumentException("offset+count",
-                                  "The size of the buffer is less than offset + count.");
+                    "The size of the buffer is less than offset + count.");
 
+#if WIRINGPI
+            return serialDataAvail(fd) > 0 ? read(fd, buffer, count) : 0;
+
+#else
             int error;
             bool poll_result = poll_serial(fd, out error, read_timeout);
             if (error == -1)
@@ -225,6 +203,7 @@ namespace Unosquare.IO.Ports
             if (result == -1)
                 ThrowIOException();
             return result;
+#endif
         }
 
         public override long Seek(long offset, SeekOrigin origin)
@@ -237,25 +216,36 @@ namespace Unosquare.IO.Ports
             throw new NotSupportedException();
         }
 
+#if WIRINGPI
+
+        [DllImport("libc")]
+        static extern int write(int handle, byte[] buf, int n);
+#else
         [DllImport("MonoPosixHelper", SetLastError = true)]
         static extern int write_serial(int fd, byte[] buffer, int offset, int count, int timeout);
+#endif
 
         public override void Write(byte[] buffer, int offset, int count)
         {
             CheckDisposed();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
 
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException();
 
             if (buffer.Length - offset < count)
                 throw new ArgumentException("offset+count",
-                                 "The size of the buffer is less than offset + count.");
+                    "The size of the buffer is less than offset + count.");
 
-            // FIXME: this reports every write error as timeout
+#if WIRINGPI
+            if (write(fd, buffer, count) < 0)
+                throw new TimeoutException("The operation has timed-out");
+#else
+// FIXME: this reports every write error as timeout
             if (write_serial(fd, buffer, offset, count, write_timeout) < 0)
                 throw new TimeoutException("The operation has timed-out");
+#endif
         }
 
         protected override void Dispose(bool disposing)
@@ -264,16 +254,30 @@ namespace Unosquare.IO.Ports
                 return;
 
             disposed = true;
+#if WIRINGPI
+            serialClose(fd);
+#else
             if (close_serial(fd) != 0)
                 ThrowIOException();
+#endif
         }
 
+#if WIRINGPI
+        /// <summary>
+        /// Closes the device identified by the file descriptor given.
+        /// </summary>
+        /// <param name="fd">The fd.</param>
+        /// <returns></returns>
+        [DllImport(WiringPiLibrary, EntryPoint = nameof(serialClose), SetLastError = true)]
+        public static extern int serialClose(int fd);
+#else
         [DllImport("MonoPosixHelper", SetLastError = true)]
         static extern int close_serial(int fd);
+#endif
 
         public void Close()
         {
-            ((IDisposable)this).Dispose();
+            ((IDisposable) this).Dispose();
         }
 
         void IDisposable.Dispose()
@@ -299,8 +303,10 @@ namespace Unosquare.IO.Ports
                 throw new ObjectDisposedException(GetType().FullName);
         }
 
+#if !WIRINGPI
         [DllImport("MonoPosixHelper", SetLastError = true)]
-        static extern bool set_attributes(int fd, int baudRate, Parity parity, int dataBits, StopBits stopBits, Handshake handshake);
+        static extern bool set_attributes(int fd, int baudRate, Parity parity, int dataBits, StopBits stopBits,
+            Handshake handshake);
 
         public void SetAttributes(int baud_rate, Parity parity, int data_bits, StopBits sb, Handshake hs)
         {
@@ -367,9 +373,9 @@ namespace Unosquare.IO.Ports
         public void SetSignal(SerialSignal signal, bool value)
         {
             if (signal < SerialSignal.Cd || signal > SerialSignal.Rts ||
-                    signal == SerialSignal.Cd ||
-                    signal == SerialSignal.Cts ||
-                    signal == SerialSignal.Dsr)
+                signal == SerialSignal.Cd ||
+                signal == SerialSignal.Cts ||
+                signal == SerialSignal.Dsr)
                 throw new Exception("Invalid internal value");
 
             if (set_signal(fd, signal, value) == -1)
@@ -385,8 +391,7 @@ namespace Unosquare.IO.Ports
                 if (breakprop(fd) == -1)
                     ThrowIOException();
         }
-
-        [DllImport("libc")]
+         [DllImport("libc")]
         static extern IntPtr strerror(int errnum);
 
         static void ThrowIOException()
@@ -405,10 +410,15 @@ namespace Unosquare.IO.Ports
             if (!is_baud_rate_legal(baudRate))
             {
                 // this kind of exception to be compatible with MSDN API
-                throw new ArgumentOutOfRangeException("baudRate",
+                throw new ArgumentOutOfRangeException(nameof(baudRate),
                     "Given baud rate is not supported on this platform.");
             }
         }
+#else
+
+        public int BytesToRead => serialDataAvail(fd);
+#endif
     }
 }
+
 #endif

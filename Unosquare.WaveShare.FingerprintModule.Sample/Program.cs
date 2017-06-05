@@ -46,8 +46,8 @@
             <ConsoleKey, string>
             {
                 // Matching Items
-                {ConsoleKey.F1, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)"},
-                {ConsoleKey.F2, "MATCHING - Get a User Id given an Acquired Image (1:N)"},
+                {ConsoleKey.Q, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)"},
+                {ConsoleKey.W, "MATCHING - Get a User Id given an Acquired Image (1:N)"},
                 {ConsoleKey.F3, "MATCHING - Test if an Acquired Image matches the provided Eigenvalues (1:1)"},
                 {ConsoleKey.F4, "MATCHING - Test if a given User ,atches the supplied Eigenvalues (1:1)"},
                 {ConsoleKey.F5, "MATCHING - Get a User Id given an array with Eigenvalues (1:N)"},
@@ -97,6 +97,8 @@
 
         static void Main(string[] args)
         {
+            $"Mode: {FingerprintReader.Mode}".Info();
+
             var portName = PromptForSerialPort();
             
             if (string.IsNullOrEmpty(portName))
@@ -250,12 +252,12 @@
                         {
                             var result = await reader.AcquireImageEigenvalues();
                         }
-                        else if (selectedOption.Key == ConsoleKey.F1)
+                        else if (selectedOption.Key == ConsoleKey.Q)
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var result = await reader.MatchOneToOne(userId);
                         }
-                        else if (selectedOption.Key == ConsoleKey.F2)
+                        else if (selectedOption.Key == ConsoleKey.W)
                         {
                             var result = await reader.MatchOneToN();
                         }

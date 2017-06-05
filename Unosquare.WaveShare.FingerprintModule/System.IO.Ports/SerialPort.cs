@@ -119,7 +119,7 @@ namespace Unosquare.IO.Ports
         bool break_state = false;
         bool dtr_enable = false;
         bool rts_enable = false;
-        ISerialStream stream;
+        SerialPortStream stream;
         Encoding encoding = Encoding.ASCII;
         string new_line = Environment.NewLine;
         string port_name;
@@ -135,7 +135,7 @@ namespace Unosquare.IO.Ports
             this(GetDefaultPortName(), DefaultBaudRate, DefaultParity, DefaultDataBits, DefaultStopBits)
         {
         }
-        
+
         public SerialPort(string portName) :
             this(portName, DefaultBaudRate, DefaultParity, DefaultDataBits, DefaultStopBits)
         {
@@ -159,7 +159,8 @@ namespace Unosquare.IO.Ports
         public SerialPort(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
             if (Swan.Runtime.OS == Swan.OperatingSystem.Windows)
-                throw new InvalidOperationException("This class is only supported by UNIX OS. Use native NET Framework class");
+                throw new InvalidOperationException(
+                    "This class is only supported by UNIX OS. Use native NET Framework class");
 
             port_name = portName;
             baud_rate = baudRate;
@@ -178,7 +179,7 @@ namespace Unosquare.IO.Ports
             return "ttyS0"; // Default for Unix
         }
 
-        
+
         public Stream BaseStream
         {
             get
@@ -187,22 +188,23 @@ namespace Unosquare.IO.Ports
                 return (Stream)stream;
             }
         }
-        
+
         public int BaudRate
         {
             get { return baud_rate; }
             set
             {
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("value");
-
+                    throw new ArgumentOutOfRangeException(nameof(value));
+#if !WIRINGPI
                 if (is_open)
                     stream.SetAttributes(value, parity, data_bits, stop_bits, handshake);
-
+#endif
                 baud_rate = value;
             }
         }
-        
+
+#if !WIRINGPI
         public bool BreakState
         {
             get { return break_state; }
@@ -216,7 +218,8 @@ namespace Unosquare.IO.Ports
                 break_state = value;
             }
         }
-        
+#endif
+
         public int BytesToRead
         {
             get
@@ -225,7 +228,7 @@ namespace Unosquare.IO.Ports
                 return stream.BytesToRead;
             }
         }
-        
+#if !WIRINGPI
         public int BytesToWrite
         {
             get
@@ -234,32 +237,13 @@ namespace Unosquare.IO.Ports
                 return stream.BytesToWrite;
             }
         }
-        
-        public bool CDHolding
-        {
-            get
-            {
-                CheckOpen();
-                return (stream.GetSignals() & SerialSignal.Cd) != 0;
-            }
-        }
-        
-        public bool CtsHolding
-        {
-            get
-            {
-                CheckOpen();
-                return (stream.GetSignals() & SerialSignal.Cts) != 0;
-            }
-        }
-        
         public int DataBits
         {
             get { return data_bits; }
             set
             {
                 if (value < 5 || value > 8)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 if (is_open)
                     stream.SetAttributes(baud_rate, parity, value, stop_bits, handshake);
@@ -267,7 +251,8 @@ namespace Unosquare.IO.Ports
                 data_bits = value;
             }
         }
-        
+#endif
+
         public bool DiscardNull
         {
             get { throw new NotImplementedException(); }
@@ -279,98 +264,73 @@ namespace Unosquare.IO.Ports
                 throw new NotImplementedException();
             }
         }
-        
-        public bool DsrHolding
-        {
-            get
-            {
-                CheckOpen();
-                return (stream.GetSignals() & SerialSignal.Dsr) != 0;
-            }
-        }
-        
-        public bool DtrEnable
-        {
-            get { return dtr_enable; }
-            set
-            {
-                if (value == dtr_enable)
-                    return;
-                if (is_open)
-                    stream.SetSignal(SerialSignal.Dtr, value);
 
-                dtr_enable = value;
-            }
-        }
-
-        
         public Encoding Encoding
         {
             get { return encoding; }
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 encoding = value;
             }
         }
-        
+
+#if !WIRINGPI
         public Handshake Handshake
         {
             get { return handshake; }
             set
             {
                 if (value < Handshake.None || value > Handshake.RequestToSendXOnXOff)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 if (is_open)
                     stream.SetAttributes(baud_rate, parity, data_bits, stop_bits, value);
 
                 handshake = value;
             }
-        }
-        
-        public bool IsOpen
-        {
-            get { return is_open; }
-        }
-        
+        }  
+#endif
+
+        public bool IsOpen => is_open;
+
         public string NewLine
         {
             get { return new_line; }
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 if (value.Length == 0)
-                    throw new ArgumentException("NewLine cannot be null or empty.", "value");
+                    throw new ArgumentException("NewLine cannot be null or empty.", nameof(value));
 
                 new_line = value;
             }
         }
-        
+
         public Parity Parity
         {
             get { return parity; }
             set
             {
                 if (value < Parity.None || value > Parity.Space)
-                    throw new ArgumentOutOfRangeException("value");
-
+                    throw new ArgumentOutOfRangeException(nameof(value));
+#if !WIRINGPI
                 if (is_open)
                     stream.SetAttributes(baud_rate, value, data_bits, stop_bits, handshake);
-
+#endif
                 parity = value;
             }
         }
-        
+
         public byte ParityReplace
         {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
-        
+
         public string PortName
         {
             get { return port_name; }
@@ -379,14 +339,14 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     throw new InvalidOperationException("Port name cannot be set while port is open.");
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 if (value.Length == 0 || value.StartsWith("\\\\"))
                     throw new ArgumentException("value");
 
                 port_name = value;
             }
         }
-        
+
         public int ReadBufferSize
         {
             get { return readBufferSize; }
@@ -395,21 +355,21 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     throw new InvalidOperationException();
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 if (value <= DefaultReadBufferSize)
                     return;
 
                 readBufferSize = value;
             }
         }
-        
+
         public int ReadTimeout
         {
             get { return read_timeout; }
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 if (is_open)
                     stream.ReadTimeout = value;
@@ -417,48 +377,34 @@ namespace Unosquare.IO.Ports
                 read_timeout = value;
             }
         }
-        
+
         public int ReceivedBytesThreshold
         {
             get { throw new NotImplementedException(); }
             set
             {
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 throw new NotImplementedException();
             }
         }
-        
-        public bool RtsEnable
-        {
-            get { return rts_enable; }
-            set
-            {
-                if (value == rts_enable)
-                    return;
-                if (is_open)
-                    stream.SetSignal(SerialSignal.Rts, value);
 
-                rts_enable = value;
-            }
-        }
-        
         public StopBits StopBits
         {
             get { return stop_bits; }
             set
             {
                 if (value < StopBits.One || value > StopBits.OnePointFive)
-                    throw new ArgumentOutOfRangeException("value");
-
+                    throw new ArgumentOutOfRangeException(nameof(value));
+#if !WIRINGPI
                 if (is_open)
                     stream.SetAttributes(baud_rate, parity, data_bits, value, handshake);
-
+#endif
                 stop_bits = value;
             }
         }
-        
+
         public int WriteBufferSize
         {
             get { return writeBufferSize; }
@@ -467,21 +413,21 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     throw new InvalidOperationException();
                 if (value <= 0)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 if (value <= DefaultWriteBufferSize)
                     return;
 
                 writeBufferSize = value;
             }
         }
-        
+
         public int WriteTimeout
         {
             get { return write_timeout; }
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
 
                 if (is_open)
                     stream.WriteTimeout = value;
@@ -513,7 +459,7 @@ namespace Unosquare.IO.Ports
                 stream.Close();
             stream = null;
         }
-
+#if !WIRINGPI
         public void DiscardInBuffer()
         {
             CheckOpen();
@@ -525,7 +471,7 @@ namespace Unosquare.IO.Ports
             CheckOpen();
             stream.DiscardOutBuffer();
         }
-
+#endif
         public static string[] GetPortNames()
         {
             List<string> serial_ports = new List<string>();
@@ -578,7 +524,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException("offset or count less than zero.");
 
@@ -593,7 +539,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException("offset or count less than zero.");
 
@@ -643,7 +589,7 @@ namespace Unosquare.IO.Ports
 
             return -1;
         }
-
+#if !WIRINGPI
         public string ReadExisting()
         {
             CheckOpen();
@@ -654,7 +600,7 @@ namespace Unosquare.IO.Ports
             int n = stream.Read(bytes, 0, count);
             return new String(encoding.GetChars(bytes, 0, n));
         }
-
+#endif
         public string ReadLine()
         {
             return ReadTo(new_line);
@@ -664,7 +610,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             if (value.Length == 0)
                 throw new ArgumentException("value");
 
@@ -697,7 +643,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (text == null)
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException(nameof(text));
 
             byte[] buffer = encoding.GetBytes(text);
             Write(buffer, 0, buffer.Length);
@@ -707,7 +653,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
 
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException();
@@ -723,7 +669,7 @@ namespace Unosquare.IO.Ports
         {
             CheckOpen();
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
 
             if (offset < 0 || count < 0)
                 throw new ArgumentOutOfRangeException();
@@ -746,57 +692,7 @@ namespace Unosquare.IO.Ports
             if (!is_open)
                 throw new InvalidOperationException("Specified port is not open.");
         }
-
-        //internal void OnErrorReceived(SerialErrorReceivedEventArgs args)
-        //{
-        //    SerialErrorReceivedEventHandler handler =
-        //        (SerialErrorReceivedEventHandler)Events[error_received];
-
-        //    if (handler != null)
-        //        ErrorReceived?.Invoke(this, args);
-        //}
-
-        //internal void OnDataReceived(SerialDataReceivedEventArgs args)
-        //{
-        //    SerialDataReceivedEventHandler handler =
-        //        (SerialDataReceivedEventHandler)Events[data_received];
-
-        //    if (handler != null)
-        //        handler(this, args);
-        //}
-
-        //internal void OnDataReceived(SerialPinChangedEventArgs args)
-        //{
-        //    SerialPinChangedEventHandler handler =
-        //        (SerialPinChangedEventHandler)Events[pin_changed];
-
-        //    if (handler != null)
-        //        handler(this, args);
-        //}
-
-        //// events
-
-        //public event SerialErrorReceivedEventHandler ErrorReceived { get; set; }
-
-
-        //public event SerialPinChangedEventHandler PinChanged
-        //{
-        //    add { Events.AddHandler(pin_changed, value); }
-        //    remove { Events.RemoveHandler(pin_changed, value); }
-        //}
-
-
-        //public event SerialDataReceivedEventHandler DataReceived
-        //{
-        //    add { Events.AddHandler(data_received, value); }
-        //    remove { Events.RemoveHandler(data_received, value); }
-        //}
     }
-
-    public delegate void SerialDataReceivedEventHandler(object sender, SerialDataReceivedEventArgs e);
-
-    public delegate void SerialPinChangedEventHandler(object sender, SerialPinChangedEventArgs e);
-
-    public delegate void SerialErrorReceivedEventHandler(object sender, SerialErrorReceivedEventArgs e);
 }
+
 #endif

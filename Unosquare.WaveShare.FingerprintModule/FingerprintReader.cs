@@ -670,6 +670,8 @@
                         if (response.Count >= 4 && iteration == 0)
                         {
                             iteration++;
+                            $"Checking ByteCode {response[1]}".Info();
+
                             isVariableLengthResponse =
                                 ResponseBase.ResponseLengthCategories[(OperationCode) response[1]] ==
                                 MessageLengthCategory.Variable;

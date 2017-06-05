@@ -6,7 +6,7 @@
 #if NET452
     using System.IO.Ports;
 #else
-    
+    using Unosquare.IO.Ports;
 #endif
     using System.Linq;
     using System.Threading.Tasks;
@@ -26,7 +26,7 @@
             {ConsoleKey.L, "MODULE   - Get Fingerprint Matching Level"},
             {ConsoleKey.K, "MODULE   - Set Fingerprint Matching Level"},
             {ConsoleKey.B, "MODULE   - Change the Baud Rate"},
-            {ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)"},
+            {ConsoleKey.S, "MODULE   - Sleep (Warning: Module requires reset)"}
         };
 
         private static readonly Dictionary<ConsoleKey, string> UsersActionOptions = new Dictionary<ConsoleKey, string>
@@ -39,7 +39,7 @@
             {ConsoleKey.U, "USERS    - Get a User's Privilege and Eigenvalues"},
             {ConsoleKey.Y, "USERS    - Create a new User providing an Id, Privilege and Eigenvalues"},
             {ConsoleKey.W, "USERS    - Delete a User"},
-            {ConsoleKey.Z, "USERS    - Delete all Users (Warning: This deletes the entire database)"},
+            {ConsoleKey.Z, "USERS    - Delete all Users (Warning: This deletes the entire database)"}
         };
 
         private static readonly Dictionary<ConsoleKey, string> MatchingActionOptions = new Dictionary
@@ -52,7 +52,7 @@
                 {ConsoleKey.F4, "MATCHING - Test if a given User ,atches the supplied Eigenvalues (1:1)"},
                 {ConsoleKey.F5, "MATCHING - Get a User Id given an array with Eigenvalues (1:N)"},
                 {ConsoleKey.F6, "MATCHING - Acquire Image"},
-                {ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues"},
+                {ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues"}
             };
 
 
@@ -61,14 +61,13 @@
             // Module COntrol Items
             {ConsoleKey.Q, "MODULE   - Module Menu"},
             {ConsoleKey.W, "USERS    - Users Menu"},
-            {ConsoleKey.E, "MATCHING - Matching Menu"},
+            {ConsoleKey.E, "MATCHING - Matching Menu"}
         };
 
         #endregion
 
         static string PromptForSerialPort()
         {
-#if NET452
             var baseChar = 65;
             var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey) baseChar++, v => v);
             var portName = string.Empty;
@@ -94,25 +93,19 @@
             }
 
             return portName;
-#else
-            "Select Port to Open:".Info();
-            return Terminal.ReadLine();
-#endif
         }
 
         static void Main(string[] args)
         {
-            var wiringPiMode = args.Any();
-            var portName = "/dev/ttyS0"; //PromptForSerialPort();
+            var portName = PromptForSerialPort();
             
-
             if (string.IsNullOrEmpty(portName))
                 return;
             
             using (var reader = new FingerprintReader())
             {
                 $"Opening port '{portName}' . . .".Info();
-                reader.Open(portName, BaudRate.Baud9600, true);
+                reader.Open(portName);
 
                 var t = Task.Factory.StartNew(async () =>
                 {

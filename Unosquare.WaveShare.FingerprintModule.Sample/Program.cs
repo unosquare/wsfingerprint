@@ -70,7 +70,7 @@
         {
             var baseChar = 65;
             var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey) baseChar++, v => v);
-            var portName = string.Empty;
+            string portName;
 
             if (portNames.Any() == false)
             {

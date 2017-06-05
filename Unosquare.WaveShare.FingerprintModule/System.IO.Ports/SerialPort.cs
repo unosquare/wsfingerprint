@@ -158,6 +158,9 @@ namespace Unosquare.IO.Ports
 
         public SerialPort(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
+            if (Swan.Runtime.OS == Swan.OperatingSystem.Windows)
+                throw new InvalidOperationException("This class is only supported by UNIX OS. Use native NET Framework class");
+
             port_name = portName;
             baud_rate = baudRate;
             data_bits = dataBits;

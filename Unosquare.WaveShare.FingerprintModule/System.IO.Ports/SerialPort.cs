@@ -24,174 +24,104 @@ using System.Text;
 
 namespace Unosquare.IO.Ports
 {
-    public enum SerialData
-    {
-        Chars = 1,
-        Eof
-    }
-
-    public class SerialDataReceivedEventArgs : EventArgs
-    {
-        internal SerialDataReceivedEventArgs(SerialData eventType)
-        {
-            this.eventType = eventType;
-        }
-
-        // properties
-
-        public SerialData EventType
-        {
-            get { return eventType; }
-        }
-
-        SerialData eventType;
-    }
-
-    public enum SerialPinChange
-    {
-        CtsChanged = 8,
-        DsrChanged = 16,
-        CDChanged = 32,
-        Break = 64,
-        Ring = 256
-    }
-
-    public class SerialPinChangedEventArgs : EventArgs
-    {
-        internal SerialPinChangedEventArgs(SerialPinChange eventType)
-        {
-            this.eventType = eventType;
-        }
-
-        // properties
-
-        public SerialPinChange EventType
-        {
-            get { return eventType; }
-        }
-
-        SerialPinChange eventType;
-    }
-
-    public enum SerialError
-    {
-        RXOver = 1,
-        Overrun = 2,
-        RXParity = 4,
-        Frame = 8,
-        TXFull = 256
-    }
-
-    public class SerialErrorReceivedEventArgs : EventArgs
-    {
-
-        internal SerialErrorReceivedEventArgs(SerialError eventType)
-        {
-            this.eventType = eventType;
-        }
-
-        // properties
-
-        public SerialError EventType
-        {
-            get { return eventType; }
-        }
-
-        SerialError eventType;
-    }
-
+    /// <summary>
+    /// Represents a Serial Port component
+    /// </summary>
     public class SerialPort
     {
         public const int InfiniteTimeout = -1;
-        const int DefaultReadBufferSize = 4096;
-        const int DefaultWriteBufferSize = 2048;
-        const int DefaultBaudRate = 9600;
-        const int DefaultDataBits = 8;
-        const Parity DefaultParity = Parity.None;
-        const StopBits DefaultStopBits = StopBits.One;
+        private const int DefaultReadBufferSize = 4096;
+        private const int DefaultWriteBufferSize = 2048;
+        private const int DefaultBaudRate = 9600;
+        private const int DefaultDataBits = 8;
+        private const Parity DefaultParity = Parity.None;
+        private const StopBits DefaultStopBits = StopBits.One;
 
-        bool is_open;
-        int baud_rate;
-        Parity parity;
-        StopBits stop_bits;
-        Handshake handshake;
-        int data_bits;
-        bool break_state = false;
-        bool dtr_enable = false;
-        bool rts_enable = false;
-        SerialPortStream stream;
-        Encoding encoding = Encoding.ASCII;
-        string new_line = Environment.NewLine;
-        string port_name;
-        int read_timeout = InfiniteTimeout;
-        int write_timeout = InfiniteTimeout;
-        int readBufferSize = DefaultReadBufferSize;
-        int writeBufferSize = DefaultWriteBufferSize;
-        object error_received = new object();
-        object data_received = new object();
-        object pin_changed = new object();
+        private bool _isOpen;
+        private int _baudRate;
+        private Parity _parity;
+        private StopBits _stopBits;
+        private Handshake _handshake;
+        private int _dataBits;
+        private bool _dtrEnable = false;
+        private bool _rtsEnable = false;
+        private SerialPortStream _stream;
+        private Encoding _encoding = Encoding.ASCII;
+        private string _newLine = Environment.NewLine;
+        private string _portName;
+        private int _readTimeout = InfiniteTimeout;
+        private int _writeTimeout = InfiniteTimeout;
+        private int _readBufferSize = DefaultReadBufferSize;
+        private int _writeBufferSize = DefaultWriteBufferSize;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SerialPort" /> class.
+        /// </summary>
         public SerialPort() :
             this(GetDefaultPortName(), DefaultBaudRate, DefaultParity, DefaultDataBits, DefaultStopBits)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SerialPort" /> class.
+        /// </summary>
+        /// <param name="portName">Name of the port.</param>
         public SerialPort(string portName) :
             this(portName, DefaultBaudRate, DefaultParity, DefaultDataBits, DefaultStopBits)
         {
         }
 
-        public SerialPort(string portName, int baudRate) :
-            this(portName, baudRate, DefaultParity, DefaultDataBits, DefaultStopBits)
-        {
-        }
-
-        public SerialPort(string portName, int baudRate, Parity parity) :
-            this(portName, baudRate, parity, DefaultDataBits, DefaultStopBits)
-        {
-        }
-
-        public SerialPort(string portName, int baudRate, Parity parity, int dataBits) :
-            this(portName, baudRate, parity, dataBits, DefaultStopBits)
-        {
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SerialPort" /> class.
+        /// </summary>
+        /// <param name="portName">Name of the port.</param>
+        /// <param name="baudRate">The baud rate.</param>
+        /// <param name="parity">The parity.</param>
+        /// <param name="dataBits">The data bits.</param>
+        /// <param name="stopBits">The stop bits.</param>
         public SerialPort(string portName, int baudRate, Parity parity, int dataBits, StopBits stopBits)
         {
             if (Swan.Runtime.OS == Swan.OperatingSystem.Windows)
                 throw new InvalidOperationException(
                     "This class is only supported by UNIX OS. Use native NET Framework class");
 
-            port_name = portName;
-            baud_rate = baudRate;
-            data_bits = dataBits;
-            stop_bits = stopBits;
-            this.parity = parity;
+            _portName = portName;
+            _baudRate = baudRate;
+            _dataBits = dataBits;
+            _stopBits = stopBits;
+            this._parity = parity;
         }
 
-        static string GetDefaultPortName()
+        private static string GetDefaultPortName()
         {
-            string[] ports = GetPortNames();
-            if (ports.Length > 0)
-            {
-                return ports[0];
-            }
-            return "ttyS0"; // Default for Unix
+            var ports = GetPortNames();
+            return ports.Length > 0 ? ports[0] : "ttyS0";
         }
 
-
+        /// <summary>
+        /// Gets the base stream.
+        /// </summary>
+        /// <value>
+        /// The base stream.
+        /// </value>
         public Stream BaseStream
         {
             get
             {
                 CheckOpen();
-                return (Stream)stream;
+                return (Stream) _stream;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the baud rate.
+        /// </summary>
+        /// <value>
+        /// The baud rate.
+        /// </value>
         public int BaudRate
         {
-            get { return baud_rate; }
+            get { return _baudRate; }
             set
             {
                 if (value <= 0)
@@ -200,34 +130,25 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     stream.SetAttributes(value, parity, data_bits, stop_bits, handshake);
 #endif
-                baud_rate = value;
+                _baudRate = value;
             }
         }
 
-#if !WIRINGPI
-        public bool BreakState
-        {
-            get { return break_state; }
-            set
-            {
-                CheckOpen();
-                if (value == break_state)
-                    return; // Do nothing.
-
-                stream.SetBreakState(value);
-                break_state = value;
-            }
-        }
-#endif
-
+        /// <summary>
+        /// Gets the bytes to read.
+        /// </summary>
+        /// <value>
+        /// The bytes to read.
+        /// </value>
         public int BytesToRead
         {
             get
             {
                 CheckOpen();
-                return stream.BytesToRead;
+                return _stream.BytesToRead;
             }
         }
+
 #if !WIRINGPI
         public int BytesToWrite
         {
@@ -253,27 +174,21 @@ namespace Unosquare.IO.Ports
         }
 #endif
 
-        public bool DiscardNull
-        {
-            get { throw new NotImplementedException(); }
-            set
-            {
-                // LAMESPEC: Msdn states that an InvalidOperationException exception
-                // is fired if the port is not open, which is *not* happening.
-
-                throw new NotImplementedException();
-            }
-        }
-
+        /// <summary>
+        /// Gets or sets the encoding.
+        /// </summary>
+        /// <value>
+        /// The encoding.
+        /// </value>
         public Encoding Encoding
         {
-            get { return encoding; }
+            get { return _encoding; }
             set
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
 
-                encoding = value;
+                _encoding = value;
             }
         }
 
@@ -294,11 +209,23 @@ namespace Unosquare.IO.Ports
         }  
 #endif
 
-        public bool IsOpen => is_open;
+        /// <summary>
+        /// Gets a value indicating whether this instance is open.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is open; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsOpen => _isOpen;
 
+        /// <summary>
+        /// Gets or sets the new line.
+        /// </summary>
+        /// <value>
+        /// The new line.
+        /// </value>
         public string NewLine
         {
-            get { return new_line; }
+            get { return _newLine; }
             set
             {
                 if (value == null)
@@ -306,13 +233,19 @@ namespace Unosquare.IO.Ports
                 if (value.Length == 0)
                     throw new ArgumentException("NewLine cannot be null or empty.", nameof(value));
 
-                new_line = value;
+                _newLine = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the parity.
+        /// </summary>
+        /// <value>
+        /// The parity.
+        /// </value>
         public Parity Parity
         {
-            get { return parity; }
+            get { return _parity; }
             set
             {
                 if (value < Parity.None || value > Parity.Space)
@@ -321,78 +254,84 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     stream.SetAttributes(baud_rate, value, data_bits, stop_bits, handshake);
 #endif
-                parity = value;
+                _parity = value;
             }
         }
 
-        public byte ParityReplace
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
+        /// <summary>
+        /// Gets or sets the name of the port.
+        /// </summary>
+        /// <value>
+        /// The name of the port.
+        /// </value>
         public string PortName
         {
-            get { return port_name; }
+            get { return _portName; }
             set
             {
-                if (is_open)
+                if (_isOpen)
                     throw new InvalidOperationException("Port name cannot be set while port is open.");
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
                 if (value.Length == 0 || value.StartsWith("\\\\"))
                     throw new ArgumentException("value");
 
-                port_name = value;
+                _portName = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the size of the read buffer.
+        /// </summary>
+        /// <value>
+        /// The size of the read buffer.
+        /// </value>
         public int ReadBufferSize
         {
-            get { return readBufferSize; }
+            get { return _readBufferSize; }
             set
             {
-                if (is_open)
+                if (_isOpen)
                     throw new InvalidOperationException();
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
                 if (value <= DefaultReadBufferSize)
                     return;
 
-                readBufferSize = value;
+                _readBufferSize = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the read timeout.
+        /// </summary>
+        /// <value>
+        /// The read timeout.
+        /// </value>
         public int ReadTimeout
         {
-            get { return read_timeout; }
+            get { return _readTimeout; }
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
                     throw new ArgumentOutOfRangeException(nameof(value));
 
-                if (is_open)
-                    stream.ReadTimeout = value;
+                if (_isOpen)
+                    _stream.ReadTimeout = value;
 
-                read_timeout = value;
+                _readTimeout = value;
             }
         }
 
-        public int ReceivedBytesThreshold
-        {
-            get { throw new NotImplementedException(); }
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-
-                throw new NotImplementedException();
-            }
-        }
-
+        /// <summary>
+        /// Gets or sets the stop bits.
+        /// </summary>
+        /// <value>
+        /// The stop bits.
+        /// </value>
         public StopBits StopBits
         {
-            get { return stop_bits; }
+            get { return _stopBits; }
             set
             {
                 if (value < StopBits.One || value > StopBits.OnePointFive)
@@ -401,64 +340,88 @@ namespace Unosquare.IO.Ports
                 if (is_open)
                     stream.SetAttributes(baud_rate, parity, data_bits, value, handshake);
 #endif
-                stop_bits = value;
+                _stopBits = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the size of the write buffer.
+        /// </summary>
+        /// <value>
+        /// The size of the write buffer.
+        /// </value>
         public int WriteBufferSize
         {
-            get { return writeBufferSize; }
+            get { return _writeBufferSize; }
             set
             {
-                if (is_open)
+                if (_isOpen)
                     throw new InvalidOperationException();
                 if (value <= 0)
                     throw new ArgumentOutOfRangeException(nameof(value));
                 if (value <= DefaultWriteBufferSize)
                     return;
 
-                writeBufferSize = value;
+                _writeBufferSize = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the write timeout.
+        /// </summary>
+        /// <value>
+        /// The write timeout.
+        /// </value>
         public int WriteTimeout
         {
-            get { return write_timeout; }
+            get { return _writeTimeout; }
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
                     throw new ArgumentOutOfRangeException(nameof(value));
 
-                if (is_open)
-                    stream.WriteTimeout = value;
+                if (_isOpen)
+                    _stream.WriteTimeout = value;
 
-                write_timeout = value;
+                _writeTimeout = value;
             }
         }
 
         // methods
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         public void Close()
         {
             Dispose(true);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///   <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected void Dispose(bool disposing)
         {
-            if (!is_open)
+            if (!_isOpen)
                 return;
 
-            is_open = false;
+            _isOpen = false;
             // Do not close the base stream when the finalizer is run; the managed code can still hold a reference to it.
             if (disposing)
-                stream.Close();
-            stream = null;
+                _stream.Close();
+            _stream = null;
         }
+
 #if !WIRINGPI
         public void DiscardInBuffer()
         {
@@ -472,54 +435,69 @@ namespace Unosquare.IO.Ports
             stream.DiscardOutBuffer();
         }
 #endif
+
+        /// <summary>
+        /// Gets the port names.
+        /// </summary>
+        /// <returns></returns>
         public static string[] GetPortNames()
         {
-            List<string> serial_ports = new List<string>();
+            var serialPorts = new List<string>();
 
-            string[] ttys = Directory.GetFiles("/dev/", "tty*");
-            bool linux_style = false;
+            var ttys = Directory.GetFiles("/dev/", "tty*");
+            var linuxStyle = false;
 
             //
             // Probe for Linux-styled devices: /dev/ttyS* or /dev/ttyUSB*
             // 
-            foreach (string dev in ttys)
+            foreach (var dev in ttys)
             {
                 if (dev.StartsWith("/dev/ttyS") || dev.StartsWith("/dev/ttyUSB") || dev.StartsWith("/dev/ttyACM"))
                 {
-                    linux_style = true;
+                    linuxStyle = true;
                     break;
                 }
             }
 
-            foreach (string dev in ttys)
+            foreach (var dev in ttys)
             {
-                if (linux_style)
+                if (linuxStyle)
                 {
                     if (dev.StartsWith("/dev/ttyS") || dev.StartsWith("/dev/ttyUSB") ||
                         dev.StartsWith("/dev/ttyACM"))
-                        serial_ports.Add(dev);
+                        serialPorts.Add(dev);
                 }
                 else
                 {
                     if (dev != "/dev/tty" && dev.StartsWith("/dev/tty") && !dev.StartsWith("/dev/ttyC"))
-                        serial_ports.Add(dev);
+                        serialPorts.Add(dev);
                 }
             }
 
-            return serial_ports.ToArray();
+            return serialPorts.ToArray();
         }
 
+        /// <summary>
+        /// Opens this instance.
+        /// </summary>
         public void Open()
         {
-            if (is_open)
+            if (_isOpen)
                 throw new InvalidOperationException("Port is already open");
 
-            stream = new SerialPortStream(port_name, baud_rate, data_bits, parity, stop_bits, dtr_enable,
-                rts_enable, handshake, read_timeout, write_timeout, readBufferSize, writeBufferSize);
+            _stream = new SerialPortStream(_portName, _baudRate, _dataBits, _parity, _stopBits, _dtrEnable,
+                _rtsEnable, _handshake, _readTimeout, _writeTimeout, _readBufferSize, _writeBufferSize);
 
-            is_open = true;
+            _isOpen = true;
         }
 
+        /// <summary>
+        /// Reads the specified buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="count">The count.</param>
+        /// <returns></returns>
         public int Read(byte[] buffer, int offset, int count)
         {
             CheckOpen();
@@ -532,16 +510,23 @@ namespace Unosquare.IO.Ports
                 throw new ArgumentException("offset+count",
                     "The size of the buffer is less than offset + count.");
 
-            return stream.Read(buffer, offset, count);
+            return _stream.Read(buffer, offset, count);
         }
 
+        /// <summary>
+        /// Reads the specified buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="count">The count.</param>
+        /// <returns></returns>
         public int Read(char[] buffer, int offset, int count)
         {
             CheckOpen();
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
             if (offset < 0 || count < 0)
-                throw new ArgumentOutOfRangeException("offset or count less than zero.");
+                throw new ArgumentOutOfRangeException(nameof(buffer));
 
             if (buffer.Length - offset < count)
                 throw new ArgumentException("offset+count",
@@ -549,46 +534,55 @@ namespace Unosquare.IO.Ports
 
             int c, i;
             for (i = 0; i < count && (c = ReadChar()) != -1; i++)
-                buffer[offset + i] = (char)c;
+                buffer[offset + i] = (char) c;
 
             return i;
         }
 
         internal int read_byte()
         {
-            byte[] buff = new byte[1];
-            if (stream.Read(buff, 0, 1) > 0)
+            var buff = new byte[1];
+            if (_stream.Read(buff, 0, 1) > 0)
                 return buff[0];
 
             return -1;
         }
 
+        /// <summary>
+        /// Reads the byte.
+        /// </summary>
+        /// <returns></returns>
         public int ReadByte()
         {
             CheckOpen();
             return read_byte();
         }
 
+        /// <summary>
+        /// Reads the character.
+        /// </summary>
+        /// <returns></returns>
         public int ReadChar()
         {
             CheckOpen();
 
-            byte[] buffer = new byte[16];
-            int i = 0;
+            var buffer = new byte[16];
+            var i = 0;
 
             do
             {
-                int b = read_byte();
+                var b = read_byte();
                 if (b == -1)
                     return -1;
-                buffer[i++] = (byte)b;
-                char[] c = encoding.GetChars(buffer, 0, 1);
+                buffer[i++] = (byte) b;
+                var c = _encoding.GetChars(buffer, 0, 1);
                 if (c.Length > 0)
-                    return (int)c[0];
+                    return (int) c[0];
             } while (i < buffer.Length);
 
             return -1;
         }
+
 #if !WIRINGPI
         public string ReadExisting()
         {
@@ -601,11 +595,21 @@ namespace Unosquare.IO.Ports
             return new String(encoding.GetChars(bytes, 0, n));
         }
 #endif
+
+        /// <summary>
+        /// Reads the line.
+        /// </summary>
+        /// <returns></returns>
         public string ReadLine()
         {
-            return ReadTo(new_line);
+            return ReadTo(_newLine);
         }
 
+        /// <summary>
+        /// Reads to.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public string ReadTo(string value)
         {
             CheckOpen();
@@ -615,40 +619,50 @@ namespace Unosquare.IO.Ports
                 throw new ArgumentException("value");
 
             // Turn into byte array, so we can compare
-            byte[] byte_value = encoding.GetBytes(value);
-            int current = 0;
-            List<byte> seen = new List<byte>();
+            var byteValue = _encoding.GetBytes(value);
+            var current = 0;
+            var seen = new List<byte>();
 
             while (true)
             {
-                int n = read_byte();
+                var n = read_byte();
                 if (n == -1)
                     break;
-                seen.Add((byte)n);
-                if (n == byte_value[current])
+                seen.Add((byte) n);
+                if (n == byteValue[current])
                 {
                     current++;
-                    if (current == byte_value.Length)
-                        return encoding.GetString(seen.ToArray(), 0, seen.Count - byte_value.Length);
+                    if (current == byteValue.Length)
+                        return _encoding.GetString(seen.ToArray(), 0, seen.Count - byteValue.Length);
                 }
                 else
                 {
-                    current = (byte_value[0] == n) ? 1 : 0;
+                    current = (byteValue[0] == n) ? 1 : 0;
                 }
             }
-            return encoding.GetString(seen.ToArray());
+            return _encoding.GetString(seen.ToArray());
         }
 
+        /// <summary>
+        /// Writes the specified text.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public void Write(string text)
         {
             CheckOpen();
             if (text == null)
                 throw new ArgumentNullException(nameof(text));
 
-            byte[] buffer = encoding.GetBytes(text);
+            var buffer = _encoding.GetBytes(text);
             Write(buffer, 0, buffer.Length);
         }
 
+        /// <summary>
+        /// Writes the specified buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="count">The count.</param>
         public void Write(byte[] buffer, int offset, int count)
         {
             CheckOpen();
@@ -660,11 +674,17 @@ namespace Unosquare.IO.Ports
 
             if (buffer.Length - offset < count)
                 throw new ArgumentException("offset+count",
-                    "The size of the buffer is less than offset + count.");
+                    nameof(buffer));
 
-            stream.Write(buffer, offset, count);
+            _stream.Write(buffer, offset, count);
         }
 
+        /// <summary>
+        /// Writes the specified buffer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="count">The count.</param>
         public void Write(char[] buffer, int offset, int count)
         {
             CheckOpen();
@@ -678,18 +698,22 @@ namespace Unosquare.IO.Ports
                 throw new ArgumentException("offset+count",
                     "The size of the buffer is less than offset + count.");
 
-            byte[] bytes = encoding.GetBytes(buffer, offset, count);
-            stream.Write(bytes, 0, bytes.Length);
+            var bytes = _encoding.GetBytes(buffer, offset, count);
+            _stream.Write(bytes, 0, bytes.Length);
         }
 
+        /// <summary>
+        /// Writes the line.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public void WriteLine(string text)
         {
-            Write(text + new_line);
+            Write(text + _newLine);
         }
 
-        void CheckOpen()
+        private void CheckOpen()
         {
-            if (!is_open)
+            if (!_isOpen)
                 throw new InvalidOperationException("Specified port is not open.");
         }
     }

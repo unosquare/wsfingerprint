@@ -67,7 +67,7 @@
         /// <summary>
         /// Gets the serial port associated with this reader.
         /// </summary>
-        public SerialPort SerialPort { get; protected set; }
+        public SerialPort SerialPort { get; private set; }
 
 #endregion
 

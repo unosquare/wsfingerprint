@@ -16,16 +16,9 @@ using System.Runtime.InteropServices;
 
 namespace Unosquare.IO.Ports
 {
-    public enum SerialSignal
-    {
-        None = 0,
-        Cd = 1, // Carrier detect 
-        Cts = 2, // Clear to send
-        Dsr = 4, // Data set ready
-        Dtr = 8, // Data terminal ready
-        Rts = 16 // Request to send
-    }
-
+    /// <summary>
+    /// Enums the Stop bits
+    /// </summary>
     public enum StopBits
     {
         None,
@@ -34,6 +27,9 @@ namespace Unosquare.IO.Ports
         OnePointFive
     }
 
+    /// <summary>
+    /// Enums the parity modes
+    /// </summary>
     public enum Parity
     {
         None,
@@ -43,7 +39,7 @@ namespace Unosquare.IO.Ports
         Space
     }
 
-    public enum Handshake
+    internal enum Handshake
     {
         None,
         XOnXOff,
@@ -51,7 +47,7 @@ namespace Unosquare.IO.Ports
         RequestToSendXOnXOff
     }
 
-    class SerialPortStream : Stream, IDisposable
+    internal class SerialPortStream : Stream, IDisposable
     {
         int fd;
         int read_timeout;

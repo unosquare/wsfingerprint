@@ -120,7 +120,7 @@ Interfacing Library for .NET
 * Nice sample application included for testing
 * MIT License
 
-## NuGet Installation:
+## NuGet Installation: [![NuGet version](https://badge.fury.io/nu/Unosquare.WaveShare.FingerprintReader.svg)](https://badge.fury.io/nu/Unosquare.WaveShare.FingerprintReader)
 
 ```
 PM> Install-Package Unosquare.WaveShare.FingerprintReader

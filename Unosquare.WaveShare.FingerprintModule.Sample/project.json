@@ -1,7 +1,7 @@
 {
   "version": "1.1.0-*",
   "title": "Unosquare.WaveShare.FingerprintModule.Sample",
-  "buildOptions": {"emitEntryPoint": true, "allowUnsafe": true},
+  "buildOptions": {"emitEntryPoint": true },
   "dependencies": {
     "Unosquare.WaveShare.FingerprintModule": { "target": "project" }
   },

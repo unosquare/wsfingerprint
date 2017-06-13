@@ -25,7 +25,9 @@ before_build:
             git checkout $env:APPVEYOR_REPO_BRANCH -q
             cinst docfx -y
         }
-- nuget restore Unosquare.WaveShare.FingerprintModule.sln
+- appveyor-retry dotnet restore -v Minimal
+build_script:
+- dotnet build */**/project.json -c %CONFIGURATION%
 after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)

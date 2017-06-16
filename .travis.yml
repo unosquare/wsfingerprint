@@ -3,10 +3,7 @@ solution: Unosquare.WaveShare.FingerprintModule.sln
 dotnet: 1.0.0-preview2-003131
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
-os:
-  - osx
-  - linux
-install
+install:
   - dotnet restore
 script:
   - dotnet build */**/project.json

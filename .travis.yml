@@ -5,6 +5,6 @@ dist: trusty
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve
 install:
-  - dotnet restore
+  - msbuild /t:Restore
 script:
-  - dotnet build */**/project.json
+  - msbuild /p:Configuration=Release

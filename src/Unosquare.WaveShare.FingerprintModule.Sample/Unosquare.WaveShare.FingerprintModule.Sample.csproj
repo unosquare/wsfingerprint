@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyTitle>Unosquare.WaveShare.FingerprintModule.Sample</AssemblyTitle>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <TargetFrameworks>netcoreapp1.1;net452</TargetFrameworks>
+    <AssemblyName>Unosquare.WaveShare.FingerprintModule.Sample</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Unosquare.WaveShare.FingerprintModule.Sample</PackageId>
+    <RuntimeIdentifiers>win8-x64</RuntimeIdentifiers>
+    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">1.1.1</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
+    <PackageReference Include="System.IO" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0">
+      <IncludeAssets>Analyzers;Build;Compile;ContentFiles;Native</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unosquare.Swan" Version="0.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unosquare.WaveShare.FingerprintModule\Unosquare.WaveShare.FingerprintModule.csproj" />
+  </ItemGroup>
+
+</Project>

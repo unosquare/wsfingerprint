@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyTitle>Unosquare.WaveShare.FingerprintModule</AssemblyTitle>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>Unosquare.WaveShare.FingerprintModule</AssemblyName>
+    <PackageId>Unosquare.WaveShare.FingerprintModule</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unosquare.Swan" Version="0.14.2" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <DefineConstants>$(DefineConstants);WIRINGPI</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

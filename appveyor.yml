@@ -1,4 +1,5 @@
 version: '1.0.{build}'
+image: Visual Studio 2017
 configuration:
 - Release
 platform: Any CPU
@@ -27,7 +28,7 @@ before_build:
         }
 - appveyor-retry dotnet restore -v Minimal
 build_script:
-- dotnet build */**/project.json -c %CONFIGURATION%
+- msbuild /p:Configuration=%CONFIGURATION%
 after_build:
 - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)

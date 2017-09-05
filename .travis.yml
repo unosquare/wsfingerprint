@@ -7,4 +7,4 @@ notifications:
 install:
   - dotnet restore
 script:
-  - msbuild
+  - dotnet build

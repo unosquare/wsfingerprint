@@ -18,7 +18,412 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "EpeLSVQ6LB2QWWzTkB5+Ww=="
+          "hash": "5H7WH6/jfippcicgrPKE1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "best-practices/resources/images/doc_logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "best-practices/resources/images/doc_logo.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "best-practices/resources/images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "best-practices/resources/images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "logos/wsfp-logo-256.png",
+      "output": {
+        "resource": {
+          "relative_path": "logos/wsfp-logo-256.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.IO.Ports.Parity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.IO.Ports.Parity.html",
+          "hash": "i9alKRH94962J7L7dj/V0A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.IO.Ports.SerialPort.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.IO.Ports.SerialPort.html",
+          "hash": "H1FA4v5Huv2m6UmGzLs7cQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.IO.Ports.StopBits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.IO.Ports.StopBits.html",
+          "hash": "QwFKj/g1ZPBCLYpFmTx/3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.IO.Ports.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.IO.Ports.html",
+          "hash": "VxTP5YnZbbIv0iEJ1FDZ+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html",
+          "hash": "7X8PeJdLYGIMuEHOLbDhbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html",
+          "hash": "Z/Y6RvbQOA/19gzcvDf/1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html",
+          "hash": "HAcTWoNTeuyOfWp/PRGYcw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.BaudRate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.BaudRate.html",
+          "hash": "pRi+bX6Kna+EA8RrfUpC5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.Command.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Command.html",
+          "hash": "TI8W0VFpHyi45i0ufw2gsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html",
+          "hash": "FS0Rxm8Ac7tf5G/XzU/4xA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html",
+          "hash": "3K/Sc3AYc8qZEbJUX7V4Rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html",
+          "hash": "eeHpIYe6rvMe2d3xArlpxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html",
+          "hash": "RSpMDfef4kyxhtW7y9pLWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html",
+          "hash": "oRJY9ko6ejwRYag6k3656Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html",
+          "hash": "CW7vZY4zk264SBfG2nwg6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html",
+          "hash": "e9RVLLYudQdOKC92oGkWWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html",
+          "hash": "u9FGnjJDaUoTgGP8ZXwdSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html",
+          "hash": "TcDQDzjnsF0VM2ArVdzPww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html",
+          "hash": "sJ1b/R3zOoK64cbQQoD0MQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html",
+          "hash": "BZmI4gwHcuLxaN4DDNMQXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html",
+          "hash": "djro+W/aL7j8PYac6EP/Pg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MessageBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageBase.html",
+          "hash": "wcco/G1EFCh51EBJFrm93w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MessageLengthCategory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageLengthCategory.html",
+          "hash": "yzyqmjvHR4qK/RfN8P8Pkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MessageResponseCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageResponseCode.html",
+          "hash": "5sURiiJdEWFBEVtiEvwGcA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.MessageType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageType.html",
+          "hash": "9b+sKj+RVuoY9rxShq9IuQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.OperationCode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.OperationCode.html",
+          "hash": "o2D8undfTnMpDXcVgGInLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.Response.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Response.html",
+          "hash": "c2LM3CcnVTEIGdBd+kZYcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.ResponseBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html",
+          "hash": "peJrKtKnAYMOKTU44sK0KA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html",
+          "hash": "p6SKl3YL39Y6zMIjkgyCoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.html",
+          "hash": "hiDWO5JNdgNVnrDNcFTHxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "obj/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "I0uLdf5VW6FBbX7ScePCdg=="
         }
       },
       "is_incremental": false,
@@ -30,7 +435,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "c6AMqW36QrScTkImYSI5ug=="
+          "hash": "VQf4QDrxTmF61/a+OzukYA=="
         }
       },
       "is_incremental": false,
@@ -40,24 +445,10 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": false,
-        "details": "Cannot build incrementally because last build info is missing.",
+        "can_incremental": true,
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build"
-        },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "RestApiDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
@@ -66,6 +457,19 @@
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

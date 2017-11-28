@@ -1,4 +1,4 @@
-[![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/wsfingerprint/)](https://github.com/igrigorik/ga-beacon)
+[![Build status](https://ci.appveyor.com/api/projects/status/6t4myxvd36bfqwis/branch/master?svg=true)](https://ci.appveyor.com/project/geoperez/wsfingerprint/branch/master)[![Analytics](https://ga-beacon.appspot.com/UA-8535255-2/unosquare/wsfingerprint/)](https://github.com/igrigorik/ga-beacon)
 
 # <img src="https://github.com/unosquare/wsfingerprint/raw/master/logos/wsfp-logo-32.png"></img> WaveShare Fingerprint Reader
 Interfacing Library for .NET

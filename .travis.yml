@@ -1,6 +1,6 @@
 language: csharp
 solution: Unosquare.WaveShare.FingerprintModule.sln
-dotnet: 1.0.1
+dotnet: 2.0.0
 dist: trusty
 notifications:
   slack: unolabs:cbusXPH6pBwZ35rVDzi4k4ve

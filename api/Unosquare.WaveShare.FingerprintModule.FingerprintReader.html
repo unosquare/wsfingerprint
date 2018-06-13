@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class FingerprintReader
    | WaveShare Fingerprint Reader Interfacing Library for .NET ">
-    <meta name="generator" content="docfx 2.28.3.0">
+    <meta name="generator" content="docfx 2.36.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -191,7 +191,7 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageResponse&gt; AcquireImage(CancellationToken ct = default (CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageResponse&gt; AcquireImage(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -776,7 +776,7 @@ This method probes the serial port at different baud rates until communication i
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;MatchOneToNResponse&gt; MatchOneToN(CancellationToken ct = default (CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;MatchOneToNResponse&gt; MatchOneToN(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -820,7 +820,7 @@ This method probes the serial port at different baud rates until communication i
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchOneToOne(int userId, CancellationToken ct = default (CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchOneToOne(int userId, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1034,7 +1034,7 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync(TimeSpan timeout, CancellationToken ct = default (CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1418,10 +1418,11 @@ online is by resetting it.</p>
   <div class="seealso">
       <div><span class="xref">System.IDisposable</span></div>
   </div>
+
+<h3>Comments</h3>
 <div id="disqus_thread"></div>
 <script>
 
-<h3>Comments</h3>
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
@@ -1469,7 +1470,7 @@ s.setAttribute('data-timestamp', +new Date());
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2017 <a href="https://www.unosquare.com">Unosquare</a></span>
+            <span>Copyright © 2017-2018 <a href="https://www.unosquare.com">Unosquare</a></span>
           </div>
         </div>
       </footer>

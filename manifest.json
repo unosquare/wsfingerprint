@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "K/XlEVFODoA95okiuFU9ig=="
+          "hash": "P6cZkfIVms+A3BKBSS+sqw=="
         }
       },
       "is_incremental": false,
@@ -74,7 +74,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.IO.Ports.Parity.html",
-          "hash": "q0IpIlECyNieasDRFhGTEQ=="
+          "hash": "LZ52nRE4HhDHve26gxPifA=="
         }
       },
       "is_incremental": false,
@@ -86,7 +86,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.IO.Ports.SerialPort.html",
-          "hash": "jq5/C8pYW1ZZ3+A0l10hew=="
+          "hash": "hPHVdPXdYvsVfQctWDvjWg=="
         }
       },
       "is_incremental": false,
@@ -98,7 +98,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.IO.Ports.StopBits.html",
-          "hash": "rJNsBbkV8Xqs7+19wp0jxA=="
+          "hash": "giRXga2az8QKtQfuaPAUcQ=="
         }
       },
       "is_incremental": false,
@@ -110,7 +110,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.IO.Ports.html",
-          "hash": "TC6rWRQwsiTuVnk6SDOuXw=="
+          "hash": "ARO2weJvBangIpMU3HXvoQ=="
         }
       },
       "is_incremental": false,
@@ -122,7 +122,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html",
-          "hash": "yYiTP4D8s7f2Ism0X5K9+w=="
+          "hash": "cT3wP78o1OoHPcMtzWyXLQ=="
         }
       },
       "is_incremental": false,
@@ -134,7 +134,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html",
-          "hash": "g+AnR8GC/V5MLDXJovRJIQ=="
+          "hash": "XQ572oAKbwFkFou99vRFlA=="
         }
       },
       "is_incremental": false,
@@ -146,7 +146,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html",
-          "hash": "Cmu6UwASyVH8rjbNtGArVg=="
+          "hash": "GwCGm05cSWTQ8wCzUZ19oA=="
         }
       },
       "is_incremental": false,
@@ -158,7 +158,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.BaudRate.html",
-          "hash": "BKuN2vF2oxv4hRYnfupVVg=="
+          "hash": "7F3zkBps+bPtd22gKTaQQA=="
         }
       },
       "is_incremental": false,
@@ -170,7 +170,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Command.html",
-          "hash": "0DsGq0b0HOSaYMZNy4ugTg=="
+          "hash": "gnAl3nAHLEMhP8CsCIcl4A=="
         }
       },
       "is_incremental": false,
@@ -182,7 +182,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html",
-          "hash": "6zQi2tzH62rpsdwfGlazzg=="
+          "hash": "Kh7l4a+NXVY5o3qEIdLLHQ=="
         }
       },
       "is_incremental": false,
@@ -194,7 +194,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html",
-          "hash": "mOmlfrMEAt2IVTV0k45UtQ=="
+          "hash": "mOR7abpDIjWrErCgYxw3OA=="
         }
       },
       "is_incremental": false,
@@ -206,7 +206,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html",
-          "hash": "zk7CGxidmnBnD73fbTwGdQ=="
+          "hash": "JPinJRVdWOy93L4VOLTdKg=="
         }
       },
       "is_incremental": false,
@@ -218,7 +218,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html",
-          "hash": "K4KFFHK9iK7D0R5GFK6oBQ=="
+          "hash": "6zec+kLqVhjklcwhgYfYYg=="
         }
       },
       "is_incremental": false,
@@ -230,7 +230,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html",
-          "hash": "vNGIX3myydU2d2sKswIFPg=="
+          "hash": "0+MO3mi0KzjgpRfn2Wdljg=="
         }
       },
       "is_incremental": false,
@@ -242,7 +242,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html",
-          "hash": "9EKTuT6+VfLq3G9XpueqhQ=="
+          "hash": "Qwvq9QBi/PspQwx10+54nA=="
         }
       },
       "is_incremental": false,
@@ -254,7 +254,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html",
-          "hash": "XxABfnWojQ40833ZX4umkQ=="
+          "hash": "YWnLgyRV4PuuDnyZ111kgg=="
         }
       },
       "is_incremental": false,
@@ -266,7 +266,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html",
-          "hash": "qjhx0NdXjSKJLOm/IfgOvA=="
+          "hash": "bPJDGEsojZt0dFdH2yiSvQ=="
         }
       },
       "is_incremental": false,
@@ -278,7 +278,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html",
-          "hash": "mreh04CwYKCJd8zzeQ2YMw=="
+          "hash": "beJIpRlByPDnRSrNWBGwmg=="
         }
       },
       "is_incremental": false,
@@ -290,7 +290,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html",
-          "hash": "UonnzanE7kXNftK7DgxFXg=="
+          "hash": "9NHhp9EtFh4VXnNEzrGR8g=="
         }
       },
       "is_incremental": false,
@@ -302,7 +302,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html",
-          "hash": "NbIfpPzrh0DrU+lKSGP8Tg=="
+          "hash": "X+3kYjH3OV8tp1v7xsFpkA=="
         }
       },
       "is_incremental": false,
@@ -314,7 +314,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html",
-          "hash": "A8TPpbiqnmCKxupnwDR6Wg=="
+          "hash": "dr+Z+VPy3L6FxmqtLuv2cw=="
         }
       },
       "is_incremental": false,
@@ -326,7 +326,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageBase.html",
-          "hash": "Ri+ukktwg5L04Jc9rpvL6A=="
+          "hash": "jwPNJA0yM9nt+rDoHR8fhA=="
         }
       },
       "is_incremental": false,
@@ -338,7 +338,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageLengthCategory.html",
-          "hash": "MlwUpzAqbYTJJltrJCLnqw=="
+          "hash": "G4j+mrqUj/Mj3CcB/MEluQ=="
         }
       },
       "is_incremental": false,
@@ -350,7 +350,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageResponseCode.html",
-          "hash": "cWVG1laHNAkh6Qgl3MKvEQ=="
+          "hash": "5pJIAP5GSERTDS7E5g2fVQ=="
         }
       },
       "is_incremental": false,
@@ -362,7 +362,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageType.html",
-          "hash": "ClQXktPIidhh7KHBIODheA=="
+          "hash": "Epbm3GAP7ooMxd0bs8nj7g=="
         }
       },
       "is_incremental": false,
@@ -374,7 +374,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.OperationCode.html",
-          "hash": "KklDAk9pIyZFQGb/0FMJ5Q=="
+          "hash": "9IxQVilfS/+CYDpj2LTftQ=="
         }
       },
       "is_incremental": false,
@@ -386,7 +386,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Response.html",
-          "hash": "3pTPOxaefNiH50zguGjoLw=="
+          "hash": "nBcxlIZfXKSrjKP9crqxtg=="
         }
       },
       "is_incremental": false,
@@ -398,7 +398,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html",
-          "hash": "DPqvKqK08AkKiTsIUrMGiA=="
+          "hash": "ZjaksM5RUSAi/jbmnuSZBw=="
         }
       },
       "is_incremental": false,
@@ -410,7 +410,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html",
-          "hash": "ioGxcBWJ36mCKGLUtYlOGg=="
+          "hash": "B0SmuUGWWadGA/UAkncyuA=="
         }
       },
       "is_incremental": false,
@@ -422,7 +422,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.html",
-          "hash": "ITMFmZmwT0ScFK1vUUi8LA=="
+          "hash": "TliQheNmYBGKz3eheRmIsw=="
         }
       },
       "is_incremental": false,
@@ -460,11 +460,6 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
@@ -475,7 +470,12 @@
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

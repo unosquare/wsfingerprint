@@ -71,6 +71,7 @@ references:
   name: SerialPort
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort__ctor_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.#ctor
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.SerialPort
   nameWithType: SerialPort.SerialPort
 - uid: Unosquare.IO.Ports.SerialPort.BaseStream
@@ -83,6 +84,7 @@ references:
   name: BaseStream
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_BaseStream_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.BaseStream
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.BaseStream
   nameWithType: SerialPort.BaseStream
 - uid: Unosquare.IO.Ports.SerialPort.BaudRate
@@ -95,6 +97,7 @@ references:
   name: BaudRate
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_BaudRate_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.BaudRate
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.BaudRate
   nameWithType: SerialPort.BaudRate
 - uid: Unosquare.IO.Ports.SerialPort.BytesToRead
@@ -107,6 +110,7 @@ references:
   name: BytesToRead
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_BytesToRead_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.BytesToRead
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.BytesToRead
   nameWithType: SerialPort.BytesToRead
 - uid: Unosquare.IO.Ports.SerialPort.BytesToWrite
@@ -119,6 +123,7 @@ references:
   name: BytesToWrite
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_BytesToWrite_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.BytesToWrite
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.BytesToWrite
   nameWithType: SerialPort.BytesToWrite
 - uid: Unosquare.IO.Ports.SerialPort.Close
@@ -131,6 +136,7 @@ references:
   name: Close
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Close_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Close
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Close
   nameWithType: SerialPort.Close
 - uid: Unosquare.IO.Ports.SerialPort.DataBits
@@ -143,6 +149,7 @@ references:
   name: DataBits
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_DataBits_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.DataBits
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.DataBits
   nameWithType: SerialPort.DataBits
 - uid: Unosquare.IO.Ports.SerialPort.DiscardInBuffer
@@ -155,6 +162,7 @@ references:
   name: DiscardInBuffer
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_DiscardInBuffer_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.DiscardInBuffer
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.DiscardInBuffer
   nameWithType: SerialPort.DiscardInBuffer
 - uid: Unosquare.IO.Ports.SerialPort.DiscardOutBuffer
@@ -167,6 +175,7 @@ references:
   name: DiscardOutBuffer
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_DiscardOutBuffer_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.DiscardOutBuffer
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.DiscardOutBuffer
   nameWithType: SerialPort.DiscardOutBuffer
 - uid: Unosquare.IO.Ports.SerialPort.Dispose
@@ -185,6 +194,7 @@ references:
   name: Dispose
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Dispose_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Dispose
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Dispose
   nameWithType: SerialPort.Dispose
 - uid: Unosquare.IO.Ports.SerialPort.Encoding
@@ -197,6 +207,7 @@ references:
   name: Encoding
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Encoding_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Encoding
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Encoding
   nameWithType: SerialPort.Encoding
 - uid: Unosquare.IO.Ports.SerialPort.GetPortNames
@@ -209,6 +220,7 @@ references:
   name: GetPortNames
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_GetPortNames_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.GetPortNames
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.GetPortNames
   nameWithType: SerialPort.GetPortNames
 - uid: Unosquare.IO.Ports.SerialPort.Handshake
@@ -221,6 +233,7 @@ references:
   name: Handshake
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Handshake_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Handshake
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Handshake
   nameWithType: SerialPort.Handshake
 - uid: Unosquare.IO.Ports.SerialPort.InfiniteTimeout
@@ -239,6 +252,7 @@ references:
   name: IsOpen
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_IsOpen_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.IsOpen
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.IsOpen
   nameWithType: SerialPort.IsOpen
 - uid: Unosquare.IO.Ports.SerialPort.NewLine
@@ -251,6 +265,7 @@ references:
   name: NewLine
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_NewLine_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.NewLine
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.NewLine
   nameWithType: SerialPort.NewLine
 - uid: Unosquare.IO.Ports.SerialPort.Open
@@ -263,6 +278,7 @@ references:
   name: Open
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Open_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Open
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Open
   nameWithType: SerialPort.Open
 - uid: Unosquare.IO.Ports.SerialPort.Parity
@@ -275,6 +291,7 @@ references:
   name: Parity
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Parity_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Parity
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Parity
   nameWithType: SerialPort.Parity
 - uid: Unosquare.IO.Ports.SerialPort.PortName
@@ -287,6 +304,7 @@ references:
   name: PortName
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_PortName_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.PortName
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.PortName
   nameWithType: SerialPort.PortName
 - uid: Unosquare.IO.Ports.SerialPort.Read(System.Byte[],System.Int32,System.Int32)
@@ -311,6 +329,7 @@ references:
   name: Read
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Read_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Read
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Read
   nameWithType: SerialPort.Read
 - uid: Unosquare.IO.Ports.SerialPort.ReadBufferSize
@@ -323,6 +342,7 @@ references:
   name: ReadBufferSize
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadBufferSize_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadBufferSize
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadBufferSize
   nameWithType: SerialPort.ReadBufferSize
 - uid: Unosquare.IO.Ports.SerialPort.ReadByte
@@ -335,6 +355,7 @@ references:
   name: ReadByte
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadByte_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadByte
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadByte
   nameWithType: SerialPort.ReadByte
 - uid: Unosquare.IO.Ports.SerialPort.ReadChar
@@ -347,6 +368,7 @@ references:
   name: ReadChar
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadChar_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadChar
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadChar
   nameWithType: SerialPort.ReadChar
 - uid: Unosquare.IO.Ports.SerialPort.ReadExisting
@@ -359,6 +381,7 @@ references:
   name: ReadExisting
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadExisting_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadExisting
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadExisting
   nameWithType: SerialPort.ReadExisting
 - uid: Unosquare.IO.Ports.SerialPort.ReadLine
@@ -371,6 +394,7 @@ references:
   name: ReadLine
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadLine_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadLine
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadLine
   nameWithType: SerialPort.ReadLine
 - uid: Unosquare.IO.Ports.SerialPort.ReadTimeout
@@ -383,6 +407,7 @@ references:
   name: ReadTimeout
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadTimeout_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadTimeout
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadTimeout
   nameWithType: SerialPort.ReadTimeout
 - uid: Unosquare.IO.Ports.SerialPort.ReadTo(System.String)
@@ -395,6 +420,7 @@ references:
   name: ReadTo
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_ReadTo_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.ReadTo
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.ReadTo
   nameWithType: SerialPort.ReadTo
 - uid: Unosquare.IO.Ports.SerialPort.StopBits
@@ -407,6 +433,7 @@ references:
   name: StopBits
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_StopBits_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.StopBits
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.StopBits
   nameWithType: SerialPort.StopBits
 - uid: Unosquare.IO.Ports.SerialPort.Write(System.Byte[],System.Int32,System.Int32)
@@ -437,6 +464,7 @@ references:
   name: Write
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_Write_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.Write
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.Write
   nameWithType: SerialPort.Write
 - uid: Unosquare.IO.Ports.SerialPort.WriteBufferSize
@@ -449,6 +477,7 @@ references:
   name: WriteBufferSize
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_WriteBufferSize_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.WriteBufferSize
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.WriteBufferSize
   nameWithType: SerialPort.WriteBufferSize
 - uid: Unosquare.IO.Ports.SerialPort.WriteLine(System.String)
@@ -461,6 +490,7 @@ references:
   name: WriteLine
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_WriteLine_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.WriteLine
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.WriteLine
   nameWithType: SerialPort.WriteLine
 - uid: Unosquare.IO.Ports.SerialPort.WriteTimeout
@@ -473,6 +503,7 @@ references:
   name: WriteTimeout
   href: api/Unosquare.IO.Ports.SerialPort.html#Unosquare_IO_Ports_SerialPort_WriteTimeout_
   commentId: Overload:Unosquare.IO.Ports.SerialPort.WriteTimeout
+  isSpec: "True"
   fullName: Unosquare.IO.Ports.SerialPort.WriteTimeout
   nameWithType: SerialPort.WriteTimeout
 - uid: Unosquare.IO.Ports.StopBits
@@ -530,6 +561,7 @@ references:
   name: AcquireImageEigenvaluesResponse
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageEigenvaluesResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.AcquireImageEigenvaluesResponse
   nameWithType: AcquireImageEigenvaluesResponse.AcquireImageEigenvaluesResponse
 - uid: Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.Eigenvalues
@@ -542,6 +574,7 @@ references:
   name: Eigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageEigenvaluesResponse_Eigenvalues_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.Eigenvalues
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.Eigenvalues
   nameWithType: AcquireImageEigenvaluesResponse.Eigenvalues
 - uid: Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.ToString
@@ -554,6 +587,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageEigenvaluesResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.ToString
   nameWithType: AcquireImageEigenvaluesResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse
@@ -575,6 +609,7 @@ references:
   name: AcquireImageResponse
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.AcquireImageResponse
   nameWithType: AcquireImageResponse.AcquireImageResponse
 - uid: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ImageRawData
@@ -587,6 +622,7 @@ references:
   name: ImageRawData
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageResponse_ImageRawData_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ImageRawData
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ImageRawData
   nameWithType: AcquireImageResponse.ImageRawData
 - uid: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ToString
@@ -599,6 +635,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html#Unosquare_WaveShare_FingerprintModule_AcquireImageResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.ToString
   nameWithType: AcquireImageResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse
@@ -620,6 +657,7 @@ references:
   name: AddFingerprintResponse
   href: api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html#Unosquare_WaveShare_FingerprintModule_AddFingerprintResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.AddFingerprintResponse
   nameWithType: AddFingerprintResponse.AddFingerprintResponse
 - uid: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.Iteration
@@ -632,6 +670,7 @@ references:
   name: Iteration
   href: api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html#Unosquare_WaveShare_FingerprintModule_AddFingerprintResponse_Iteration_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.Iteration
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.Iteration
   nameWithType: AddFingerprintResponse.Iteration
 - uid: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.ToString
@@ -644,6 +683,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html#Unosquare_WaveShare_FingerprintModule_AddFingerprintResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.ToString
   nameWithType: AddFingerprintResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.BaudRate
@@ -698,6 +738,7 @@ references:
   name: Command
   href: api/Unosquare.WaveShare.FingerprintModule.Command.html#Unosquare_WaveShare_FingerprintModule_Command__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.Command.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.Command.Command
   nameWithType: Command.Command
 - uid: Unosquare.WaveShare.FingerprintModule.Command.ToString
@@ -710,6 +751,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.Command.html#Unosquare_WaveShare_FingerprintModule_Command_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.Command.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.Command.ToString
   nameWithType: Command.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader
@@ -728,6 +770,7 @@ references:
   name: AcquireImage
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImage_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImage
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImage
   nameWithType: FingerprintReader.AcquireImage
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues
@@ -740,6 +783,7 @@ references:
   name: AcquireImageEigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues
   nameWithType: FingerprintReader.AcquireImageEigenvalues
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint(System.Int32,System.Int32,System.Int32)
@@ -752,6 +796,7 @@ references:
   name: AddFingerprint
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint
   nameWithType: FingerprintReader.AddFingerprint
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers
@@ -764,6 +809,7 @@ references:
   name: DeleteAllUsers
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers
   nameWithType: FingerprintReader.DeleteAllUsers
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser(System.Int32)
@@ -776,6 +822,7 @@ references:
   name: DeleteUser
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser
   nameWithType: FingerprintReader.DeleteUser
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Dispose
@@ -788,6 +835,7 @@ references:
   name: Dispose
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_Dispose_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.Dispose
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Dispose
   nameWithType: FingerprintReader.Dispose
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers
@@ -800,6 +848,7 @@ references:
   name: GetAllUsers
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers
   nameWithType: FingerprintReader.GetAllUsers
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate
@@ -812,6 +861,7 @@ references:
   name: GetBaudRate
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate
   nameWithType: FingerprintReader.GetBaudRate
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout
@@ -824,6 +874,7 @@ references:
   name: GetCaptureTimeout
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout
   nameWithType: FingerprintReader.GetCaptureTimeout
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber
@@ -836,6 +887,7 @@ references:
   name: GetDspVersionNumber
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber
   nameWithType: FingerprintReader.GetDspVersionNumber
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel
@@ -848,6 +900,7 @@ references:
   name: GetMatchingLevel
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel
   nameWithType: FingerprintReader.GetMatchingLevel
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode
@@ -860,6 +913,7 @@ references:
   name: GetRegistrationMode
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode
   nameWithType: FingerprintReader.GetRegistrationMode
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount
@@ -872,6 +926,7 @@ references:
   name: GetUserCount
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount
   nameWithType: FingerprintReader.GetUserCount
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege(System.Int32)
@@ -884,6 +939,7 @@ references:
   name: GetUserPrivilege
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege
   nameWithType: FingerprintReader.GetUserPrivilege
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties(System.Int32)
@@ -896,6 +952,7 @@ references:
   name: GetUserProperties
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties
   nameWithType: FingerprintReader.GetUserProperties
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser(System.Byte[])
@@ -911,6 +968,7 @@ references:
   name: MatchEigenvaluesToUser
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser
   nameWithType: FingerprintReader.MatchEigenvaluesToUser
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues(System.Byte[])
@@ -926,6 +984,7 @@ references:
   name: MatchImageToEigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues
   nameWithType: FingerprintReader.MatchImageToEigenvalues
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToN(System.Threading.CancellationToken)
@@ -938,6 +997,7 @@ references:
   name: MatchOneToN
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToN_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToN
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToN
   nameWithType: FingerprintReader.MatchOneToN
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToOne(System.Int32,System.Threading.CancellationToken)
@@ -950,6 +1010,7 @@ references:
   name: MatchOneToOne
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchOneToOne_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToOne
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchOneToOne
   nameWithType: FingerprintReader.MatchOneToOne
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues(System.Int32,System.Byte[])
@@ -965,6 +1026,7 @@ references:
   name: MatchUserToEigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues
   nameWithType: FingerprintReader.MatchUserToEigenvalues
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Mode
@@ -989,6 +1051,7 @@ references:
   name: Open
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open
   nameWithType: FingerprintReader.Open
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync
@@ -1007,6 +1070,7 @@ references:
   name: ReadAsync
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync
   nameWithType: FingerprintReader.ReadAsync
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SerialPort
@@ -1019,6 +1083,7 @@ references:
   name: SerialPort
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SerialPort_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SerialPort
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SerialPort
   nameWithType: FingerprintReader.SerialPort
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate(Unosquare.WaveShare.FingerprintModule.BaudRate)
@@ -1031,6 +1096,7 @@ references:
   name: SetBaudRate
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate
   nameWithType: FingerprintReader.SetBaudRate
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout(System.Int32)
@@ -1043,6 +1109,7 @@ references:
   name: SetCaptureTimeout
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout
   nameWithType: FingerprintReader.SetCaptureTimeout
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel(System.Int32)
@@ -1055,6 +1122,7 @@ references:
   name: SetMatchingLevel
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel
   nameWithType: FingerprintReader.SetMatchingLevel
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode(System.Boolean)
@@ -1067,6 +1135,7 @@ references:
   name: SetRegistrationMode
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode
   nameWithType: FingerprintReader.SetRegistrationMode
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties(System.Int32,System.Int32,System.Byte[])
@@ -1082,6 +1151,7 @@ references:
   name: SetUserProperties
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties
   nameWithType: FingerprintReader.SetUserProperties
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep
@@ -1094,6 +1164,7 @@ references:
   name: Sleep
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep
   nameWithType: FingerprintReader.Sleep
 - uid: Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync(System.Byte[])
@@ -1109,6 +1180,7 @@ references:
   name: WriteAsync
   href: api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html#Unosquare_WaveShare_FingerprintModule_FingerprintReader_WriteAsync_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync
   nameWithType: FingerprintReader.WriteAsync
 - uid: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse
@@ -1130,6 +1202,7 @@ references:
   name: GetAllUsersResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html#Unosquare_WaveShare_FingerprintModule_GetAllUsersResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.GetAllUsersResponse
   nameWithType: GetAllUsersResponse.GetAllUsersResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.ToString
@@ -1142,6 +1215,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html#Unosquare_WaveShare_FingerprintModule_GetAllUsersResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.ToString
   nameWithType: GetAllUsersResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.Users
@@ -1154,6 +1228,7 @@ references:
   name: Users
   href: api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html#Unosquare_WaveShare_FingerprintModule_GetAllUsersResponse_Users_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.Users
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.Users
   nameWithType: GetAllUsersResponse.Users
 - uid: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse
@@ -1175,6 +1250,7 @@ references:
   name: GetDspVersionNumberResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html#Unosquare_WaveShare_FingerprintModule_GetDspVersionNumberResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.GetDspVersionNumberResponse
   nameWithType: GetDspVersionNumberResponse.GetDspVersionNumberResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.ToString
@@ -1187,6 +1263,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html#Unosquare_WaveShare_FingerprintModule_GetDspVersionNumberResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.ToString
   nameWithType: GetDspVersionNumberResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.Version
@@ -1199,6 +1276,7 @@ references:
   name: Version
   href: api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html#Unosquare_WaveShare_FingerprintModule_GetDspVersionNumberResponse_Version_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.Version
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.Version
   nameWithType: GetDspVersionNumberResponse.Version
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse
@@ -1220,6 +1298,7 @@ references:
   name: GetSetBaudRateResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetBaudRateResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.GetSetBaudRateResponse
   nameWithType: GetSetBaudRateResponse.GetSetBaudRateResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.BaudRate
@@ -1232,6 +1311,7 @@ references:
   name: BaudRate
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetBaudRateResponse_BaudRate_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.BaudRate
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.BaudRate
   nameWithType: GetSetBaudRateResponse.BaudRate
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.ToString
@@ -1244,6 +1324,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetBaudRateResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.ToString
   nameWithType: GetSetBaudRateResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse
@@ -1265,6 +1346,7 @@ references:
   name: GetSetCaptureTimeoutResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetCaptureTimeoutResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.GetSetCaptureTimeoutResponse
   nameWithType: GetSetCaptureTimeoutResponse.GetSetCaptureTimeoutResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.CaptureTimeout
@@ -1277,6 +1359,7 @@ references:
   name: CaptureTimeout
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetCaptureTimeoutResponse_CaptureTimeout_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.CaptureTimeout
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.CaptureTimeout
   nameWithType: GetSetCaptureTimeoutResponse.CaptureTimeout
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.ToString
@@ -1289,6 +1372,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetCaptureTimeoutResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.ToString
   nameWithType: GetSetCaptureTimeoutResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse
@@ -1310,6 +1394,7 @@ references:
   name: GetSetMatchingLevelResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetMatchingLevelResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.GetSetMatchingLevelResponse
   nameWithType: GetSetMatchingLevelResponse.GetSetMatchingLevelResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.MatchingLevel
@@ -1322,6 +1407,7 @@ references:
   name: MatchingLevel
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetMatchingLevelResponse_MatchingLevel_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.MatchingLevel
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.MatchingLevel
   nameWithType: GetSetMatchingLevelResponse.MatchingLevel
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.ToString
@@ -1334,6 +1420,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetMatchingLevelResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.ToString
   nameWithType: GetSetMatchingLevelResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse
@@ -1355,6 +1442,7 @@ references:
   name: GetSetRegistrationModeResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetRegistrationModeResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.GetSetRegistrationModeResponse
   nameWithType: GetSetRegistrationModeResponse.GetSetRegistrationModeResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ProhibitRepeat
@@ -1367,6 +1455,7 @@ references:
   name: ProhibitRepeat
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetRegistrationModeResponse_ProhibitRepeat_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ProhibitRepeat
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ProhibitRepeat
   nameWithType: GetSetRegistrationModeResponse.ProhibitRepeat
 - uid: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ToString
@@ -1379,6 +1468,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html#Unosquare_WaveShare_FingerprintModule_GetSetRegistrationModeResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.ToString
   nameWithType: GetSetRegistrationModeResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse
@@ -1400,6 +1490,7 @@ references:
   name: GetUserCountResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserCountResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.GetUserCountResponse
   nameWithType: GetUserCountResponse.GetUserCountResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.ToString
@@ -1412,6 +1503,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserCountResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.ToString
   nameWithType: GetUserCountResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.UserCount
@@ -1424,6 +1516,7 @@ references:
   name: UserCount
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserCountResponse_UserCount_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.UserCount
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.UserCount
   nameWithType: GetUserCountResponse.UserCount
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse
@@ -1445,6 +1538,7 @@ references:
   name: GetUserPrivilegeResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPrivilegeResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.GetUserPrivilegeResponse
   nameWithType: GetUserPrivilegeResponse.GetUserPrivilegeResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.IsSuccessful
@@ -1457,6 +1551,7 @@ references:
   name: IsSuccessful
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPrivilegeResponse_IsSuccessful_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.IsSuccessful
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.IsSuccessful
   nameWithType: GetUserPrivilegeResponse.IsSuccessful
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.ToString
@@ -1469,6 +1564,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPrivilegeResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.ToString
   nameWithType: GetUserPrivilegeResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.UserPrivilege
@@ -1481,6 +1577,7 @@ references:
   name: UserPrivilege
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPrivilegeResponse_UserPrivilege_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.UserPrivilege
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.UserPrivilege
   nameWithType: GetUserPrivilegeResponse.UserPrivilege
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse
@@ -1502,6 +1599,7 @@ references:
   name: GetUserPropertiesResponse
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPropertiesResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.GetUserPropertiesResponse
   nameWithType: GetUserPropertiesResponse.GetUserPropertiesResponse
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.Eigenvalues
@@ -1514,6 +1612,7 @@ references:
   name: Eigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPropertiesResponse_Eigenvalues_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.Eigenvalues
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.Eigenvalues
   nameWithType: GetUserPropertiesResponse.Eigenvalues
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.ToString
@@ -1526,6 +1625,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPropertiesResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.ToString
   nameWithType: GetUserPropertiesResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserId
@@ -1538,6 +1638,7 @@ references:
   name: UserId
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPropertiesResponse_UserId_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserId
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserId
   nameWithType: GetUserPropertiesResponse.UserId
 - uid: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserPrivilege
@@ -1550,6 +1651,7 @@ references:
   name: UserPrivilege
   href: api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_GetUserPropertiesResponse_UserPrivilege_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserPrivilege
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.UserPrivilege
   nameWithType: GetUserPropertiesResponse.UserPrivilege
 - uid: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse
@@ -1571,6 +1673,7 @@ references:
   name: MatchEigenvaluesToUserResponse
   href: api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html#Unosquare_WaveShare_FingerprintModule_MatchEigenvaluesToUserResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.MatchEigenvaluesToUserResponse
   nameWithType: MatchEigenvaluesToUserResponse.MatchEigenvaluesToUserResponse
 - uid: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.ToString
@@ -1583,6 +1686,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html#Unosquare_WaveShare_FingerprintModule_MatchEigenvaluesToUserResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.ToString
   nameWithType: MatchEigenvaluesToUserResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.UserId
@@ -1595,6 +1699,7 @@ references:
   name: UserId
   href: api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html#Unosquare_WaveShare_FingerprintModule_MatchEigenvaluesToUserResponse_UserId_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.UserId
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.UserId
   nameWithType: MatchEigenvaluesToUserResponse.UserId
 - uid: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse
@@ -1616,6 +1721,7 @@ references:
   name: MatchOneToNResponse
   href: api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html#Unosquare_WaveShare_FingerprintModule_MatchOneToNResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.MatchOneToNResponse
   nameWithType: MatchOneToNResponse.MatchOneToNResponse
 - uid: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.IsSuccessful
@@ -1628,6 +1734,7 @@ references:
   name: IsSuccessful
   href: api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html#Unosquare_WaveShare_FingerprintModule_MatchOneToNResponse_IsSuccessful_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.IsSuccessful
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.IsSuccessful
   nameWithType: MatchOneToNResponse.IsSuccessful
 - uid: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.ToString
@@ -1640,6 +1747,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html#Unosquare_WaveShare_FingerprintModule_MatchOneToNResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.ToString
   nameWithType: MatchOneToNResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserId
@@ -1652,6 +1760,7 @@ references:
   name: UserId
   href: api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html#Unosquare_WaveShare_FingerprintModule_MatchOneToNResponse_UserId_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserId
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserId
   nameWithType: MatchOneToNResponse.UserId
 - uid: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserPrivilege
@@ -1664,6 +1773,7 @@ references:
   name: UserPrivilege
   href: api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html#Unosquare_WaveShare_FingerprintModule_MatchOneToNResponse_UserPrivilege_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserPrivilege
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.UserPrivilege
   nameWithType: MatchOneToNResponse.UserPrivilege
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase
@@ -1682,6 +1792,7 @@ references:
   name: MessageBase
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.MessageBase
   nameWithType: MessageBase.MessageBase
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase.Checksum
@@ -1694,6 +1805,7 @@ references:
   name: Checksum
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase_Checksum_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.Checksum
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.Checksum
   nameWithType: MessageBase.Checksum
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase.LengthCategory
@@ -1706,6 +1818,7 @@ references:
   name: LengthCategory
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase_LengthCategory_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.LengthCategory
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.LengthCategory
   nameWithType: MessageBase.LengthCategory
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase.MessageType
@@ -1718,6 +1831,7 @@ references:
   name: MessageType
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase_MessageType_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.MessageType
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.MessageType
   nameWithType: MessageBase.MessageType
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase.OperationCode
@@ -1730,6 +1844,7 @@ references:
   name: OperationCode
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase_OperationCode_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.OperationCode
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.OperationCode
   nameWithType: MessageBase.OperationCode
 - uid: Unosquare.WaveShare.FingerprintModule.MessageBase.Payload
@@ -1742,6 +1857,7 @@ references:
   name: Payload
   href: api/Unosquare.WaveShare.FingerprintModule.MessageBase.html#Unosquare_WaveShare_FingerprintModule_MessageBase_Payload_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.MessageBase.Payload
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.MessageBase.Payload
   nameWithType: MessageBase.Payload
 - uid: Unosquare.WaveShare.FingerprintModule.MessageLengthCategory
@@ -1997,6 +2113,7 @@ references:
   name: Response
   href: api/Unosquare.WaveShare.FingerprintModule.Response.html#Unosquare_WaveShare_FingerprintModule_Response__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.Response.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.Response.Response
   nameWithType: Response.Response
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase
@@ -2018,6 +2135,7 @@ references:
   name: ResponseBase
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.ResponseBase
   nameWithType: ResponseBase.ResponseBase
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacket
@@ -2030,6 +2148,7 @@ references:
   name: DataPacket
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_DataPacket_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacket
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacket
   nameWithType: ResponseBase.DataPacket
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacketLength
@@ -2042,6 +2161,7 @@ references:
   name: DataPacketLength
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_DataPacketLength_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacketLength
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.DataPacketLength
   nameWithType: ResponseBase.DataPacketLength
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.GetBareDataPacket
@@ -2054,6 +2174,7 @@ references:
   name: GetBareDataPacket
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_GetBareDataPacket_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.GetBareDataPacket
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.GetBareDataPacket
   nameWithType: ResponseBase.GetBareDataPacket
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.IsSuccessful
@@ -2066,6 +2187,7 @@ references:
   name: IsSuccessful
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_IsSuccessful_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.IsSuccessful
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.IsSuccessful
   nameWithType: ResponseBase.IsSuccessful
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.ResponseCode
@@ -2078,6 +2200,7 @@ references:
   name: ResponseCode
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_ResponseCode_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.ResponseCode
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.ResponseCode
   nameWithType: ResponseBase.ResponseCode
 - uid: Unosquare.WaveShare.FingerprintModule.ResponseBase.ToString
@@ -2090,6 +2213,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html#Unosquare_WaveShare_FingerprintModule_ResponseBase_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.ResponseBase.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.ResponseBase.ToString
   nameWithType: ResponseBase.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse
@@ -2111,6 +2235,7 @@ references:
   name: SetUserPropertiesResponse
   href: api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_SetUserPropertiesResponse__ctor_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.#ctor
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.SetUserPropertiesResponse
   nameWithType: SetUserPropertiesResponse.SetUserPropertiesResponse
 - uid: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.ToString
@@ -2123,6 +2248,7 @@ references:
   name: ToString
   href: api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_SetUserPropertiesResponse_ToString_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.ToString
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.ToString
   nameWithType: SetUserPropertiesResponse.ToString
 - uid: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.UserId
@@ -2135,5 +2261,6 @@ references:
   name: UserId
   href: api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html#Unosquare_WaveShare_FingerprintModule_SetUserPropertiesResponse_UserId_
   commentId: Overload:Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.UserId
+  isSpec: "True"
   fullName: Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.UserId
   nameWithType: SetUserPropertiesResponse.UserId

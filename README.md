@@ -131,7 +131,7 @@ PM> Install-Package Unosquare.WaveShare.FingerprintReader
 ```csharp
 using (var reader = new FingerprintReader())
 {
-    reader.open("COM3");
+    reader.Open("COM3");
     var result = await reader.GetDspVersionNumber();
     Console.WriteLine($"Module Version: {result.Version}");
 }

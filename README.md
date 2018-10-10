@@ -137,3 +137,10 @@ using (var reader = new FingerprintReader())
 }
 ```
 
+
+## Related fingerprint projects
+
+| Project | Description |
+|--------| ---|
+|[sparkfunfingerprint](https://github.com/unosquare/sparkfunfingerprint)|SparkFun Fingerprint Reader (GT-521Fxx) - Interfacing Library for .NET 4.5 (and Mono) and .NET Core! |
+|[libfprint-cs](https://github.com/unosquare/libfprint-cs)|The long-awaited C# (.NET/Mono) wrapper for the great fprint library|

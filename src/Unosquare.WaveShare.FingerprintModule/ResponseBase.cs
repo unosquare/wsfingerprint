@@ -47,7 +47,7 @@
         /// Initializes a new instance of the <see cref="ResponseBase"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public ResponseBase(byte[] payload)
+        protected ResponseBase(byte[] payload)
             : base(
                 MessageType.Response, ResponseLengthCategories[(OperationCode) payload[1]], (OperationCode) payload[1])
         {

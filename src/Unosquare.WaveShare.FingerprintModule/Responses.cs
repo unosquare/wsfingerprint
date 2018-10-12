@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class Response : ResponseBase
     {
         /// <summary>
@@ -23,7 +23,7 @@
     /// <summary>
     /// The Change Baud Rate Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetBaudRateResponse : ResponseBase
     {
         /// <summary>
@@ -48,7 +48,7 @@
     /// <summary>
     /// Get DSP Version Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetDspVersionNumberResponse : ResponseBase
     {
         /// <summary>
@@ -73,7 +73,7 @@
     /// <summary>
     /// Get or Set Registration Mode Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetRegistrationModeResponse : ResponseBase
     {
         /// <summary>
@@ -100,9 +100,9 @@
     }
 
     /// <summary>
-    /// Add Fingerprint Response. This includes repsonses for all 3 iterations 1, 2, and 3.
+    /// Add Fingerprint Response. This includes responses for all 3 iterations 1, 2, and 3.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AddFingerprintResponse : ResponseBase
     {
         /// <summary>
@@ -128,7 +128,7 @@
     /// <summary>
     /// Get User Count Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserCountResponse : ResponseBase
     {
         /// <summary>
@@ -153,7 +153,7 @@
     /// <summary>
     /// Match 1 to N Response. Contains the User Id and the corresponding privilege.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class MatchOneToNResponse : ResponseBase
     {
         /// <summary>
@@ -189,7 +189,7 @@
     /// <summary>
     /// Get User Privilege Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserPrivilegeResponse : ResponseBase
     {
         /// <summary>
@@ -218,7 +218,7 @@
     /// <summary>
     /// Get or Set Matching Level Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetMatchingLevelResponse : ResponseBase
     {
         /// <summary>
@@ -243,7 +243,7 @@
     /// <summary>
     /// Acquire Image Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AcquireImageResponse : ResponseBase
     {
 
@@ -273,7 +273,7 @@
     /// <summary>
     /// Acquire Image Eigenvalues Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AcquireImageEigenvaluesResponse : ResponseBase
     {
         /// <summary>
@@ -303,7 +303,7 @@
     /// <summary>
     /// Match Eigenvalues to User Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class MatchEigenvaluesToUserResponse : ResponseBase
     {
 
@@ -332,7 +332,7 @@
     /// <summary>
     /// Get User Properties Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -346,7 +346,7 @@
             {
                 var dataPacket = GetBareDataPacket();
                 Eigenvalues = dataPacket.Skip(3).Take(dataPacket.Length - 3).ToArray();
-                UserId = (new[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
+                UserId = new[] {dataPacket[0], dataPacket[1]}.BigEndianArrayToUInt16();
                 UserPrivilege = dataPacket[2];
             }
         }
@@ -374,7 +374,7 @@
     /// <summary>
     /// Set User Properties Response - Contains the User Id.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class SetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
@@ -399,7 +399,7 @@
     /// <summary>
     /// Get or Set Capture Timeout Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetCaptureTimeoutResponse : ResponseBase
     {
         /// <summary>
@@ -424,7 +424,7 @@
     /// <summary>
     /// Get All Users Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetAllUsersResponse : ResponseBase
     {
         /// <summary>

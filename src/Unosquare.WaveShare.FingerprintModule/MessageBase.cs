@@ -32,19 +32,14 @@
         /// <returns></returns>
         internal string GetPayloadString()
         {
-            byte[] visiblePayload = null;
-            var contents = "(Empty)";
+            if (Payload == null) return "(Empty)";
+            var visiblePayload = new byte[Math.Min(Payload.Length, 8)];
 
-            if (Payload != null)
-            {
-                visiblePayload = new byte[Math.Min(Payload.Length, 8)];
+            Array.Copy(Payload, visiblePayload, visiblePayload.Length);
+            var contents = BitConverter.ToString(Payload.Skip(0).Take(Math.Min(9, Payload.Length)).ToArray()).Replace("-", " ");
 
-                Array.Copy(Payload, visiblePayload, visiblePayload.Length);
-                contents = BitConverter.ToString(Payload.Skip(0).Take(Math.Min(9, Payload.Length)).ToArray()).Replace("-", " ");
-
-                if (Payload.Length > 8)
-                    contents = contents + " (...)";
-            }
+            if (Payload.Length > 8)
+                contents = contents + " (...)";
 
             return contents;
         }
@@ -62,7 +57,7 @@
         /// <summary>
         /// Gets the command or operation code.
         /// </summary>
-        public OperationCode OperationCode { get; private set; }
+        public OperationCode OperationCode { get; }
 
         /// <summary>
         /// Gets the byte payload. That is, the byte array contents of this message.
@@ -72,7 +67,6 @@
         /// <summary>
         /// Gets the checksum byte of the payload.
         /// </summary>
-        public byte Checksum { get { return (Payload != null && Payload.Length >= 8) ? Payload[6] : (byte)0; } }
+        public byte Checksum => Payload != null && Payload.Length >= 8 ? Payload[6] : (byte)0;
     }
-
 }

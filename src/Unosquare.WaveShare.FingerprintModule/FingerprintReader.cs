@@ -12,7 +12,8 @@
 #endif
 
     /// <summary>
-    /// Our main character representing the WaveShare Fingerprint reader module
+    /// Our main character representing the WaveShare Fingerprint reader module.
+    /// 
     /// Reference: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
     /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader.
     /// </summary>
@@ -35,23 +36,12 @@
         /// The read buffer length of the serial port.
         /// </summary>
         private const int ReadBufferLength = 1024 * 16;
-
-        /// <summary>
-        /// The default timeout.
-        /// </summary>
+        
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(2);
-
-        /// <summary>
-        /// The baud rate probe timeout.
-        /// </summary>
         private static readonly TimeSpan BaudRateProbeTimeout = TimeSpan.FromMilliseconds(250);
-
-        /// <summary>
-        /// The image acquisition timeout.
-        /// </summary>
         private static readonly TimeSpan AcquireTimeout = TimeSpan.FromSeconds(60);
 
-        private bool IsDisposing;
+        private bool _isDisposing;
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
 
         #endregion
@@ -82,7 +72,7 @@
 
             SerialPort = new SerialPort(portName, baud.ToInt(), Parity.None, 8, StopBits.One)
             {
-                ReadBufferSize = ReadBufferLength
+                ReadBufferSize = ReadBufferLength,
             };
 
             SerialPort.Open();
@@ -90,19 +80,16 @@
             if (probeBaudRates)
             {
                 System.Diagnostics.Debug.WriteLine("Will probe baud rates.");
-                var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
+                GetBaudRate().GetAwaiter().GetResult();
             }
         }
 
         /// <summary>
         /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like.
+        /// Under Windows it's something like COM3. On Linux, it's something like /dev/ttyS0.
         /// </summary>
         /// <param name="portName">Name of the port.</param>
-        public void Open(string portName)
-        {
-            Open(portName, BaudRate.Baud19200, true);
-        }
+        public void Open(string portName) => Open(portName, BaudRate.Baud19200, true);
 
         /// <summary>
         /// Closes serial port communication if open.
@@ -127,8 +114,8 @@
         /// <inheritdoc />
         public void Dispose()
         {
-            if (IsDisposing) return;
-            IsDisposing = true;
+            if (_isDisposing) return;
+            _isDisposing = true;
             Close();
         }
 
@@ -218,11 +205,12 @@
             if (currentBaudRate.BaudRate == baudRate)
             {
                 return new GetSetBaudRateResponse(
-                    Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate, 0));
+                    Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate));
             }
 
             var command = Command.Factory.CreateChangeBaudRateCommand(baudRate);
             var response = await GetResponseAsync<GetSetBaudRateResponse>(command);
+
             if (response != null)
             {
                 var portName = SerialPort.PortName;
@@ -237,10 +225,10 @@
         /// Gets the registration mode which specifies if a fingerprint can be registered more than once.
         /// </summary>
         /// <returns></returns>
-        public async Task<GetSetRegistrationModeResponse> GetRegistrationMode()
+        public Task<GetSetRegistrationModeResponse> GetRegistrationMode()
         {
             var command = Command.Factory.CreateGetSetRegistrationModeCommand(GetSetMode.Get, false);
-            return await GetResponseAsync<GetSetRegistrationModeResponse>(command);
+            return GetResponseAsync<GetSetRegistrationModeResponse>(command);
         }
 
         /// <summary>
@@ -248,10 +236,10 @@
         /// </summary>
         /// <param name="prohibitRepeat">if set to <c>true</c> [prohibit repeat].</param>
         /// <returns></returns>
-        public async Task<GetSetRegistrationModeResponse> SetRegistrationMode(bool prohibitRepeat)
+        public Task<GetSetRegistrationModeResponse> SetRegistrationMode(bool prohibitRepeat)
         {
             var command = Command.Factory.CreateGetSetRegistrationModeCommand(GetSetMode.Set, prohibitRepeat);
-            return await GetResponseAsync<GetSetRegistrationModeResponse>(command);
+            return GetResponseAsync<GetSetRegistrationModeResponse>(command);
         }
 
         /// <summary>
@@ -452,10 +440,10 @@
         /// Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture.
         /// </summary>
         /// <returns></returns>
-        public async Task<GetSetCaptureTimeoutResponse> GetCaptureTimeout()
+        public Task<GetSetCaptureTimeoutResponse> GetCaptureTimeout()
         {
             var command = Command.Factory.CreateGetSetCaptureTimeoutCommand(GetSetMode.Get, 0);
-            return await GetResponseAsync<GetSetCaptureTimeoutResponse>(command);
+            return GetResponseAsync<GetSetCaptureTimeoutResponse>(command);
         }
 
         /// <summary>
@@ -536,10 +524,10 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="command">The command.</param>
         /// <returns></returns>
-        private async Task<T> GetResponseAsync<T>(Command command)
+        private Task<T> GetResponseAsync<T>(Command command)
             where T : ResponseBase
         {
-            return await GetResponseAsync<T>(command, DefaultTimeout);
+            return GetResponseAsync<T>(command, DefaultTimeout);
         }
 
         /// <summary>
@@ -561,10 +549,6 @@
                 await SerialPort.BaseStream.WriteAsync(payload, 0, payload.Length);
                 await SerialPort.BaseStream.FlushAsync();
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
             finally
             {
                 SerialPortDone.Set();
@@ -575,10 +559,7 @@
         /// Reads data from the serial port asynchronously with the default timeout.
         /// </summary>
         /// <returns></returns>
-        public async Task<byte[]> ReadAsync()
-        {
-            return await ReadAsync(DefaultTimeout);
-        }
+        public Task<byte[]> ReadAsync() => ReadAsync(DefaultTimeout);
 
         /// <summary>
         /// Flushes the serial port read data discarding all bytes in the read buffer.
@@ -606,10 +587,6 @@
                 }
 
                 return buffer.Skip(0).Take(count).ToArray();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {
@@ -709,14 +686,9 @@
 
                         return null;
                     }
-
                 }
 
                 return response.ToArray();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
             finally
             {

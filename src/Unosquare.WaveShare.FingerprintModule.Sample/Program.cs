@@ -3,15 +3,15 @@
     using Swan;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 #if NET452
     using System.IO.Ports;
 #else
     using Unosquare.IO.Ports;
 #endif
-    using System.Linq;
-    using System.Threading.Tasks;
-    
-    class Program
+
+    internal class Program
     {
         #region Action Options
 
@@ -49,7 +49,7 @@
                 {ConsoleKey.Q, "MATCHING - Test if a User Id Matches an Acquired Image (1:1)"},
                 {ConsoleKey.W, "MATCHING - Get a User Id given an Acquired Image (1:N)"},
                 {ConsoleKey.F3, "MATCHING - Test if an Acquired Image matches the provided Eigenvalues (1:1)"},
-                {ConsoleKey.F4, "MATCHING - Test if a given User ,atches the supplied Eigenvalues (1:1)"},
+                {ConsoleKey.F4, "MATCHING - Test if a given User, matches the supplied Eigenvalues (1:1)"},
                 {ConsoleKey.F5, "MATCHING - Get a User Id given an array with Eigenvalues (1:N)"},
                 {ConsoleKey.F6, "MATCHING - Acquire Image"},
                 {ConsoleKey.F7, "MATCHING - Acquire Image Eigenvalues"}
@@ -66,11 +66,11 @@
 
         #endregion
 
-        static string PromptForSerialPort()
+        private static string PromptForSerialPort()
         {
             var baseChar = 65;
-            var portNames = SerialPort.GetPortNames().ToDictionary(p => (ConsoleKey) baseChar++, v => v);
-            string portName;
+            var portNames = SerialPort.GetPortNames()
+                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
 
             if (portNames.Any() == false)
             {
@@ -80,73 +80,69 @@
 
             if (portNames.Count == 1)
             {
-                portName = portNames.First().Value;
-            }
-            else
-            {
-                var portSelection = "Select Port to Open".ReadPrompt(portNames, "Exit this program");
-
-                if (portNames.ContainsKey(portSelection.Key))
-                    portName = portNames[portSelection.Key];
-                else
-                    return string.Empty;
+                return portNames.First().Value;
             }
 
-            return portName;
+            var portSelection = "Select Port to Open".ReadPrompt(portNames, "Exit this program");
+
+            return portNames.ContainsKey(portSelection.Key) ? portNames[portSelection.Key] : string.Empty;
         }
 
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             $"Mode: {FingerprintReader.Mode}".Info();
 
             var portName = PromptForSerialPort();
-            
+
             if (string.IsNullOrEmpty(portName))
                 return;
-            
+
             using (var reader = new FingerprintReader())
             {
                 $"Opening port '{portName}' . . .".Info();
                 reader.Open(portName);
 
-                var t = Task.Factory.StartNew(async () =>
+                while (true)
                 {
-                    while (true)
+                    #region Main Menu
+
+                    ConsoleKeyInfo selectedOption;
+                    var menuOption = "Select an option".ReadPrompt(ActionOptions, "Exit this program");
+
+                    if (menuOption.Key == ConsoleKey.Q)
                     {
-                        #region Main Menu
+                        selectedOption = "Select an option".ReadPrompt(ModuleActionOptions, "Exit this prompt");
+                    }
+                    else if (menuOption.Key == ConsoleKey.W)
+                    {
+                        selectedOption = "Select an option".ReadPrompt(UsersActionOptions, "Exit this prompt");
+                    }
+                    else if (menuOption.Key == ConsoleKey.E)
+                    {
+                        selectedOption = "Select an option".ReadPrompt(MatchingActionOptions, "Exit this prompt");
+                    }
+                    else
+                    {
+                        break;
+                    }
 
-                        ConsoleKeyInfo selectedOption;
-                        var menuOption = "Select an option".ReadPrompt(ActionOptions, "Exit this program");
-                        if (menuOption.Key == ConsoleKey.Q)
-                        {
-                            selectedOption = "Select an option".ReadPrompt(ModuleActionOptions, "Exit this prompt");
-                        }
-                        else if (menuOption.Key == ConsoleKey.W)
-                        {
-                            selectedOption = "Select an option".ReadPrompt(UsersActionOptions, "Exit this prompt");
-                        }
-                        else if (menuOption.Key == ConsoleKey.E)
-                        {
-                            selectedOption = "Select an option".ReadPrompt(MatchingActionOptions, "Exit this prompt");
-                        }
-                        else
-                        {
-                            break;
-                        }
+                    #endregion
 
-                        #endregion
+                    #region Action Options
 
-                        #region Action Options
-
-                        if (selectedOption.Key == ConsoleKey.V)
+                    switch (selectedOption.Key)
+                    {
+                        case ConsoleKey.V:
                         {
                             var result = await reader.GetDspVersionNumber();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.M)
+                        case ConsoleKey.M:
                         {
                             var result = await reader.GetRegistrationMode();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.J)
+                        case ConsoleKey.J:
                         {
                             var result = await reader.GetAllUsers();
                             if (result != null && result.IsSuccessful)
@@ -157,30 +153,34 @@
                                 }
                             }
 
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.U)
+                        case ConsoleKey.U:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var result = await reader.GetUserProperties(userId);
                             $"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes"
                                 .Info();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.B)
+                        case ConsoleKey.B:
                         {
                             var baseChar = 65;
                             var baudRates = Enum.GetNames(typeof(BaudRate))
-                                .ToDictionary(p => (ConsoleKey)baseChar++, v => v);
+                                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
                             var baudSelection =
                                 $"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}".ReadPrompt(
                                     baudRates, "Exit this prompt");
 
                             if (baudRates.ContainsKey(baudSelection.Key))
                             {
-                                var newBaudRate = (BaudRate)Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
+                                var newBaudRate = (BaudRate) Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
                                 await reader.SetBaudRate(newBaudRate);
                             }
+
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.Y)
+                        case ConsoleKey.Y:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var privilege = "Enter Privilege".ReadNumber(1);
@@ -189,84 +189,99 @@
 
                             var result =
                                 await reader.SetUserProperties(userId, privilege, eigenvaluesResult.Eigenvalues);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.F3)
+                        case ConsoleKey.F3:
                         {
                             "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
                             "Place your finger on the sensor once again to compare the eigenvalues".Info();
                             var result = await reader.MatchImageToEigenvalues(eigenvaluesResult.Eigenvalues);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.F4)
+                        case ConsoleKey.F4:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
                             "Place your finger on the sensor once again to compare the eigenvalues".Info();
                             var result = await reader.MatchUserToEigenvalues(userId, eigenvaluesResult.Eigenvalues);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.F5)
+                        case ConsoleKey.F5:
                         {
                             "Place your finger on the sensor to produce some eigenvalues".Info();
                             var eigenvaluesResult = await reader.AcquireImageEigenvalues();
                             var result = await reader.MatchEigenvaluesToUser(eigenvaluesResult.Eigenvalues);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.P)
+                        case ConsoleKey.P:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var result = await reader.GetUserPrivilege(userId);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.L)
+                        case ConsoleKey.L:
                         {
                             var result = await reader.GetMatchingLevel();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.K)
+                        case ConsoleKey.K:
                         {
                             var matchingLevel = "Enter Matching Level (0 to 9)".ReadNumber(5);
                             if (matchingLevel < 0) matchingLevel = 0;
                             if (matchingLevel > 9) matchingLevel = 9;
 
                             var result = await reader.SetMatchingLevel(matchingLevel);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.G)
+                        case ConsoleKey.G:
                         {
                             var timeout = "Enter CaptureTimeout (0 to 255)".ReadNumber(0);
                             if (timeout < 0) timeout = 0;
                             if (timeout > 255) timeout = 255;
 
                             var result = await reader.SetCaptureTimeout(timeout);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.T)
+                        case ConsoleKey.T:
                         {
-                            var result = await reader.GetCaptureTimeout();
+                            await reader.GetCaptureTimeout();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.C)
+                        case ConsoleKey.C:
                         {
                             var result = await reader.GetUserCount();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.F6)
+                        case ConsoleKey.F6:
                         {
                             var result = await reader.AcquireImage();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.F7)
+                        case ConsoleKey.F7:
                         {
                             var result = await reader.AcquireImageEigenvalues();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.Q)
+                        case ConsoleKey.Q:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var result = await reader.MatchOneToOne(userId);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.W)
+                        case ConsoleKey.W:
                         {
                             var result = await reader.MatchOneToN();
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.R)
+                        case ConsoleKey.R:
                         {
                             var mode = "Enter Registration Mode - 1 disallows repeated fingerprints".ReadNumber(1);
                             var result = await reader.SetRegistrationMode(mode == 1);
+                            break;
                         }
-                        else if (selectedOption.Key == ConsoleKey.A)
+                        case ConsoleKey.A:
                         {
                             var userId = "Enter User Id".ReadNumber(1);
                             var privilege = "Enter Privilege".ReadNumber(1);
@@ -299,37 +314,41 @@
                             {
                                 "Failed on acquisition 1".Error();
                             }
-                        }
-                        else if (selectedOption.Key == ConsoleKey.W)
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var result = await reader.DeleteUser(userId);
-                        }
-                        else if (selectedOption.Key == ConsoleKey.Z)
-                        {
-                            var result = await reader.DeleteAllUsers();
-                        }
-                        else if (selectedOption.Key == ConsoleKey.S)
-                        {
-                            var result = await reader.Sleep();
-                        }
 
-                        #endregion
+                            break;
+                        }
+                        default:
+                        {
+                            switch (selectedOption.Key)
+                            {
+                                case ConsoleKey.W:
+                                {
+                                    var userId = "Enter User Id".ReadNumber(1);
+                                    var result = await reader.DeleteUser(userId);
+                                    break;
+                                }
+                                case ConsoleKey.Z:
+                                {
+                                    var result = await reader.DeleteAllUsers();
+                                    break;
+                                }
+                                case ConsoleKey.S:
+                                {
+                                    var result = await reader.Sleep();
+                                    break;
+                                }
+                            }
+
+                            break;
+                        }
                     }
-                });
 
-                try
-                {
-                    t.Unwrap().GetAwaiter().GetResult();
-                }
-                catch (Exception ex)
-                {
-                    ex.Log(nameof(Program));
+                    #endregion
+
+                    Console.WriteLine("Press any key to continue . . .");
+                    Console.ReadKey(true);
                 }
             }
-
-            Console.WriteLine("Press any key to continue . . .");
-            Console.ReadKey(true);
         }
     }
 }

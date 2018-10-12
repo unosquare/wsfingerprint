@@ -4,7 +4,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Extension methods
+    /// Extension methods.
     /// </summary>
     internal static class Extensions
     {
@@ -16,24 +16,20 @@
         /// <returns></returns>
         internal static int ToInt(this BaudRate baud)
         {
-            int outBaud = 0;
-            var baudString = baud.ToString().ToLowerInvariant().Replace("baud", "");
-            if (int.TryParse(baudString, out outBaud))
-            {
-                return outBaud;
-            }
+            var baudString = baud.ToString().ToLowerInvariant().Replace("baud", string.Empty);
 
-            return -1;
+            return int.TryParse(baudString, out var outBaud) ? outBaud : -1;
         }
 
         /// <summary>
-        /// Gets a baud rate enumeration from an integer
+        /// Gets a baud rate enumeration from an integer.
         /// </summary>
         /// <param name="baud">The baud.</param>
         /// <returns></returns>
         internal static BaudRate ToBaudRate(this int baud)
         {
             var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
+
             foreach (var baudRate in baudRates)
             {
                 if (baud == baudRate.ToInt())
@@ -44,7 +40,7 @@
         }
 
         /// <summary>
-        /// Converts an unsigned 16-bit integer to a Big Endian array of bytes
+        /// Converts an unsigned 16-bit integer to a Big Endian array of bytes.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns></returns>
@@ -60,7 +56,7 @@
         }
 
         /// <summary>
-        /// Converts a big endian array to an unsigned 16-bit integer
+        /// Converts a big endian array to an unsigned 16-bit integer.
         /// </summary>
         /// <param name="bigEndianArray">The big endian array.</param>
         /// <returns></returns>
@@ -75,19 +71,20 @@
         }
 
         /// <summary>
-        /// Computes the checksum byte of the given payload by XORing bytes 2 to 6
+        /// Computes the checksum byte of the given payload by XORing bytes 2 to 6.
         /// </summary>
         /// <param name="payload">The payload.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="endIndex">The end index.</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentException">payload</exception>
+        /// <exception cref="System.ArgumentException">payload.</exception>
         internal static byte ComputeChecksum(this byte[] payload, int startIndex = 1, int endIndex = 5)
         {
             if (payload == null || payload.Length < endIndex + 1)
                 throw new ArgumentException($"'{nameof(payload)}' hast to be at least {endIndex + 1} bytes long.");
 
-            byte checksum = payload[startIndex];
+            var checksum = payload[startIndex];
+
             for (var i = startIndex + 1; i <= endIndex; i++)
             {
                 checksum = (byte) (checksum ^ payload[i]);

@@ -1,7 +1,7 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
     /// <summary>
-    /// Message Type - Command (Request) or Response
+    /// Message Type - Command (Request) or Response.
     /// </summary>
     public enum MessageType
     {
@@ -9,14 +9,15 @@
         /// The request type
         /// </summary>
         Request,
+        
         /// <summary>
         /// The response type
         /// </summary>
-        Response
+        Response,
     }
 
     /// <summary>
-    /// Message Length - Fixed, 8-byte or Variable-length
+    /// Message Length - Fixed, 8-byte or Variable-length.
     /// </summary>
     public enum MessageLengthCategory
     {
@@ -24,14 +25,15 @@
         /// The fixed length category
         /// </summary>
         Fixed,
+
         /// <summary>
         /// The variable length category
         /// </summary>
-        Variable
+        Variable,
     }
 
     /// <summary>
-    /// Message Response Code
+    /// Message Response Code.
     /// </summary>
     public enum MessageResponseCode : byte
     {
@@ -45,7 +47,7 @@
     }
 
     /// <summary>
-    /// Operation Codes
+    /// Operation Codes.
     /// </summary>
     public enum OperationCode : byte
     {
@@ -78,7 +80,7 @@
     }
 
     /// <summary>
-    /// The list of supported baud rates
+    /// The list of supported baud rates.
     /// </summary>
     public enum BaudRate
     {
@@ -86,18 +88,22 @@
         /// The baud 9600
         /// </summary>
         Baud9600 = 1,
+        
         /// <summary>
         /// The baud 19200
         /// </summary>
         Baud19200 = 2,
+        
         /// <summary>
         /// The baud 38400
         /// </summary>
         Baud38400 = 3,
+        
         /// <summary>
         /// The baud 57600
         /// </summary>
         Baud57600 = 4,
+        
         /// <summary>
         /// The baud 115200
         /// </summary>
@@ -105,11 +111,18 @@
     }
 
     /// <summary>
-    /// The mode of the operation. Getter or Setter
+    /// The mode of the operation. Getter or Setter.
     /// </summary>
     internal enum GetSetMode : byte
     {
+        /// <summary>
+        /// The set
+        /// </summary>
         Set = 0,
+
+        /// <summary>
+        /// The get
+        /// </summary>
         Get = 1,
     }
 }

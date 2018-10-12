@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// A base class representing response messages
+    /// A base class representing response messages.
     /// </summary>
     /// <seealso cref="Unosquare.WaveShare.FingerprintModule.MessageBase" />
     public abstract class ResponseBase : MessageBase
@@ -57,7 +57,7 @@
 
             if (LengthCategory == MessageLengthCategory.Variable)
             {
-                DataPacketLength = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+                DataPacketLength = (new[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             }
 
             if (payload.Length > 8)

@@ -4,7 +4,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Represents a Message (either a command or a response)
+    /// Represents a Message (either a command or a response).
     /// </summary>
     public abstract class MessageBase
     {

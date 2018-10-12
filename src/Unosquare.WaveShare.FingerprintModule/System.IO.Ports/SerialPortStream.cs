@@ -10,14 +10,14 @@
 //
 // Slightly modified by Konrad M. Kruczynski (added baud rate value checking)
 
-using System;
-using System.IO;
-using System.Runtime.InteropServices;
-
 namespace Unosquare.IO.Ports
 {
+    using System;
+    using System.IO;
+    using System.Runtime.InteropServices;
+
     /// <summary>
-    /// Enums the Stop bits
+    /// Enums the Stop bits.
     /// </summary>
     public enum StopBits
     {
@@ -28,7 +28,7 @@ namespace Unosquare.IO.Ports
     }
 
     /// <summary>
-    /// Enums the parity modes
+    /// Enums the parity modes.
     /// </summary>
     public enum Parity
     {

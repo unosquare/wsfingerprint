@@ -1,19 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Copyright>Copyright (c) 2018 - Unosquare</Copyright>
+    <Company>Unosquare</Company>
     <AssemblyTitle>Unosquare.WaveShare.FingerprintModule</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Unosquare.WaveShare.FingerprintModule</AssemblyName>
     <PackageId>Unosquare.WaveShare.FingerprintModule</PackageId>
+    <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Unosquare.Swan.Lite" Version="0.24.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta009">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);WIRINGPI</DefineConstants>
   </PropertyGroup>
 

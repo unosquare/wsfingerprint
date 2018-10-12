@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
 
+    /// <inheritdoc />
     /// <summary>
-    /// Represents a command or request to the Fingerprint reader
+    /// Represents a command or request to the Fingerprint reader.
     /// </summary>
-    /// <seealso cref="Unosquare.WaveShare.FingerprintModule" />
+    /// <seealso cref="N:Unosquare.WaveShare.FingerprintModule" />
     public partial class Command : MessageBase
     {
         #region Mappings
@@ -67,7 +68,7 @@
         /// <returns></returns>
         internal static byte[] CreateFixedLengthPayload(OperationCode commandCode, byte b3 = 0, byte b4 = 0, byte b5 = 0, byte b6 = 0)
         {
-            var payload = new byte[8] { PayloadDelimiter, (byte)commandCode, b3, b4, b5, b6, 0, PayloadDelimiter, };
+            var payload = new byte[] { PayloadDelimiter, (byte)commandCode, b3, b4, b5, b6, 0, PayloadDelimiter, };
             payload[6] = payload.ComputeChecksum();
 
             return payload;
@@ -88,13 +89,13 @@
 
             var userIdBytes = (Convert.ToUInt16(userId)).ToBigEndianArray(); 
             var dataPacket = new byte[4 + eigenvalues.Length + 2];
-            dataPacket[0] = MessageBase.PayloadDelimiter;
+            dataPacket[0] = PayloadDelimiter;
             dataPacket[1] = userIdBytes[0];
             dataPacket[2] = userIdBytes[1];
             dataPacket[3] = privilege;
             Array.Copy(eigenvalues, 0, dataPacket, 4, eigenvalues.Length);
             dataPacket[dataPacket.Length - 2] = dataPacket.ComputeChecksum(1, dataPacket.Length - 3);
-            dataPacket[dataPacket.Length - 1] = MessageBase.PayloadDelimiter;
+            dataPacket[dataPacket.Length - 1] = PayloadDelimiter;
 
             var fullPayload = new byte[headerPacket.Length + dataPacket.Length];
             Array.Copy(headerPacket, fullPayload, headerPacket.Length);
@@ -103,12 +104,7 @@
             return fullPayload;
         }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
+        /// <inheritdoc />
         public override string ToString()
         {
             var contents = GetPayloadString();

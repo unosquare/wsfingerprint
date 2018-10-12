@@ -16,16 +16,16 @@
 //   * Calls to the encoder that do not consume all bytes because of partial
 //     reads 
 //
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
 namespace Unosquare.IO.Ports
 {
+    
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+
     /// <summary>
-    /// Represents a Serial Port component
+    /// Represents a Serial Port component.
     /// </summary>
     public class SerialPort
     {
@@ -182,14 +182,8 @@ namespace Unosquare.IO.Ports
         /// </value>
         public Encoding Encoding
         {
-            get { return _encoding; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
-                _encoding = value;
-            }
+            get => _encoding;
+            set => _encoding = value ?? throw new ArgumentNullException(nameof(value));
         }
 
 #if !WIRINGPI
@@ -225,7 +219,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public string NewLine
         {
-            get { return _newLine; }
+            get => _newLine;
             set
             {
                 if (value == null)
@@ -266,7 +260,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public string PortName
         {
-            get { return _portName; }
+            get => _portName;
             set
             {
                 if (_isOpen)
@@ -288,7 +282,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public int ReadBufferSize
         {
-            get { return _readBufferSize; }
+            get => _readBufferSize;
             set
             {
                 if (_isOpen)
@@ -310,7 +304,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public int ReadTimeout
         {
-            get { return _readTimeout; }
+            get => _readTimeout;
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
@@ -331,7 +325,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public StopBits StopBits
         {
-            get { return _stopBits; }
+            get => _stopBits;
             set
             {
                 if (value < StopBits.One || value > StopBits.OnePointFive)
@@ -352,7 +346,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public int WriteBufferSize
         {
-            get { return _writeBufferSize; }
+            get => _writeBufferSize;
             set
             {
                 if (_isOpen)
@@ -374,7 +368,7 @@ namespace Unosquare.IO.Ports
         /// </value>
         public int WriteTimeout
         {
-            get { return _writeTimeout; }
+            get => _writeTimeout;
             set
             {
                 if (value < 0 && value != InfiniteTimeout)
@@ -539,7 +533,7 @@ namespace Unosquare.IO.Ports
             return i;
         }
 
-        internal int read_byte()
+        internal int InternalReadByte()
         {
             var buff = new byte[1];
             if (_stream.Read(buff, 0, 1) > 0)
@@ -555,7 +549,7 @@ namespace Unosquare.IO.Ports
         public int ReadByte()
         {
             CheckOpen();
-            return read_byte();
+            return InternalReadByte();
         }
 
         /// <summary>
@@ -571,7 +565,7 @@ namespace Unosquare.IO.Ports
 
             do
             {
-                var b = read_byte();
+                var b = InternalReadByte();
                 if (b == -1)
                     return -1;
                 buffer[i++] = (byte) b;
@@ -625,7 +619,7 @@ namespace Unosquare.IO.Ports
 
             while (true)
             {
-                var n = read_byte();
+                var n = InternalReadByte();
                 if (n == -1)
                     break;
                 seen.Add((byte) n);
@@ -640,6 +634,7 @@ namespace Unosquare.IO.Ports
                     current = (byteValue[0] == n) ? 1 : 0;
                 }
             }
+
             return _encoding.GetString(seen.ToArray());
         }
 
@@ -673,8 +668,10 @@ namespace Unosquare.IO.Ports
                 throw new ArgumentOutOfRangeException();
 
             if (buffer.Length - offset < count)
+            {
                 throw new ArgumentException("offset+count",
                     nameof(buffer));
+            }
 
             _stream.Write(buffer, offset, count);
         }
@@ -695,8 +692,10 @@ namespace Unosquare.IO.Ports
                 throw new ArgumentOutOfRangeException();
 
             if (buffer.Length - offset < count)
+            {
                 throw new ArgumentException("offset+count",
                     "The size of the buffer is less than offset + count.");
+            }
 
             var bytes = _encoding.GetBytes(buffer, offset, count);
             _stream.Write(bytes, 0, bytes.Length);

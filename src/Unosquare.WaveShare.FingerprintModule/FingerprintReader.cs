@@ -1,6 +1,5 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule
 {
-    using Swan;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,19 +8,19 @@
 #if NET452
     using System.IO.Ports;
 #else
-    using Unosquare.IO.Ports;
+    using IO.Ports;
 #endif
 
     /// <summary>
     /// Our main character representing the WaveShare Fingerprint reader module
     /// Reference: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
-    /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader
+    /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader.
     /// </summary>
     /// <seealso cref="System.IDisposable" />
     public sealed class FingerprintReader : IDisposable
     {
         /// <summary>
-        /// The mode how is running the reader
+        /// The mode how is running the reader.
         /// </summary>
         public const string Mode =
 #if WIRINGPI
@@ -30,51 +29,47 @@
             "Normal";
 #endif
 
-#region Private Declarations
+        #region Private Declarations
 
         /// <summary>
-        /// The read buffer length of the serial port
+        /// The read buffer length of the serial port.
         /// </summary>
         private const int ReadBufferLength = 1024 * 16;
 
         /// <summary>
-        /// The default timeout
+        /// The default timeout.
         /// </summary>
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(2);
 
         /// <summary>
-        /// The baud rate probe timeout
+        /// The baud rate probe timeout.
         /// </summary>
         private static readonly TimeSpan BaudRateProbeTimeout = TimeSpan.FromMilliseconds(250);
 
         /// <summary>
-        /// The image acquisition timeout
+        /// The image acquisition timeout.
         /// </summary>
         private static readonly TimeSpan AcquireTimeout = TimeSpan.FromSeconds(60);
 
         private bool IsDisposing;
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
-#if DEBUG
-        private const bool IsDebugBuild = true;
-#else
-        private const bool IsDebugBuild = false;
-#endif
 
-#endregion
+        #endregion
 
-#region Properties
-        
+        #region Properties
+
         /// <summary>
         /// Gets the serial port associated with this reader.
         /// </summary>
         public SerialPort SerialPort { get; private set; }
 
-#endregion
+        #endregion
 
-#region Open and Close Methods
+        #region Open and Close Methods
+
         /// <summary>
         /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like
+        /// Under Windows it's something like COM3. On Linux, it's something like.
         /// </summary>
         /// <param name="portName">Name of the port.</param>
         /// <param name="baud">The baud.</param>
@@ -94,14 +89,14 @@
 
             if (probeBaudRates)
             {
-                "Will probe baud rates.".Trace();
+                System.Diagnostics.Debug.WriteLine("Will probe baud rates.");
                 var baudRateResponse = GetBaudRate().GetAwaiter().GetResult();
             }
         }
 
         /// <summary>
         /// Opens the serial port with the specified port name.
-        /// Under Windows it's something like COM3. On Linux, it's something like
+        /// Under Windows it's something like COM3. On Linux, it's something like.
         /// </summary>
         /// <param name="portName">Name of the port.</param>
         public void Open(string portName)
@@ -110,7 +105,7 @@
         }
 
         /// <summary>
-        /// Closes serial port communication if open
+        /// Closes serial port communication if open.
         /// </summary>
         private void Close()
         {
@@ -129,9 +124,7 @@
             }
         }
 
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
+        /// <inheritdoc />
         public void Dispose()
         {
             if (IsDisposing) return;
@@ -139,9 +132,9 @@
             Close();
         }
 
-#endregion
+        #endregion
 
-#region Fingerprint Reader Protocol
+        #region Fingerprint Reader Protocol
 
         /// <summary>
         /// Gets the version number of the DSP module.
@@ -172,8 +165,10 @@
         public async Task<GetSetBaudRateResponse> GetBaudRate()
         {
             if (SerialPort.IsOpen == false)
+            {
                 throw new InvalidOperationException(
                     $"Call the {nameof(Open)} method before attempting communication with the module");
+            }
 
             var portName = SerialPort.PortName;
             var baudRates = Enum.GetValues(typeof(BaudRate)).Cast<BaudRate>().ToArray();
@@ -182,7 +177,7 @@
                 (byte) SerialPort.BaudRate.ToBaudRate());
 
             var result = new GetSetBaudRateResponse(resultPayload);
-            
+
             var probeCommand = Command.Factory.CreateGetUserCountCommand();
             var probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout);
 
@@ -198,11 +193,11 @@
 
                 if (probeResponse != null)
                 {
-                    resultPayload = Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate);
+                    resultPayload =
+                        Command.CreateFixedLengthPayload(OperationCode.ChangeBaudRate, 0, 0, (byte) baudRate);
                     var baudRateResponse = new GetSetBaudRateResponse(resultPayload);
 
-                    if (IsDebugBuild)
-                        $"RX: {baudRateResponse}".Info();
+                    System.Diagnostics.Debug.WriteLine($"RX: {baudRateResponse}");
 
                     return baudRateResponse;
                 }
@@ -213,7 +208,7 @@
 
         /// <summary>
         /// Sets the baud rate of the module.
-        /// This closes and re-opens the serial port
+        /// This closes and re-opens the serial port.
         /// </summary>
         /// <param name="baudRate">The baud rate.</param>
         /// <returns></returns>
@@ -260,7 +255,7 @@
         }
 
         /// <summary>
-        /// Registers a fingerprint. You have to call this method 3 times specifying the corresponding iteration 1, 2, or 3
+        /// Registers a fingerprint. You have to call this method 3 times specifying the corresponding iteration 1, 2, or 3.
         /// </summary>
         /// <param name="iteration">The iteration.</param>
         /// <param name="userId">The user identifier.</param>
@@ -271,7 +266,7 @@
         /// or
         /// userId
         /// or
-        /// userPrivilege
+        /// userPrivilege.
         /// </exception>
         public async Task<AddFingerprintResponse> AddFingerprint(int iteration, int userId, int userPrivilege)
         {
@@ -319,23 +314,23 @@
         }
 
         /// <summary>
-        /// Returns a User id after acquiring an image from the sensor. Match 1:N
+        /// Returns a User id after acquiring an image from the sensor. Match 1:N.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public async Task<MatchOneToNResponse> MatchOneToN(CancellationToken ct = default(CancellationToken))
+        public async Task<MatchOneToNResponse> MatchOneToN(CancellationToken ct = default)
         {
             var command = Command.Factory.CreateMatchOneToNCommand();
             return await GetResponseAsync<MatchOneToNResponse>(command, AcquireTimeout, ct);
         }
 
         /// <summary>
-        /// Acquires an image from the sensor and tests if it matches the supplied user id. Match 1:1
+        /// Acquires an image from the sensor and tests if it matches the supplied user id. Match 1:1.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        public async Task<Response> MatchOneToOne(int userId, CancellationToken ct = default(CancellationToken))
+        public async Task<Response> MatchOneToOne(int userId, CancellationToken ct = default)
         {
             var command = Command.Factory.CreateMatchOneToOneCommand(Convert.ToUInt16(userId));
             return await GetResponseAsync<Response>(command, AcquireTimeout, ct);
@@ -363,13 +358,14 @@
         }
 
         /// <summary>
-        /// Sets the matching level. 0 is the loosest, 9 is the strictest
+        /// Sets the matching level. 0 is the loosest, 9 is the strictest.
         /// </summary>
         /// <param name="matchingLevel">The matching level.</param>
         /// <returns></returns>
         public async Task<GetSetMatchingLevelResponse> SetMatchingLevel(int matchingLevel)
         {
-            var command = Command.Factory.CreateGetSetMatchingLevelCommand(GetSetMode.Set, Convert.ToByte(matchingLevel));
+            var command =
+                Command.Factory.CreateGetSetMatchingLevelCommand(GetSetMode.Set, Convert.ToByte(matchingLevel));
             return await GetResponseAsync<GetSetMatchingLevelResponse>(command);
         }
 
@@ -377,7 +373,7 @@
         /// Acquires an image from the sensor and returns the image bytes in grayscale nibbles. This operation is fairly slow.
         /// </summary>
         /// <returns></returns>
-        public async Task<AcquireImageResponse> AcquireImage(CancellationToken ct = default(CancellationToken))
+        public async Task<AcquireImageResponse> AcquireImage(CancellationToken ct = default)
         {
             var command = Command.Factory.CreateAcquireImageCommand();
             return await GetResponseAsync<AcquireImageResponse>(command, AcquireTimeout, ct);
@@ -394,7 +390,7 @@
         }
 
         /// <summary>
-        /// Acquires an image from the sensor and determines if the supplied eigenvalues match. Match 1:1
+        /// Acquires an image from the sensor and determines if the supplied eigenvalues match. Match 1:1.
         /// </summary>
         /// <param name="eigenvalues">The eigenvalues.</param>
         /// <returns></returns>
@@ -405,7 +401,7 @@
         }
 
         /// <summary>
-        /// Provides a method to test if the given user id matches the specified eigenvalues. Match 1:1
+        /// Provides a method to test if the given user id matches the specified eigenvalues. Match 1:1.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="eigenvalues">The eigenvalues.</param>
@@ -417,7 +413,7 @@
         }
 
         /// <summary>
-        /// Finds a user id for the given eigenvalues. Match 1:N
+        /// Finds a user id for the given eigenvalues. Match 1:N.
         /// </summary>
         /// <param name="eigenvalues">The eigenvalues.</param>
         /// <returns></returns>
@@ -439,7 +435,7 @@
         }
 
         /// <summary>
-        /// Sets or overwrites a specified user with the given privilege and eigenvalues
+        /// Sets or overwrites a specified user with the given privilege and eigenvalues.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         /// <param name="privilege">The privilege.</param>
@@ -453,7 +449,7 @@
         }
 
         /// <summary>
-        /// Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture
+        /// Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture.
         /// </summary>
         /// <returns></returns>
         public async Task<GetSetCaptureTimeoutResponse> GetCaptureTimeout()
@@ -463,7 +459,7 @@
         }
 
         /// <summary>
-        /// Sets the capture timeout. Timeout must be 0 to 255. 0 denotes to wait indefinitely for a capture
+        /// Sets the capture timeout. Timeout must be 0 to 255. 0 denotes to wait indefinitely for a capture.
         /// </summary>
         /// <param name="timeout">The timeout.</param>
         /// <returns></returns>
@@ -483,9 +479,9 @@
             return await GetResponseAsync<GetAllUsersResponse>(command);
         }
 
-#endregion
+        #endregion
 
-#region Read and Write Methods
+        #region Read and Write Methods
 
         /// <summary>
         /// Given a command, gets a response object asynchronously.
@@ -495,9 +491,9 @@
         /// <param name="responseTimeout">The response timeout.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">Open</exception>
+        /// <exception cref="System.InvalidOperationException">Open.</exception>
         private async Task<T> GetResponseAsync<T>(Command command, TimeSpan responseTimeout,
-            CancellationToken ct = default(CancellationToken))
+            CancellationToken ct = default)
             where T : ResponseBase
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
@@ -506,38 +502,36 @@
             var startTime = DateTime.UtcNow;
 
             var discardedBytes = await FlushReadBufferAsync(ct);
-            if (discardedBytes.Length > 0 && IsDebugBuild)
+            if (discardedBytes.Length > 0)
             {
-                $"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}"
-                    .Trace();
+                System.Diagnostics.Debug.WriteLine(
+                    $"RX: Discarded {discardedBytes.Length} bytes: {BitConverter.ToString(discardedBytes).Replace("-", " ")}");
             }
 
             await WriteAsync(command.Payload);
 
-            if (IsDebugBuild)
-                $"TX: {command}".Debug();
+            System.Diagnostics.Debug.WriteLine($"TX: {command}");
 
             var responseBytes = await ReadAsync(responseTimeout, ct);
             if (responseBytes == null || responseBytes.Length <= 0)
             {
-                if (IsDebugBuild)
-                    $"RX: No response received after {responseTimeout.TotalMilliseconds} ms".Error();
+                System.Diagnostics.Debug.WriteLine(
+                    $"RX: No response received after {responseTimeout.TotalMilliseconds} ms");
 
                 return null;
             }
 
             var response = Activator.CreateInstance(typeof(T), responseBytes) as T;
-            if (IsDebugBuild)
-            {
-                $"RX: {response}".Info();
-                $"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms".Trace();
-            }
+
+            System.Diagnostics.Debug.WriteLine($"RX: {response}");
+            System.Diagnostics.Debug.WriteLine(
+                $"Request-Response cycle took {DateTime.UtcNow.Subtract(startTime).TotalMilliseconds} ms");
 
             return response;
         }
 
         /// <summary>
-        /// Gets a response with the default timeout
+        /// Gets a response with the default timeout.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="command">The command.</param>
@@ -549,7 +543,7 @@
         }
 
         /// <summary>
-        /// Writes data to the serial port asynchronously
+        /// Writes data to the serial port asynchronously.
         /// </summary>
         /// <param name="payload">The payload.</param>
         /// <returns></returns>
@@ -569,7 +563,7 @@
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -578,7 +572,7 @@
         }
 
         /// <summary>
-        /// Reads data from the serial port asynchronously with the default timeout
+        /// Reads data from the serial port asynchronously with the default timeout.
         /// </summary>
         /// <returns></returns>
         public async Task<byte[]> ReadAsync()
@@ -587,16 +581,16 @@
         }
 
         /// <summary>
-        /// Flushes the serial port read data discarding all bytes in the read buffer
+        /// Flushes the serial port read data discarding all bytes in the read buffer.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        private async Task<byte[]> FlushReadBufferAsync(CancellationToken ct = default(CancellationToken))
+        private async Task<byte[]> FlushReadBufferAsync(CancellationToken ct = default)
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
-                return new byte[] {};
+                return new byte[] { };
 
-            SerialPortDone.Wait();
+            SerialPortDone.Wait(ct);
             SerialPortDone.Reset();
 
             try
@@ -629,13 +623,13 @@
         /// <param name="timeout">The timeout.</param>
         /// <param name="ct">The cancellation token.</param>
         /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">Open</exception>
-        public async Task<byte[]> ReadAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))
+        /// <exception cref="System.InvalidOperationException">Open.</exception>
+        public async Task<byte[]> ReadAsync(TimeSpan timeout, CancellationToken ct = default)
         {
             if (SerialPort == null || SerialPort.IsOpen == false)
                 throw new InvalidOperationException($"Call the {nameof(Open)} method before attempting communication");
 
-            SerialPortDone.Wait();
+            SerialPortDone.Wait(ct);
             SerialPortDone.Reset();
 
             try
@@ -667,9 +661,8 @@
                         if (isVariableLengthResponse && response.Count < expectedBytes &&
                             expectedBytes > largePacketSize)
                         {
-                            if (IsDebugBuild)
-                                $"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} remaining - Delay: {largePacketDelayMilliseconds} ms"
-                                    .Trace();
+                            System.Diagnostics.Debug.WriteLine(
+                                $"RX: Received {readBytes} bytes. Length: {response.Count} of {expectedBytes}; {remainingBytes} remaining - Delay: {largePacketDelayMilliseconds} ms");
 
                             await Task.Delay(largePacketDelayMilliseconds, ct);
                         }
@@ -683,16 +676,15 @@
                                 MessageLengthCategory.Variable;
                             if (isVariableLengthResponse)
                             {
-                                var headerByteCount = (new byte[] {response[2], response[3]}).BigEndianArrayToUInt16();
+                                var headerByteCount = (new[] {response[2], response[3]}).BigEndianArrayToUInt16();
                                 if (headerByteCount > 0)
                                 {
                                     expectedBytes = 8 + 3 + headerByteCount;
                                     largePacketDelayMilliseconds =
                                         (int) Math.Max((double) expectedBytes / SerialPort.BaudRate * 1000d, 100d);
 
-                                    if (IsDebugBuild)
-                                        $"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms"
-                                            .Trace();
+                                    System.Diagnostics.Debug.WriteLine(
+                                        $"RX: Expected Bytes: {expectedBytes}. Large Packet delay: {largePacketDelayMilliseconds} ms");
                                 }
                                 else
                                 {
@@ -710,12 +702,10 @@
 
                     if (DateTime.UtcNow.Subtract(startTime) > timeout)
                     {
-                        if (IsDebugBuild)
-                        {
-                            $"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}"
-                                .Error();
-                            $"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}".Error();
-                        }
+                        System.Diagnostics.Debug.WriteLine(
+                            $"RX: Did not receive enough bytes. Received: {response.Count}  Expected: {expectedBytes}");
+                        System.Diagnostics.Debug.WriteLine(
+                            $"RX: {BitConverter.ToString(response.ToArray()).Replace("-", " ")}");
 
                         return null;
                     }
@@ -734,6 +724,6 @@
             }
         }
 
-#endregion
+        #endregion
     }
 }

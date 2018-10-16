@@ -5,11 +5,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-#if NET452
-    using System.IO.Ports;
-#else
-    using Unosquare.IO.Ports;
-#endif
 
     internal class Program
     {
@@ -69,7 +64,7 @@
         private static string PromptForSerialPort()
         {
             var baseChar = 65;
-            var portNames = SerialPort.GetPortNames()
+            var portNames = FingerprintReader.GetPortNames()
                 .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
 
             if (portNames.Any() == false)
@@ -90,8 +85,6 @@
 
         public static async Task Main(string[] args)
         {
-            $"Mode: {FingerprintReader.Mode}".Info();
-
             var portName = PromptForSerialPort();
 
             if (string.IsNullOrEmpty(portName))
@@ -100,7 +93,7 @@
             using (var reader = new FingerprintReader())
             {
                 $"Opening port '{portName}' . . .".Info();
-                reader.Open(portName);
+                await reader.OpenAsync(portName);
 
                 while (true)
                 {
@@ -252,6 +245,7 @@
                         case ConsoleKey.C:
                         {
                             var result = await reader.GetUserCount();
+                                $"User count: {result.UserCount}".Info();
                             break;
                         }
                         case ConsoleKey.F6:
@@ -273,6 +267,7 @@
                         case ConsoleKey.W:
                         {
                             var result = await reader.MatchOneToN();
+                            $"Successful: {result.IsSuccessful}".Info();
                             break;
                         }
                         case ConsoleKey.R:

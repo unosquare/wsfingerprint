@@ -125,33 +125,6 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class FingerprintReader : IDisposable</code></pre>
   </div>
-  <h3 id="fields">Fields
-  </h3>
-  
-  
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Mode" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Mode">Mode</h4>
-  <div class="markdown level1 summary"><p>The mode how is running the reader.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const string Mode = &quot;Normal&quot;</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="properties">Properties
   </h3>
   
@@ -163,7 +136,7 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SerialPort SerialPort { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public ISerialPort SerialPort { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -175,7 +148,7 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unosquare.IO.Ports.SerialPort.html">SerialPort</a></td>
+        <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.SerialPort.ISerialPort.html">ISerialPort</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -206,7 +179,8 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
       <tr>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">ct</span></td>
-        <td></td>
+        <td><p>The cancellation token.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -221,21 +195,41 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html">AcquireImageResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous adquire image operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html">AcquireImageResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues">AcquireImageEigenvalues()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AcquireImageEigenvalues_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AcquireImageEigenvalues(System.Threading.CancellationToken)">AcquireImageEigenvalues(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Acquires an image from the sensor and returns the computed eigenvalues.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageEigenvaluesResponse&gt; AcquireImageEigenvalues()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;AcquireImageEigenvaluesResponse&gt; AcquireImageEigenvalues(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -247,20 +241,22 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html">AcquireImageEigenvaluesResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous adquire image eigenvalues operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html">AcquireImageEigenvaluesResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_System_Int32_System_Int32_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint(System.Int32,System.Int32,System.Int32)">AddFingerprint(Int32, Int32, Int32)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_AddFingerprint_System_Int32_System_Int32_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.AddFingerprint(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)">AddFingerprint(Int32, Int32, Int32, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Registers a fingerprint. You have to call this method 3 times specifying the corresponding iteration 1, 2, or 3.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;AddFingerprintResponse&gt; AddFingerprint(int iteration, int userId, int userPrivilege)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;AddFingerprintResponse&gt; AddFingerprint(int iteration, int userId, int userPrivilege, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -290,6 +286,12 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
         <td><p>The user privilege.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -303,7 +305,9 @@ WIKI: <a href="http://www.waveshare.com/wiki/UART_Fingerprint_Reader">http://www
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html">AddFingerprintResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous add fingerprint operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html">AddFingerprintResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -330,14 +334,32 @@ userPrivilege.</p>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers">DeleteAllUsers()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteAllUsers_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteAllUsers(System.Threading.CancellationToken)">DeleteAllUsers(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes all users.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteAllUsers()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteAllUsers(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -349,20 +371,22 @@ userPrivilege.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous delete all users operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser(System.Int32)">DeleteUser(Int32)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_DeleteUser_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.DeleteUser(System.Int32,System.Threading.CancellationToken)">DeleteUser(Int32, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes the specified user.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteUser(int userId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; DeleteUser(int userId, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -380,6 +404,12 @@ userPrivilege.</p>
         <td><p>The user identifier.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -393,7 +423,9 @@ userPrivilege.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous delete user operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -410,14 +442,32 @@ userPrivilege.</p>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers">GetAllUsers()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetAllUsers_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetAllUsers(System.Threading.CancellationToken)">GetAllUsers(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets all users and their permissions. It does not retrieve User eigenvalues.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetAllUsersResponse&gt; GetAllUsers()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetAllUsersResponse&gt; GetAllUsers(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -429,22 +479,42 @@ userPrivilege.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html">GetAllUsersResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get all users operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html">GetAllUsersResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate">GetBaudRate()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetBaudRate_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetBaudRate(System.Threading.CancellationToken)">GetBaudRate(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the baud rate.
 This method probes the serial port at different baud rates until communication is correctly established.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; GetBaudRate()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; GetBaudRate(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -456,21 +526,41 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get baud rate operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout">GetCaptureTimeout()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetCaptureTimeout_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetCaptureTimeout(System.Threading.CancellationToken)">GetCaptureTimeout(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the capture timeout. Timeout is between 0 to 255. 0 denotes to wait indefinitely for a capture.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; GetCaptureTimeout()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; GetCaptureTimeout(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -482,21 +572,41 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get capture timeout operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber">GetDspVersionNumber()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetDspVersionNumber_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetDspVersionNumber(System.Threading.CancellationToken)">GetDspVersionNumber(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the version number of the DSP module.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetDspVersionNumberResponse&gt; GetDspVersionNumber()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetDspVersionNumberResponse&gt; GetDspVersionNumber(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -508,21 +618,41 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html">GetDspVersionNumberResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get DSP version number operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html">GetDspVersionNumberResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel">GetMatchingLevel()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetMatchingLevel_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetMatchingLevel(System.Threading.CancellationToken)">GetMatchingLevel(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the matching level.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; GetMatchingLevel()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; GetMatchingLevel(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -534,21 +664,70 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get matching level operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetPortNames_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetPortNames*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetPortNames" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetPortNames">GetPortNames()</h4>
+  <div class="markdown level1 summary"><p>Gets an array of serial port names for the current computer.</p>
+<p>This method is just a shortcut for Microsoft and RJCP libraries,
+you may use your SerialPort library to enumerate the available ports.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string[] GetPortNames()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span>[]</td>
+        <td><p>An array of serial port names for the current computer.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode">GetRegistrationMode()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetRegistrationMode_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetRegistrationMode(System.Threading.CancellationToken)">GetRegistrationMode(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the registration mode which specifies if a fingerprint can be registered more than once.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; GetRegistrationMode()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; GetRegistrationMode(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -560,21 +739,41 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get registration mode operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount">GetUserCount()</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserCount_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserCount(System.Threading.CancellationToken)">GetUserCount(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the user count.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetUserCountResponse&gt; GetUserCount()</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetUserCountResponse&gt; GetUserCount(CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -586,20 +785,22 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html">GetUserCountResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get user count operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html">GetUserCountResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege(System.Int32)">GetUserPrivilege(Int32)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserPrivilege_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserPrivilege(System.Int32,System.Threading.CancellationToken)">GetUserPrivilege(Int32, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets the user privilege given its id.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetUserPrivilegeResponse&gt; GetUserPrivilege(int userId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetUserPrivilegeResponse&gt; GetUserPrivilege(int userId, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -615,6 +816,12 @@ This method probes the serial port at different baud rates until communication i
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">userId</span></td>
         <td><p>The user identifier.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -630,20 +837,22 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html">GetUserPrivilegeResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get user privilege operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html">GetUserPrivilegeResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties(System.Int32)">GetUserProperties(Int32)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_GetUserProperties_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.GetUserProperties(System.Int32,System.Threading.CancellationToken)">GetUserProperties(Int32, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Gets a user&apos;s privilege and eigenvalues.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetUserPropertiesResponse&gt; GetUserProperties(int userId)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetUserPropertiesResponse&gt; GetUserProperties(int userId, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -661,6 +870,12 @@ This method probes the serial port at different baud rates until communication i
         <td><p>The user identifier.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -674,20 +889,22 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html">GetUserPropertiesResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous get user properties operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html">GetUserPropertiesResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser(System.Byte[])">MatchEigenvaluesToUser(Byte[])</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchEigenvaluesToUser_System_Byte___System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchEigenvaluesToUser(System.Byte[],System.Threading.CancellationToken)">MatchEigenvaluesToUser(Byte[], CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Finds a user id for the given eigenvalues. Match 1:N.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;MatchEigenvaluesToUserResponse&gt; MatchEigenvaluesToUser(byte[] eigenvalues)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;MatchEigenvaluesToUserResponse&gt; MatchEigenvaluesToUser(byte[] eigenvalues, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -703,6 +920,12 @@ This method probes the serial port at different baud rates until communication i
         <td><span class="xref">System.Byte</span>[]</td>
         <td><span class="parametername">eigenvalues</span></td>
         <td><p>The eigenvalues.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -718,20 +941,22 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html">MatchEigenvaluesToUserResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous match eigenvalues to user operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html">MatchEigenvaluesToUserResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues(System.Byte[])">MatchImageToEigenvalues(Byte[])</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchImageToEigenvalues_System_Byte___System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchImageToEigenvalues(System.Byte[],System.Threading.CancellationToken)">MatchImageToEigenvalues(Byte[], CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Acquires an image from the sensor and determines if the supplied eigenvalues match. Match 1:1.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchImageToEigenvalues(byte[] eigenvalues)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchImageToEigenvalues(byte[] eigenvalues, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -749,6 +974,12 @@ This method probes the serial port at different baud rates until communication i
         <td><p>The eigenvalues.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -762,7 +993,9 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous match image to eigenvalues operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -806,7 +1039,9 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html">MatchOneToNResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous match one to n operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html">MatchOneToNResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -856,20 +1091,22 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous match one to one operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_System_Int32_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues(System.Int32,System.Byte[])">MatchUserToEigenvalues(Int32, Byte[])</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_MatchUserToEigenvalues_System_Int32_System_Byte___System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.MatchUserToEigenvalues(System.Int32,System.Byte[],System.Threading.CancellationToken)">MatchUserToEigenvalues(Int32, Byte[], CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Provides a method to test if the given user id matches the specified eigenvalues. Match 1:1.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchUserToEigenvalues(int userId, byte[] eigenvalues)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; MatchUserToEigenvalues(int userId, byte[] eigenvalues, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -893,6 +1130,12 @@ This method probes the serial port at different baud rates until communication i
         <td><p>The eigenvalues.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -906,21 +1149,23 @@ This method probes the serial port at different baud rates until communication i
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous match user to eigenvalues operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_System_String_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open(System.String)">Open(String)</h4>
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_OpenAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.OpenAsync*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_OpenAsync_System_String_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.OpenAsync(System.String,System.Threading.CancellationToken)">OpenAsync(String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Opens the serial port with the specified port name.
 Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like /dev/ttyS0.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Open(string portName)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task OpenAsync(string portName, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -938,19 +1183,41 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like 
         <td><p>Name of the port.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>An instance of <span class="xref">System.Threading.CancellationToken</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>A <span class="xref">System.Threading.Tasks.Task</span> representing the asynchronous operation.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   
   
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Open_System_String_Unosquare_WaveShare_FingerprintModule_BaudRate_System_Boolean_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Open(System.String,Unosquare.WaveShare.FingerprintModule.BaudRate,System.Boolean)">Open(String, BaudRate, Boolean)</h4>
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_OpenAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.OpenAsync*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_OpenAsync_System_String_Unosquare_WaveShare_FingerprintModule_BaudRate_System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.OpenAsync(System.String,Unosquare.WaveShare.FingerprintModule.BaudRate,System.Boolean,System.Threading.CancellationToken)">OpenAsync(String, BaudRate, Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Opens the serial port with the specified port name.
-Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like.</p>
+Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like /dev/ttyS0.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Open(string portName, BaudRate baud, bool probeBaudRates)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task OpenAsync(string portName, BaudRate baudRate, bool probeBaudRates, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -970,14 +1237,36 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like.
       </tr>
       <tr>
         <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.BaudRate.html">BaudRate</a></td>
-        <td><span class="parametername">baud</span></td>
-        <td><p>The baud.</p>
+        <td><span class="parametername">baudRate</span></td>
+        <td><p>The baud rate.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">probeBaudRates</span></td>
         <td><p>if set to <code>true</code> [probe baud rates].</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>An instance of <span class="xref">System.Threading.CancellationToken</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>A <span class="xref">System.Threading.Tasks.Task</span> representing the asynchronous operation.</p>
 </td>
       </tr>
     </tbody>
@@ -1000,40 +1289,15 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like.
   </table>
   
   
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync">ReadAsync()</h4>
-  <div class="markdown level1 summary"><p>Reads data from the serial port asynchronously with the default timeout.</p>
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_Unosquare_WaveShare_FingerprintModule_BaudRate_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate(Unosquare.WaveShare.FingerprintModule.BaudRate,System.Threading.CancellationToken)">SetBaudRate(BaudRate, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Sets the baud rate of the module.
+This closes and re-opens the serial port.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_ReadAsync_System_TimeSpan_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.ReadAsync(System.TimeSpan,System.Threading.CancellationToken)">ReadAsync(TimeSpan, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Reads bytes from the serial port.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;byte[]&gt; ReadAsync(TimeSpan timeout, CancellationToken ct = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; SetBaudRate(BaudRate baudRate, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1046,7 +1310,59 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like.
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.TimeSpan</span></td>
+        <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.BaudRate.html">BaudRate</a></td>
+        <td><span class="parametername">baudRate</span></td>
+        <td><p>The baud rate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>&gt;</td>
+        <td><p>A task that represents the asynchronous set baud rate operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout(System.Int32,System.Threading.CancellationToken)">SetCaptureTimeout(Int32, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Sets the capture timeout. Timeout must be 0 to 255. 0 denotes to wait indefinitely for a capture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; SetCaptureTimeout(int timeout, CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">timeout</span></td>
         <td><p>The timeout.</p>
 </td>
@@ -1069,126 +1385,23 @@ Under Windows it&apos;s something like COM3. On Linux, it&apos;s something like.
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Byte</span>[]&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>Open.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetBaudRate_Unosquare_WaveShare_FingerprintModule_BaudRate_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetBaudRate(Unosquare.WaveShare.FingerprintModule.BaudRate)">SetBaudRate(BaudRate)</h4>
-  <div class="markdown level1 summary"><p>Sets the baud rate of the module.
-This closes and re-opens the serial port.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetBaudRateResponse&gt; SetBaudRate(BaudRate baudRate)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unosquare.WaveShare.FingerprintModule.BaudRate.html">BaudRate</a></td>
-        <td><span class="parametername">baudRate</span></td>
-        <td><p>The baud rate.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html">GetSetBaudRateResponse</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetCaptureTimeout_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetCaptureTimeout(System.Int32)">SetCaptureTimeout(Int32)</h4>
-  <div class="markdown level1 summary"><p>Sets the capture timeout. Timeout must be 0 to 255. 0 denotes to wait indefinitely for a capture.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetCaptureTimeoutResponse&gt; SetCaptureTimeout(int timeout)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">timeout</span></td>
-        <td><p>The timeout.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous set capture timeout operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html">GetSetCaptureTimeoutResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_System_Int32_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel(System.Int32)">SetMatchingLevel(Int32)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetMatchingLevel_System_Int32_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetMatchingLevel(System.Int32,System.Threading.CancellationToken)">SetMatchingLevel(Int32, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sets the matching level. 0 is the loosest, 9 is the strictest.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; SetMatchingLevel(int matchingLevel)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetMatchingLevelResponse&gt; SetMatchingLevel(int matchingLevel, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1206,6 +1419,12 @@ This closes and re-opens the serial port.</p>
         <td><p>The matching level.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1219,20 +1438,22 @@ This closes and re-opens the serial port.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous set matching level operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html">GetSetMatchingLevelResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_System_Boolean_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode(System.Boolean)">SetRegistrationMode(Boolean)</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetRegistrationMode_System_Boolean_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetRegistrationMode(System.Boolean,System.Threading.CancellationToken)">SetRegistrationMode(Boolean, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sets the registration mode. Prohibit repeat disallows registration of the same fingerprint for more than 1 user.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; SetRegistrationMode(bool prohibitRepeat)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;GetSetRegistrationModeResponse&gt; SetRegistrationMode(bool prohibitRepeat, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1250,6 +1471,12 @@ This closes and re-opens the serial port.</p>
         <td><p>if set to <code>true</code> [prohibit repeat].</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1263,20 +1490,22 @@ This closes and re-opens the serial port.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>&gt;</td>
-        <td></td>
+        <td><p>A task that represents the asynchronous set registration mode operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html">GetSetRegistrationModeResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_System_Int32_System_Int32_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties(System.Int32,System.Int32,System.Byte[])">SetUserProperties(Int32, Int32, Byte[])</h4>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_SetUserProperties_System_Int32_System_Int32_System_Byte___System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.SetUserProperties(System.Int32,System.Int32,System.Byte[],System.Threading.CancellationToken)">SetUserProperties(Int32, Int32, Byte[], CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Sets or overwrites a specified user with the given privilege and eigenvalues.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;SetUserPropertiesResponse&gt; SetUserProperties(int userId, int privilege, byte[] eigenvalues)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;SetUserPropertiesResponse&gt; SetUserProperties(int userId, int privilege, byte[] eigenvalues, CancellationToken ct = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1306,75 +1535,10 @@ This closes and re-opens the serial port.</p>
         <td><p>The eigenvalues.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html">SetUserPropertiesResponse</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep">Sleep()</h4>
-  <div class="markdown level1 summary"><p>Makes the module go to sleep and stop processing commands. The only way to bring it back
-online is by resetting it.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; Sleep()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_WriteAsync_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync*"></a>
-  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_WriteAsync_System_Byte___" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.WriteAsync(System.Byte[])">WriteAsync(Byte[])</h4>
-  <div class="markdown level1 summary"><p>Writes data to the serial port asynchronously.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task WriteAsync(byte[] payload)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">payload</span></td>
-        <td><p>The payload.</p>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -1389,23 +1553,57 @@ online is by resetting it.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
-        <td></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html">SetUserPropertiesResponse</a>&gt;</td>
+        <td><p>A task that represents the asynchronous set user properties operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html">SetUserPropertiesResponse</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h5 class="exceptions">Exceptions</h5>
+  
+  
+  <a id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep*"></a>
+  <h4 id="Unosquare_WaveShare_FingerprintModule_FingerprintReader_Sleep_System_Threading_CancellationToken_" data-uid="Unosquare.WaveShare.FingerprintModule.FingerprintReader.Sleep(System.Threading.CancellationToken)">Sleep(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Makes the module go to sleep and stop processing commands. The only way to bring it back
+online is by resetting it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;Response&gt; Sleep(CancellationToken ct = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Condition</th>
+        <th>Name</th>
+        <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>The cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>&gt;</td>
+        <td><p>A task that represents the asynchronous sleep operation.
+ The result of the task contains an instance of <a class="xref" href="Unosquare.WaveShare.FingerprintModule.Response.html">Response</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>

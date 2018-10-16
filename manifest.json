@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "EziU0HN+SO5fj+uniFaD7w=="
+          "hash": "GFDGF+AGgOm2ommnhnMR4g=="
         }
       },
       "is_incremental": false,
@@ -63,54 +63,6 @@
       "output": {
         "resource": {
           "relative_path": "logos/wsfp-logo-256.png"
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.IO.Ports.Parity.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.IO.Ports.Parity.html",
-          "hash": "y6hIwbL0BbWkGvaWaIstRQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.IO.Ports.SerialPort.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.IO.Ports.SerialPort.html",
-          "hash": "ZueNdm0ICcgpDsIRebAm8Q=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.IO.Ports.StopBits.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.IO.Ports.StopBits.html",
-          "hash": "RrmLqlvCObOhLThPqap8qA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/Unosquare.IO.Ports.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Unosquare.IO.Ports.html",
-          "hash": "wo/4wAyRHnJRIPnbBzQHTw=="
         }
       },
       "is_incremental": false,
@@ -182,7 +134,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html",
-          "hash": "C+/B3cnBw6Ss2U2rq+a8vQ=="
+          "hash": "vXj2dmdVRNWGQsVyXLk49g=="
         }
       },
       "is_incremental": false,
@@ -406,11 +358,59 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.SerialPort.ISerialPort.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SerialPort.ISerialPort.html",
+          "hash": "K6wTTmaXDqqsGXbvsGQdEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.SerialPort.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SerialPort.html",
+          "hash": "ATI+UdkGGTcducrNhr67hg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.yml",
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html",
           "hash": "kybnS/xRP/E4uu7q06Lk8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.Utils.OperatingSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Utils.OperatingSystem.html",
+          "hash": "BLjsOED8S7vGLosLsUV/0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Unosquare.WaveShare.FingerprintModule.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Utils.html",
+          "hash": "nT1yfYKA+3zHGJhZ35nu4g=="
         }
       },
       "is_incremental": false,
@@ -434,7 +434,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "I0uLdf5VW6FBbX7ScePCdg=="
+          "hash": "vc3wpbW9+22u4ZBsHspBSw=="
         }
       },
       "is_incremental": false,
@@ -446,7 +446,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "VQf4QDrxTmF61/a+OzukYA=="
+          "hash": "btnQDlGeN787FWf0ggSRDA=="
         }
       },
       "is_incremental": false,
@@ -460,17 +460,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
-          "incrementalPhase": "build"
-        },
-        "ResourceDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "TocDocumentProcessor": {

@@ -1507,12 +1507,12 @@ references:
   commentId: F:Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOneToN
   fullName: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOneToN
   nameWithType: OperationCode.MatchOneToN
-- uid: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOnteToOne
-  name: MatchOnteToOne
-  href: api/Unosquare.WaveShare.FingerprintModule.OperationCode.html#Unosquare_WaveShare_FingerprintModule_OperationCode_MatchOnteToOne
-  commentId: F:Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOnteToOne
-  fullName: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOnteToOne
-  nameWithType: OperationCode.MatchOnteToOne
+- uid: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOneToOne
+  name: MatchOneToOne
+  href: api/Unosquare.WaveShare.FingerprintModule.OperationCode.html#Unosquare_WaveShare_FingerprintModule_OperationCode_MatchOneToOne
+  commentId: F:Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOneToOne
+  fullName: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchOneToOne
+  nameWithType: OperationCode.MatchOneToOne
 - uid: Unosquare.WaveShare.FingerprintModule.OperationCode.MatchUserToEigenvalues
   name: MatchUserToEigenvalues
   href: api/Unosquare.WaveShare.FingerprintModule.OperationCode.html#Unosquare_WaveShare_FingerprintModule_OperationCode_MatchUserToEigenvalues

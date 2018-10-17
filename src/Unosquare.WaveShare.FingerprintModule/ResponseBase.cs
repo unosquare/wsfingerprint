@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// A base class representing response messages
+    /// A base class representing response messages.
     /// </summary>
     /// <seealso cref="Unosquare.WaveShare.FingerprintModule.MessageBase" />
     public abstract class ResponseBase : MessageBase
@@ -24,7 +24,7 @@
                 {OperationCode.DeleteUser, MessageLengthCategory.Fixed},
                 {OperationCode.DeleteAllUsers, MessageLengthCategory.Fixed},
                 {OperationCode.GetUserCount, MessageLengthCategory.Fixed},
-                {OperationCode.MatchOnteToOne, MessageLengthCategory.Fixed},
+                {OperationCode.MatchOneToOne, MessageLengthCategory.Fixed},
                 {OperationCode.MatchOneToN, MessageLengthCategory.Fixed},
                 {OperationCode.GetUserPrivilege, MessageLengthCategory.Fixed},
                 {OperationCode.GetDspVersionNumber, MessageLengthCategory.Variable},
@@ -47,7 +47,7 @@
         /// Initializes a new instance of the <see cref="ResponseBase"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public ResponseBase(byte[] payload)
+        protected ResponseBase(byte[] payload)
             : base(
                 MessageType.Response, ResponseLengthCategories[(OperationCode) payload[1]], (OperationCode) payload[1])
         {
@@ -57,7 +57,7 @@
 
             if (LengthCategory == MessageLengthCategory.Variable)
             {
-                DataPacketLength = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+                DataPacketLength = (new[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             }
 
             if (payload.Length > 8)

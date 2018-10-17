@@ -1,14 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyTitle>Unosquare.WaveShare.FingerprintModule.Sample</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFrameworks>netcoreapp1.1;net452</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;net452</TargetFrameworks>
     <AssemblyName>Unosquare.WaveShare.FingerprintModule.Sample</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>Unosquare.WaveShare.FingerprintModule.Sample</PackageId>
-    <RuntimeIdentifiers>win8-x64</RuntimeIdentifiers>
-    <RuntimeFrameworkVersion Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">1.1.1</RuntimeFrameworkVersion>
+    <LangVersion>7.2</LangVersion>
+    <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">

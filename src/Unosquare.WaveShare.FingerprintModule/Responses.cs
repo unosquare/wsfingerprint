@@ -7,29 +7,31 @@
     /// <summary>
     /// Represents the most basic response there is. That is, an 8-byte payload with a result code.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class Response : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Response"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public Response(byte[] payload) : base(payload)
+        public Response(byte[] payload)
+            : base(payload)
         {
         }
     }
 
     /// <summary>
-    /// The Change Baud Rate Response
+    /// The Change Baud Rate Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetBaudRateResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSetBaudRateResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetBaudRateResponse(byte[] payload) : base(payload)
+        public GetSetBaudRateResponse(byte[] payload)
+            : base(payload)
         {
             BaudRate = (BaudRate) payload[4];
         }
@@ -39,29 +41,22 @@
         /// </summary>
         public BaudRate BaudRate { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Baud Rate: {BaudRate}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Baud Rate: {BaudRate}";
     }
 
     /// <summary>
-    /// Get DSP Version Response
+    /// Get DSP Version Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetDspVersionNumberResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDspVersionNumberResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetDspVersionNumberResponse(byte[] payload) : base(payload)
+        public GetDspVersionNumberResponse(byte[] payload)
+            : base(payload)
         {
             Version = Encoding.ASCII.GetString(GetBareDataPacket());
         }
@@ -71,100 +66,79 @@
         /// </summary>
         public string Version { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + " Ver.: " + Version;
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Ver.: {Version}";
     }
 
     /// <summary>
-    /// Get or Set Registration Mode Response
+    /// Get or Set Registration Mode Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetRegistrationModeResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSetRegistrationModeResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetRegistrationModeResponse(byte[] payload) : base(payload)
+        public GetSetRegistrationModeResponse(byte[] payload)
+            : base(payload)
         {
-            ProhibitRepeat = payload[3] == 1 ? true : false;
+            ProhibitRepeat = payload[3] == 1;
         }
 
         /// <summary>
         /// Gets a value indicating whether fingerprints must be unique.
-        /// In other words, no 2 users have the same fingerprint
+        /// In other words, no 2 users have the same fingerprint.
         /// </summary>
         /// <value>
         ///   <c>true</c> if [prohibit repeat]; otherwise, <c>false</c>.
         /// </value>
         public bool ProhibitRepeat { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + " Prohibit Repeat: " + ProhibitRepeat;
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Prohibit Repeat: {ProhibitRepeat}";
     }
 
     /// <summary>
-    /// Add Fingerprint Response. This includes repsonses for all 3 iterations 1, 2, and 3
+    /// Add Fingerprint Response. This includes responses for all 3 iterations 1, 2, and 3.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AddFingerprintResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddFingerprintResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public AddFingerprintResponse(byte[] payload) : base(payload)
+        public AddFingerprintResponse(byte[] payload)
+            : base(payload)
         {
             Iteration = payload[1];
         }
 
         /// <summary>
-        /// Gets the iteration of the fingerprint acquisition
+        /// Gets the iteration of the fingerprint acquisition.
         /// 
         /// </summary>
         public int Iteration { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + " Iteration: " + Iteration;
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Iteration: {Iteration}";
     }
 
     /// <summary>
-    /// Get User Count Response
+    /// Get User Count Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserCountResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserCountResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetUserCountResponse(byte[] payload) : base(payload)
+        public GetUserCountResponse(byte[] payload)
+            : base(payload)
         {
-            UserCount = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+            UserCount = new[] {payload[2], payload[3]}.BigEndianArrayToUInt16();
         }
 
         /// <summary>
@@ -172,31 +146,24 @@
         /// </summary>
         public int UserCount { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" User Count: {UserCount}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} User Count: {UserCount}";
     }
 
     /// <summary>
-    /// Match 1 to N Response. Contains the User Id and the corresponding privilege
+    /// Match 1 to N Response. Contains the User Id and the corresponding privilege.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class MatchOneToNResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchOneToNResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public MatchOneToNResponse(byte[] payload) : base(payload)
+        public MatchOneToNResponse(byte[] payload)
+            : base(payload)
         {
-            UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+            UserId = (new[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             UserPrivilege = payload[4];
         }
 
@@ -210,41 +177,27 @@
         /// </summary>
         public int UserPrivilege { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the match was successful
-        /// </summary>
-        public override bool IsSuccessful
-        {
-            get
-            {
-                return UserId > 0 && ResponseCode != MessageResponseCode.TimedOut &&
-                       ResponseCode != MessageResponseCode.NoSuchUser;
-            }
-        }
+        /// <inheritdoc />
+        public override bool IsSuccessful => UserId > 0 && ResponseCode != MessageResponseCode.TimedOut &&
+                                             ResponseCode != MessageResponseCode.NoSuchUser;
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Success: {IsSuccessful} User: {UserId}, Priv: {UserPrivilege}";
-        }
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{base.ToString()} Success: {IsSuccessful} User: {UserId}, Privilege: {UserPrivilege}";
     }
 
     /// <summary>
-    /// Get User Privilege Response
+    /// Get User Privilege Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserPrivilegeResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserPrivilegeResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetUserPrivilegeResponse(byte[] payload) : base(payload)
+        public GetUserPrivilegeResponse(byte[] payload)
+            : base(payload)
         {
             UserPrivilege = payload[4];
         }
@@ -254,40 +207,26 @@
         /// </summary>
         public int UserPrivilege { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the response is successful
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is successful; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsSuccessful
-        {
-            get { return ResponseCode != MessageResponseCode.NoSuchUser; }
-        }
+        /// <inheritdoc />
+        public override bool IsSuccessful => ResponseCode != MessageResponseCode.NoSuchUser;
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Privilege: {(IsSuccessful ? UserPrivilege.ToString() : "No such user")}";
-        }
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{base.ToString()} Privilege: {(IsSuccessful ? UserPrivilege.ToString() : "No such user")}";
     }
 
     /// <summary>
-    /// Get or Set Matching Level Response
+    /// Get or Set Matching Level Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetMatchingLevelResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSetMatchingLevelResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetMatchingLevelResponse(byte[] payload) : base(payload)
+        public GetSetMatchingLevelResponse(byte[] payload)
+            : base(payload)
         {
             MatchingLevel = payload[3];
         }
@@ -297,22 +236,14 @@
         /// </summary>
         public int MatchingLevel { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Matching Level: {MatchingLevel}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Matching Level: {MatchingLevel}";
     }
 
     /// <summary>
-    /// Acquire Image Response
+    /// Acquire Image Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AcquireImageResponse : ResponseBase
     {
 
@@ -320,13 +251,13 @@
         /// Initializes a new instance of the <see cref="AcquireImageResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public AcquireImageResponse(byte[] payload) : base(payload)
+        public AcquireImageResponse(byte[] payload)
+            : base(payload)
         {
             if (IsSuccessful)
             {
                 ImageRawData = GetBareDataPacket();
             }
-
         }
 
         /// <summary>
@@ -334,30 +265,23 @@
         /// </summary>
         public byte[] ImageRawData { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Image Size: {(IsSuccessful ? 0 : ImageRawData.Length)}";
-        }
-
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{base.ToString()} Image Size: {(IsSuccessful ? 0 : ImageRawData.Length)}";
     }
 
     /// <summary>
-    /// Acquire Image Eigenvalues Response
+    /// Acquire Image Eigenvalues Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class AcquireImageEigenvaluesResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AcquireImageEigenvaluesResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public AcquireImageEigenvaluesResponse(byte[] payload) : base(payload)
+        public AcquireImageEigenvaluesResponse(byte[] payload)
+            : base(payload)
         {
             if (IsSuccessful)
             {
@@ -371,25 +295,17 @@
         /// </summary>
         public byte[] Eigenvalues { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Eigenvalues Size: {(IsSuccessful ? 0 : Eigenvalues.Length)}";
-        }
+        /// <inheritdoc />
+        public override string ToString() =>
+            $"{base.ToString()} Eigenvalues Size: {(IsSuccessful ? 0 : Eigenvalues.Length)}";
     }
 
     /// <summary>
-    /// Match Eigenvalues to User Response
+    /// Match Eigenvalues to User Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class MatchEigenvaluesToUserResponse : ResponseBase
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchEigenvaluesToUserResponse"/> class.
         /// </summary>
@@ -399,7 +315,7 @@
         {
             if (IsSuccessful)
             {
-                UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+                UserId = (new[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
             }
         }
 
@@ -408,35 +324,28 @@
         /// </summary>
         public int UserId { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Matched User Id: {UserId}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Matched User Id: {UserId}";
     }
 
     /// <summary>
-    /// Get User Properties Response
+    /// Get User Properties Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetUserPropertiesResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetUserPropertiesResponse(byte[] payload) : base(payload)
+        public GetUserPropertiesResponse(byte[] payload)
+            : base(payload)
         {
             if (IsSuccessful)
             {
                 var dataPacket = GetBareDataPacket();
                 Eigenvalues = dataPacket.Skip(3).Take(dataPacket.Length - 3).ToArray();
-                UserId = (new byte[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
+                UserId = new[] {dataPacket[0], dataPacket[1]}.BigEndianArrayToUInt16();
                 UserPrivilege = dataPacket[2];
             }
         }
@@ -456,32 +365,25 @@
         /// </summary>
         public int UserPrivilege { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() +
-                   $" User Id: {UserId}  Privilege: {UserPrivilege}  Eigenvalues: {Eigenvalues?.Length}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => base.ToString() +
+                                             $" User Id: {UserId}  Privilege: {UserPrivilege}  Eigenvalues: {Eigenvalues?.Length}";
     }
 
     /// <summary>
-    /// Set User Properties Response - Contains the User Id
+    /// Set User Properties Response - Contains the User Id.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class SetUserPropertiesResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SetUserPropertiesResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public SetUserPropertiesResponse(byte[] payload) : base(payload)
+        public SetUserPropertiesResponse(byte[] payload)
+            : base(payload)
         {
-            UserId = (new byte[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
+            UserId = (new[] {payload[2], payload[3]}).BigEndianArrayToUInt16();
         }
 
         /// <summary>
@@ -489,29 +391,22 @@
         /// </summary>
         public int UserId { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" User: {UserId}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => base.ToString() + $" User: {UserId}";
     }
 
     /// <summary>
-    /// Get or Set Capture Timeout Response
+    /// Get or Set Capture Timeout Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetSetCaptureTimeoutResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSetCaptureTimeoutResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetCaptureTimeoutResponse(byte[] payload) : base(payload)
+        public GetSetCaptureTimeoutResponse(byte[] payload)
+            : base(payload)
         {
             CaptureTimeout = payload[3];
         }
@@ -521,40 +416,33 @@
         /// </summary>
         public int CaptureTimeout { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Capture Timeout: {CaptureTimeout}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Capture Timeout: {CaptureTimeout}";
     }
 
     /// <summary>
-    /// Get All Users Response
+    /// Get All Users Response.
     /// </summary>
-    /// <seealso cref="FingerprintModule.ResponseBase" />
+    /// <seealso cref="ResponseBase" />
     public sealed class GetAllUsersResponse : ResponseBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetAllUsersResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetAllUsersResponse(byte[] payload) : base(payload)
+        public GetAllUsersResponse(byte[] payload)
+            : base(payload)
         {
             Users = new Dictionary<int, int>();
             if (IsSuccessful == false) return;
 
-
             var dataPacket = GetBareDataPacket();
-            var userCount = (new byte[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
+            var userCount = (new[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
             if (userCount == 0) return;
-            for (int offset = 2; offset < dataPacket.Length; offset += 3)
+
+            for (var offset = 2; offset < dataPacket.Length; offset += 3)
             {
-                var userId = (new byte[] {dataPacket[offset], dataPacket[offset + 1]}).BigEndianArrayToUInt16();
+                var userId = (new[] {dataPacket[offset], dataPacket[offset + 1]}).BigEndianArrayToUInt16();
                 var privilege = dataPacket[offset + 2];
                 Users[userId] = privilege;
             }
@@ -565,15 +453,7 @@
         /// </summary>
         public Dictionary<int, int> Users { get; }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return base.ToString() + $" Users: {Users?.Count}";
-        }
+        /// <inheritdoc />
+        public override string ToString() => $"{base.ToString()} Users: {Users?.Count}";
     }
 }

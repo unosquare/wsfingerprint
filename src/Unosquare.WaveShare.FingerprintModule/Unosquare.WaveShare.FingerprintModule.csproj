@@ -1,25 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">  
   <PropertyGroup>
+    <Copyright>Copyright (c) 2018 - Unosquare</Copyright>
+    <Company>Unosquare</Company>
     <AssemblyTitle>Unosquare.WaveShare.FingerprintModule</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Unosquare.WaveShare.FingerprintModule</AssemblyName>
     <PackageId>Unosquare.WaveShare.FingerprintModule</PackageId>
+    <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.2</LangVersion>  
+  </PropertyGroup>  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="Unosquare.Swan.Lite" Version="0.24.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta009">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <DefineConstants>$(DefineConstants);WIRINGPI</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
+  
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <EmbeddedResource Include="Resources\libnserial.so.1.temp" />
+  </ItemGroup>
+    
+    
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="SerialPortStream" Version="2.1.4" />
   </ItemGroup>
 
 </Project>

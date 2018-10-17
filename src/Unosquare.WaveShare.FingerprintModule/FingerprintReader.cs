@@ -16,8 +16,6 @@
     /// <seealso cref="System.IDisposable" />
     public sealed class FingerprintReader : IDisposable
     {
-        #region Private Declarations
-
         /// <summary>
         /// The read buffer length of the serial port.
         /// </summary>
@@ -29,11 +27,14 @@
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
 
         private bool _disposedValue; // To detect redundant calls
-
-        #endregion
-
-        #region Properties
-
+        
+        /// <summary>
+        /// Gets the serial port associated with this reader.
+        /// </summary>
+        public ISerialPort SerialPort { get; private set; }
+        
+        #region Open and Close Methods
+        
         /// <summary>
         /// Gets an array of serial port names for the current computer.
         ///
@@ -43,19 +44,10 @@
         /// <returns>An array of serial port names for the current computer.</returns>
         public static string[] GetPortNames() =>
 #if NET452
-                MsSerialPort.GetPortNames();
+            MsSerialPort.GetPortNames();
 #else
                 RjcpSerialPort.GetPortNames();
 #endif
-
-        /// <summary>
-        /// Gets the serial port associated with this reader.
-        /// </summary>
-        public ISerialPort SerialPort { get; private set; }
-
-        #endregion
-
-        #region Open and Close Methods
 
         /// <summary>
         /// Opens the serial port with the specified port name.
@@ -88,7 +80,7 @@
             if (probeBaudRates)
             {
                 System.Diagnostics.Debug.WriteLine("Will probe baud rates.");
-                await GetBaudRate();
+                await GetBaudRate(ct);
             }
         }
 
@@ -198,6 +190,7 @@
                 await OpenAsync(portName, baudRate, false, ct);
 
                 probeResponse = await GetResponseAsync<GetUserCountResponse>(probeCommand, BaudRateProbeTimeout, ct);
+
                 if (probeResponse != null)
                 {
                     var baudRateResponse = new GetSetBaudRateResponse(
@@ -645,16 +638,14 @@
 
             try
             {
-                var startTime = DateTime.UtcNow;
                 var response = new List<byte>(1024 * 10);
                 var expectedBytes = 8;
-                var remainingBytes = expectedBytes;
                 var iteration = 0;
                 var isVariableLengthResponse = false;
                 var largePacketDelayMilliseconds = 0;
                 const int largePacketSize = 500;
 
-                startTime = DateTime.UtcNow;
+                var startTime = DateTime.UtcNow;
                 var buffer = new byte[SerialPort.ReadBufferSize];
 
                 while (SerialPort.IsOpen && response.Count < expectedBytes && ct.IsCancellationRequested == false)
@@ -665,7 +656,7 @@
                             await SerialPort.ReadAsync(buffer, 0, buffer.Length, ct);
 
                         response.AddRange(buffer.Skip(0).Take(readBytes));
-                        remainingBytes = expectedBytes - response.Count;
+                        var remainingBytes = expectedBytes - response.Count;
                         startTime = DateTime.UtcNow;
 
                         // for larger data packets we want to give it a nicer breather

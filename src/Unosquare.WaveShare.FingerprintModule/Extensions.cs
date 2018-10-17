@@ -8,7 +8,6 @@
     /// </summary>
     internal static class Extensions
     {
-
         /// <summary>
         /// Converts the Baud enum value to an integer.
         /// </summary>

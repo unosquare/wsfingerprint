@@ -14,7 +14,7 @@
         /// Initializes a new instance of the <see cref="Response"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public Response(byte[] payload) 
+        public Response(byte[] payload)
             : base(payload)
         {
         }
@@ -135,10 +135,10 @@
         /// Initializes a new instance of the <see cref="GetUserCountResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetUserCountResponse(byte[] payload) 
+        public GetUserCountResponse(byte[] payload)
             : base(payload)
         {
-            UserCount = new[] {payload[2], payload[3] }.BigEndianArrayToUInt16();
+            UserCount = new[] {payload[2], payload[3]}.BigEndianArrayToUInt16();
         }
 
         /// <summary>
@@ -183,7 +183,7 @@
 
         /// <inheritdoc />
         public override string ToString() =>
-            $"{base.ToString()} Success: {IsSuccessful} User: {UserId}, Priv: {UserPrivilege}";
+            $"{base.ToString()} Success: {IsSuccessful} User: {UserId}, Privilege: {UserPrivilege}";
     }
 
     /// <summary>
@@ -196,7 +196,7 @@
         /// Initializes a new instance of the <see cref="GetUserPrivilegeResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetUserPrivilegeResponse(byte[] payload) 
+        public GetUserPrivilegeResponse(byte[] payload)
             : base(payload)
         {
             UserPrivilege = payload[4];
@@ -209,7 +209,7 @@
 
         /// <inheritdoc />
         public override bool IsSuccessful => ResponseCode != MessageResponseCode.NoSuchUser;
-        
+
         /// <inheritdoc />
         public override string ToString() =>
             $"{base.ToString()} Privilege: {(IsSuccessful ? UserPrivilege.ToString() : "No such user")}";
@@ -225,7 +225,7 @@
         /// Initializes a new instance of the <see cref="GetSetMatchingLevelResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetMatchingLevelResponse(byte[] payload) 
+        public GetSetMatchingLevelResponse(byte[] payload)
             : base(payload)
         {
             MatchingLevel = payload[3];
@@ -235,7 +235,7 @@
         /// Gets the matching level.
         /// </summary>
         public int MatchingLevel { get; }
-        
+
         /// <inheritdoc />
         public override string ToString() => $"{base.ToString()} Matching Level: {MatchingLevel}";
     }
@@ -251,7 +251,7 @@
         /// Initializes a new instance of the <see cref="AcquireImageResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public AcquireImageResponse(byte[] payload) 
+        public AcquireImageResponse(byte[] payload)
             : base(payload)
         {
             if (IsSuccessful)
@@ -280,7 +280,7 @@
         /// Initializes a new instance of the <see cref="AcquireImageEigenvaluesResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public AcquireImageEigenvaluesResponse(byte[] payload) 
+        public AcquireImageEigenvaluesResponse(byte[] payload)
             : base(payload)
         {
             if (IsSuccessful)
@@ -306,7 +306,6 @@
     /// <seealso cref="ResponseBase" />
     public sealed class MatchEigenvaluesToUserResponse : ResponseBase
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchEigenvaluesToUserResponse"/> class.
         /// </summary>
@@ -324,7 +323,7 @@
         /// Gets the user identifier.
         /// </summary>
         public int UserId { get; }
-        
+
         /// <inheritdoc />
         public override string ToString() => $"{base.ToString()} Matched User Id: {UserId}";
     }
@@ -406,7 +405,7 @@
         /// Initializes a new instance of the <see cref="GetSetCaptureTimeoutResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetSetCaptureTimeoutResponse(byte[] payload) 
+        public GetSetCaptureTimeoutResponse(byte[] payload)
             : base(payload)
         {
             CaptureTimeout = payload[3];
@@ -431,12 +430,12 @@
         /// Initializes a new instance of the <see cref="GetAllUsersResponse"/> class.
         /// </summary>
         /// <param name="payload">The payload.</param>
-        public GetAllUsersResponse(byte[] payload) 
+        public GetAllUsersResponse(byte[] payload)
             : base(payload)
         {
             Users = new Dictionary<int, int>();
             if (IsSuccessful == false) return;
-            
+
             var dataPacket = GetBareDataPacket();
             var userCount = (new[] {dataPacket[0], dataPacket[1]}).BigEndianArrayToUInt16();
             if (userCount == 0) return;

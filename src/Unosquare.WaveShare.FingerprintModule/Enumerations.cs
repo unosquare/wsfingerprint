@@ -60,7 +60,7 @@
         DeleteUser = 0x04,
         DeleteAllUsers = 0x05,
         GetUserCount = 0x09,
-        MatchOnteToOne = 0x0B,
+        MatchOneToOne = 0x0B,
         MatchOneToN = 0x0C,
         GetUserPrivilege = 0x0A,
         GetDspVersionNumber = 0x26,

@@ -24,7 +24,7 @@
                 {OperationCode.DeleteUser, MessageLengthCategory.Fixed},
                 {OperationCode.DeleteAllUsers, MessageLengthCategory.Fixed},
                 {OperationCode.GetUserCount, MessageLengthCategory.Fixed},
-                {OperationCode.MatchOnteToOne, MessageLengthCategory.Fixed},
+                {OperationCode.MatchOneToOne, MessageLengthCategory.Fixed},
                 {OperationCode.MatchOneToN, MessageLengthCategory.Fixed},
                 {OperationCode.GetUserPrivilege, MessageLengthCategory.Fixed},
                 {OperationCode.GetDspVersionNumber, MessageLengthCategory.Variable},

@@ -30,26 +30,14 @@ namespace Unosquare.WaveShare.FingerprintModule.SerialPort
 
         public int ReadBufferSize
         {
-            get
-            {
-                return _serialPort.ReadBufferSize;
-            }
-            set
-            {
-                _serialPort.ReadBufferSize = value;
-            }
+            get => _serialPort.ReadBufferSize;
+            set => _serialPort.ReadBufferSize = value;
         }
 
         public int BaudRate
         {
-            get
-            {
-                return _serialPort.BaudRate;
-            }
-            set
-            {
-                _serialPort.BaudRate = value;
-            }
+            get => _serialPort.BaudRate;
+            set => _serialPort.BaudRate = value;
         }
 
         public static string[] GetPortNames() => SerialPortStream.GetPortNames();

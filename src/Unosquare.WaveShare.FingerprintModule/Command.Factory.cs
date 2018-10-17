@@ -66,7 +66,7 @@
 
             internal static Command CreateMatchOneToOneCommand(ushort userId)
             {
-                var command = new Command(OperationCode.MatchOnteToOne);
+                var command = new Command(OperationCode.MatchOneToOne);
                 var userIdBytes = userId.ToBigEndianArray();
                 command.Payload = CreateFixedLengthPayload(command.OperationCode, userIdBytes[0], userIdBytes[1]);
                 return command;
@@ -181,7 +181,7 @@
             {
                 var command = new Command(OperationCode.ChangeBaudRate);
                 var baudRateByte = (byte)newBaudRate;
-                command.Payload = CreateFixedLengthPayload(command.OperationCode, 0, 0, baudRateByte, 0);
+                command.Payload = CreateFixedLengthPayload(command.OperationCode, 0, 0, baudRateByte);
                 return command;
             }
         }

@@ -13,7 +13,7 @@
     /// Reference: http://www.waveshare.com/w/upload/6/65/UART-Fingerprint-Reader-UserManual.pdf
     /// WIKI: http://www.waveshare.com/wiki/UART_Fingerprint_Reader.
     /// </summary>
-    /// <seealso cref="System.IDisposable" />
+    /// <seealso cref="IDisposable" />
     public sealed class FingerprintReader : IDisposable
     {
         /// <summary>
@@ -43,7 +43,7 @@
         /// </summary>
         /// <returns>An array of serial port names for the current computer.</returns>
         public static string[] GetPortNames() =>
-#if NET452
+#if NET461
             MsSerialPort.GetPortNames();
 #else
                 RjcpSerialPort.GetPortNames();
@@ -65,7 +65,7 @@
                 throw new InvalidOperationException("Device is already open. Call the Close method first.");
 
             SerialPort =
-#if NET452
+#if NET461
                 new MsSerialPort(portName, baudRate.ToInt())
 #else
                 new RjcpSerialPort(portName, baudRate.ToInt())

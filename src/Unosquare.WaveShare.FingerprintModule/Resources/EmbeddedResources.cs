@@ -1,4 +1,4 @@
-﻿#if !NET452
+﻿#if !NET461
 namespace Unosquare.WaveShare.FingerprintModule.Resources
 {
     using System;

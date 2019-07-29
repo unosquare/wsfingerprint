@@ -4,19 +4,16 @@
     <Company>Unosquare</Company>
     <AssemblyTitle>Unosquare.WaveShare.FingerprintModule</AssemblyTitle>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Unosquare.WaveShare.FingerprintModule</AssemblyName>
     <PackageId>Unosquare.WaveShare.FingerprintModule</PackageId>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.2</LangVersion>  
   </PropertyGroup>  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta009">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -29,7 +26,7 @@
     
     
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="SerialPortStream" Version="2.1.4" />
+    <PackageReference Include="SerialPortStream" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

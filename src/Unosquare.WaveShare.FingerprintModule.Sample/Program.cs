@@ -1,5 +1,6 @@
 ﻿namespace Unosquare.WaveShare.FingerprintModule.Sample
 {
+    using Swan.Logging;
     using Swan;
     using System;
     using System.Collections.Generic;
@@ -65,7 +66,7 @@
         {
             var baseChar = 65;
             var portNames = FingerprintReader.GetPortNames()
-                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
+                .ToDictionary(p => (ConsoleKey)baseChar++, v => v);
 
             if (portNames.Any() == false)
             {
@@ -78,7 +79,7 @@
                 return portNames.First().Value;
             }
 
-            var portSelection = "Select Port to Open".ReadPrompt(portNames, "Exit this program");
+            var portSelection = Terminal.ReadPrompt("Select Port to Open", portNames, "Exit this program");
 
             return portNames.ContainsKey(portSelection.Key) ? portNames[portSelection.Key] : string.Empty;
         }
@@ -100,19 +101,19 @@
                     #region Main Menu
 
                     ConsoleKeyInfo selectedOption;
-                    var menuOption = "Select an option".ReadPrompt(ActionOptions, "Exit this program");
+                    var menuOption = Terminal.ReadPrompt("Select an option", ActionOptions, "Exit this program");
 
                     if (menuOption.Key == ConsoleKey.Q)
                     {
-                        selectedOption = "Select an option".ReadPrompt(ModuleActionOptions, "Exit this prompt");
+                        selectedOption = Terminal.ReadPrompt("Select an option", ModuleActionOptions, "Exit this prompt");
                     }
                     else if (menuOption.Key == ConsoleKey.W)
                     {
-                        selectedOption = "Select an option".ReadPrompt(UsersActionOptions, "Exit this prompt");
+                        selectedOption = Terminal.ReadPrompt("Select an option", UsersActionOptions, "Exit this prompt");
                     }
                     else if (menuOption.Key == ConsoleKey.E)
                     {
-                        selectedOption = "Select an option".ReadPrompt(MatchingActionOptions, "Exit this prompt");
+                        selectedOption = Terminal.ReadPrompt("Select an option", MatchingActionOptions, "Exit this prompt");
                     }
                     else
                     {
@@ -126,216 +127,218 @@
                     switch (selectedOption.Key)
                     {
                         case ConsoleKey.V:
-                        {
-                            var result = await reader.GetDspVersionNumber();
-                            break;
-                        }
+                            {
+                                var result = await reader.GetDspVersionNumber();
+                                break;
+                            }
                         case ConsoleKey.M:
-                        {
-                            var result = await reader.GetRegistrationMode();
-                            break;
-                        }
+                            {
+                                var result = await reader.GetRegistrationMode();
+                                break;
+                            }
                         case ConsoleKey.J:
-                        {
-                            var result = await reader.GetAllUsers();
-                            if (result != null && result.IsSuccessful)
                             {
-                                foreach (var kvp in result.Users)
+                                var result = await reader.GetAllUsers();
+                                if (result != null && result.IsSuccessful)
                                 {
-                                    $"User: {kvp.Key,4}    Privilege: {kvp.Value,4}".Info();
-                                }
-                            }
-
-                            break;
-                        }
-                        case ConsoleKey.U:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var result = await reader.GetUserProperties(userId);
-                            $"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes"
-                                .Info();
-                            break;
-                        }
-                        case ConsoleKey.B:
-                        {
-                            var baseChar = 65;
-                            var baudRates = Enum.GetNames(typeof(BaudRate))
-                                .ToDictionary(p => (ConsoleKey) baseChar++, v => v);
-                            var baudSelection =
-                                $"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}".ReadPrompt(
-                                    baudRates, "Exit this prompt");
-
-                            if (baudRates.ContainsKey(baudSelection.Key))
-                            {
-                                var newBaudRate = (BaudRate) Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
-                                await reader.SetBaudRate(newBaudRate);
-                            }
-
-                            break;
-                        }
-                        case ConsoleKey.Y:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var privilege = "Enter Privilege".ReadNumber(1);
-
-                            var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-
-                            var result =
-                                await reader.SetUserProperties(userId, privilege, eigenvaluesResult.Eigenvalues);
-                            break;
-                        }
-                        case ConsoleKey.F3:
-                        {
-                            "Place your finger on the sensor to produce some eigenvalues".Info();
-                            var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-                            "Place your finger on the sensor once again to compare the eigenvalues".Info();
-                            var result = await reader.MatchImageToEigenvalues(eigenvaluesResult.Eigenvalues);
-                            break;
-                        }
-                        case ConsoleKey.F4:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            "Place your finger on the sensor to produce some eigenvalues".Info();
-                            var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-                            "Place your finger on the sensor once again to compare the eigenvalues".Info();
-                            var result = await reader.MatchUserToEigenvalues(userId, eigenvaluesResult.Eigenvalues);
-                            break;
-                        }
-                        case ConsoleKey.F5:
-                        {
-                            "Place your finger on the sensor to produce some eigenvalues".Info();
-                            var eigenvaluesResult = await reader.AcquireImageEigenvalues();
-                            var result = await reader.MatchEigenvaluesToUser(eigenvaluesResult.Eigenvalues);
-                            break;
-                        }
-                        case ConsoleKey.P:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var result = await reader.GetUserPrivilege(userId);
-                            break;
-                        }
-                        case ConsoleKey.L:
-                        {
-                            var result = await reader.GetMatchingLevel();
-                            break;
-                        }
-                        case ConsoleKey.K:
-                        {
-                            var matchingLevel = "Enter Matching Level (0 to 9)".ReadNumber(5);
-                            if (matchingLevel < 0) matchingLevel = 0;
-                            if (matchingLevel > 9) matchingLevel = 9;
-
-                            var result = await reader.SetMatchingLevel(matchingLevel);
-                            break;
-                        }
-                        case ConsoleKey.G:
-                        {
-                            var timeout = "Enter CaptureTimeout (0 to 255)".ReadNumber(0);
-                            if (timeout < 0) timeout = 0;
-                            if (timeout > 255) timeout = 255;
-
-                            var result = await reader.SetCaptureTimeout(timeout);
-                            break;
-                        }
-                        case ConsoleKey.T:
-                        {
-                            await reader.GetCaptureTimeout();
-                            break;
-                        }
-                        case ConsoleKey.C:
-                        {
-                            var result = await reader.GetUserCount();
-                                $"User count: {result.UserCount}".Info();
-                            break;
-                        }
-                        case ConsoleKey.F6:
-                        {
-                            var result = await reader.AcquireImage();
-                            break;
-                        }
-                        case ConsoleKey.F7:
-                        {
-                            var result = await reader.AcquireImageEigenvalues();
-                            break;
-                        }
-                        case ConsoleKey.Q:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var result = await reader.MatchOneToOne(userId);
-                            break;
-                        }
-                        case ConsoleKey.W:
-                        {
-                            var result = await reader.MatchOneToN();
-                            $"Successful: {result.IsSuccessful}".Info();
-                            break;
-                        }
-                        case ConsoleKey.R:
-                        {
-                            var mode = "Enter Registration Mode - 1 disallows repeated fingerprints".ReadNumber(1);
-                            var result = await reader.SetRegistrationMode(mode == 1);
-                            break;
-                        }
-                        case ConsoleKey.A:
-                        {
-                            var userId = "Enter User Id".ReadNumber(1);
-                            var privilege = "Enter Privilege".ReadNumber(1);
-
-                            "Place your finger on the sensor".Info();
-                            var fp1 = await reader.AddFingerprint(1, userId, privilege);
-                            if (fp1 != null && fp1.IsSuccessful)
-                            {
-                                "Place your finger on the sensor again".Info();
-                                var fp2 = await reader.AddFingerprint(2, userId, privilege);
-                                if (fp2 != null && fp2.IsSuccessful)
-                                {
-                                    "Place your finger on the sensor once again".Info();
-                                    var fp3 = await reader.AddFingerprint(3, userId, privilege);
-                                    if (fp3 != null && fp3.IsSuccessful)
+                                    foreach (var kvp in result.Users)
                                     {
-                                        "User added successfully".Info();
+                                        $"User: {kvp.Key,4}    Privilege: {kvp.Value,4}".Info();
+                                    }
+                                }
+
+                                break;
+                            }
+                        case ConsoleKey.U:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                var result = await reader.GetUserProperties(userId);
+                                $"User: {result.UserId}  Privilege: {result.UserPrivilege}  Eigenvalues: {(result.Eigenvalues != null ? result.Eigenvalues.Length : 0)} bytes"
+                                    .Info();
+                                break;
+                            }
+                        case ConsoleKey.B:
+                            {
+                                var baseChar = 65;
+                                var baudRates = Enum.GetNames(typeof(BaudRate))
+                                    .ToDictionary(p => (ConsoleKey)baseChar++, v => v);
+                                var baudSelection =
+                                    Terminal.ReadPrompt(
+                                        $"Select new Baud Rate - Current Rate is {reader.SerialPort.BaudRate}",
+                                        baudRates, 
+                                        "Exit this prompt");
+
+                                if (baudRates.ContainsKey(baudSelection.Key))
+                                {
+                                    var newBaudRate = (BaudRate)Enum.Parse(typeof(BaudRate), baudRates[baudSelection.Key]);
+                                    await reader.SetBaudRate(newBaudRate);
+                                }
+
+                                break;
+                            }
+                        case ConsoleKey.Y:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                var privilege = Terminal.ReadNumber("Enter Privilege", 1);
+
+                                var eigenvaluesResult = await reader.AcquireImageEigenvalues();
+
+                                var result =
+                                    await reader.SetUserProperties(userId, privilege, eigenvaluesResult.Eigenvalues);
+                                break;
+                            }
+                        case ConsoleKey.F3:
+                            {
+                                "Place your finger on the sensor to produce some eigenvalues".Info();
+                                var eigenvaluesResult = await reader.AcquireImageEigenvalues();
+                                "Place your finger on the sensor once again to compare the eigenvalues".Info();
+                                var result = await reader.MatchImageToEigenvalues(eigenvaluesResult.Eigenvalues);
+                                break;
+                            }
+                        case ConsoleKey.F4:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                "Place your finger on the sensor to produce some eigenvalues".Info();
+                                var eigenvaluesResult = await reader.AcquireImageEigenvalues();
+                                "Place your finger on the sensor once again to compare the eigenvalues".Info();
+                                var result = await reader.MatchUserToEigenvalues(userId, eigenvaluesResult.Eigenvalues);
+                                break;
+                            }
+                        case ConsoleKey.F5:
+                            {
+                                "Place your finger on the sensor to produce some eigenvalues".Info();
+                                var eigenvaluesResult = await reader.AcquireImageEigenvalues();
+                                var result = await reader.MatchEigenvaluesToUser(eigenvaluesResult.Eigenvalues);
+                                break;
+                            }
+                        case ConsoleKey.P:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                var result = await reader.GetUserPrivilege(userId);
+                                break;
+                            }
+                        case ConsoleKey.L:
+                            {
+                                var result = await reader.GetMatchingLevel();
+                                break;
+                            }
+                        case ConsoleKey.K:
+                            {
+                                var matchingLevel = Terminal.ReadNumber("Enter Matching Level (0 to 9)", 5);
+                                if (matchingLevel < 0) matchingLevel = 0;
+                                if (matchingLevel > 9) matchingLevel = 9;
+
+                                var result = await reader.SetMatchingLevel(matchingLevel);
+                                break;
+                            }
+                        case ConsoleKey.G:
+                            {
+                                var timeout = Terminal.ReadNumber("Enter CaptureTimeout (0 to 255)", 0);
+                                if (timeout < 0) timeout = 0;
+                                if (timeout > 255) timeout = 255;
+
+                                var result = await reader.SetCaptureTimeout(timeout);
+                                break;
+                            }
+                        case ConsoleKey.T:
+                            {
+                                await reader.GetCaptureTimeout();
+                                break;
+                            }
+                        case ConsoleKey.C:
+                            {
+                                var result = await reader.GetUserCount();
+                                $"User count: {result.UserCount}".Info();
+                                break;
+                            }
+                        case ConsoleKey.F6:
+                            {
+                                var result = await reader.AcquireImage();
+                                break;
+                            }
+                        case ConsoleKey.F7:
+                            {
+                                var result = await reader.AcquireImageEigenvalues();
+                                break;
+                            }
+                        case ConsoleKey.Q:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                var result = await reader.MatchOneToOne(userId);
+                                break;
+                            }
+                        case ConsoleKey.W:
+                            {
+                                var result = await reader.MatchOneToN();
+                                $"Successful: {result.IsSuccessful}".Info();
+                                break;
+                            }
+                        case ConsoleKey.R:
+                            {
+                                var mode = Terminal.ReadNumber("Enter Registration Mode - 1 disallows repeated fingerprints", 1);
+                                var result = await reader.SetRegistrationMode(mode == 1);
+                                break;
+                            }
+                        case ConsoleKey.A:
+                            {
+                                var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                var privilege = Terminal.ReadNumber("Enter Privilege", 1);
+
+                                "Place your finger on the sensor".Info();
+                                var fp1 = await reader.AddFingerprint(1, userId, privilege);
+                                if (fp1 != null && fp1.IsSuccessful)
+                                {
+                                    "Place your finger on the sensor again".Info();
+                                    var fp2 = await reader.AddFingerprint(2, userId, privilege);
+                                    if (fp2 != null && fp2.IsSuccessful)
+                                    {
+                                        "Place your finger on the sensor once again".Info();
+                                        var fp3 = await reader.AddFingerprint(3, userId, privilege);
+                                        if (fp3 != null && fp3.IsSuccessful)
+                                        {
+                                            "User added successfully".Info();
+                                        }
+                                        else
+                                        {
+                                            "Failed on acquisition 3".Error();
+                                        }
                                     }
                                     else
                                     {
-                                        "Failed on acquisition 3".Error();
+                                        "Failed on acquisition 2".Error();
                                     }
                                 }
                                 else
                                 {
-                                    "Failed on acquisition 2".Error();
+                                    "Failed on acquisition 1".Error();
                                 }
-                            }
-                            else
-                            {
-                                "Failed on acquisition 1".Error();
-                            }
 
-                            break;
-                        }
+                                break;
+                            }
                         default:
-                        {
-                            switch (selectedOption.Key)
                             {
-                                case ConsoleKey.W:
+                                switch (selectedOption.Key)
                                 {
-                                    var userId = "Enter User Id".ReadNumber(1);
-                                    var result = await reader.DeleteUser(userId);
-                                    break;
+                                    case ConsoleKey.W:
+                                        {
+                                            var userId = Terminal.ReadNumber("Enter User Id", 1);
+                                            var result = await reader.DeleteUser(userId);
+                                            break;
+                                        }
+                                    case ConsoleKey.Z:
+                                        {
+                                            var result = await reader.DeleteAllUsers();
+                                            break;
+                                        }
+                                    case ConsoleKey.S:
+                                        {
+                                            var result = await reader.Sleep();
+                                            break;
+                                        }
                                 }
-                                case ConsoleKey.Z:
-                                {
-                                    var result = await reader.DeleteAllUsers();
-                                    break;
-                                }
-                                case ConsoleKey.S:
-                                {
-                                    var result = await reader.Sleep();
-                                    break;
-                                }
-                            }
 
-                            break;
-                        }
+                                break;
+                            }
                     }
 
                     #endregion

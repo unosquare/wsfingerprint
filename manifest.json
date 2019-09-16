@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "N2xrsnD6uHZzeGiWmXveRQ=="
+          "hash": "ZV6zsGzEKEYzmDu1Cl7mZA=="
         }
       },
       "is_incremental": false,
@@ -85,7 +85,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageEigenvaluesResponse.html",
-          "hash": "PKPr1C2Fahsw7cEvdGcJuA=="
+          "hash": "JNt3iA0MBKSo4SXLielx4w=="
         }
       },
       "is_incremental": false,
@@ -97,7 +97,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AcquireImageResponse.html",
-          "hash": "Me4SIJQo+qAwmGC6DxwJUg=="
+          "hash": "/DRDRc7wvRMNqNEA1gVv4w=="
         }
       },
       "is_incremental": false,
@@ -109,7 +109,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.AddFingerprintResponse.html",
-          "hash": "2f9U+sNbaI3zbR3LUinlPw=="
+          "hash": "58agfrb0E4/VXACBsHqUgg=="
         }
       },
       "is_incremental": false,
@@ -121,7 +121,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.BaudRate.html",
-          "hash": "WHhGt92hTvraZilLnm0DOA=="
+          "hash": "l3d5PzJV9qHwJbC3zOspBg=="
         }
       },
       "is_incremental": false,
@@ -133,7 +133,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Command.html",
-          "hash": "j4rJqF3TQ24/xp7tFUQMlQ=="
+          "hash": "HjHxddgNRvvCWMrsoe0AuA=="
         }
       },
       "is_incremental": false,
@@ -145,7 +145,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.FingerprintReader.html",
-          "hash": "FXUwVIT7qXefbn2m3rpvWg=="
+          "hash": "lO77/I3+JONKSSZzK+YaRQ=="
         }
       },
       "is_incremental": false,
@@ -157,7 +157,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetAllUsersResponse.html",
-          "hash": "OAAj5jDiVmAMu8QJ3Xwd0w=="
+          "hash": "hQUa+eryB+SWCzUZoMaSjQ=="
         }
       },
       "is_incremental": false,
@@ -169,7 +169,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetDspVersionNumberResponse.html",
-          "hash": "NPXaAzZFojSIcSNLy4RQAA=="
+          "hash": "gUEgysxKSJLN4Pc1JivDAQ=="
         }
       },
       "is_incremental": false,
@@ -181,7 +181,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetBaudRateResponse.html",
-          "hash": "7666sAbBHLHYMY0S7ryUDA=="
+          "hash": "YcYcsWsaK3/3OtTfFGFV2g=="
         }
       },
       "is_incremental": false,
@@ -193,7 +193,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetCaptureTimeoutResponse.html",
-          "hash": "z3lN3pfp/2mbiReRSmxbKg=="
+          "hash": "p4NXFBjOwzz41EwsvjtMsw=="
         }
       },
       "is_incremental": false,
@@ -205,7 +205,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetMatchingLevelResponse.html",
-          "hash": "YOAHoNKVNfFzSU1aoMKMkQ=="
+          "hash": "KxacvuqKoP4b4Bs3qEZ43Q=="
         }
       },
       "is_incremental": false,
@@ -217,7 +217,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetSetRegistrationModeResponse.html",
-          "hash": "0nqf419tbw7kcUuLPDP29w=="
+          "hash": "9FFpPbz66UyD9xM+VPjouA=="
         }
       },
       "is_incremental": false,
@@ -229,7 +229,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserCountResponse.html",
-          "hash": "Q7l1Sl/HHE7RRcrEkxXajw=="
+          "hash": "4dHkbPlpHrp92OVIq2hNHA=="
         }
       },
       "is_incremental": false,
@@ -241,7 +241,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPrivilegeResponse.html",
-          "hash": "4VkkJ5Lt4J1QoU+RFmw3jQ=="
+          "hash": "UK3mW6XyTb/9DJnV2h/c4Q=="
         }
       },
       "is_incremental": false,
@@ -253,7 +253,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.GetUserPropertiesResponse.html",
-          "hash": "7PD65DwyR/V7yW2rAcNfgg=="
+          "hash": "Q7uuQt49dk9EzIPUrRq0QA=="
         }
       },
       "is_incremental": false,
@@ -265,7 +265,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchEigenvaluesToUserResponse.html",
-          "hash": "8kMAqdR2t50JQgzyE4qB5A=="
+          "hash": "XAo1YQImnpZs0zzR1erQmQ=="
         }
       },
       "is_incremental": false,
@@ -277,7 +277,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MatchOneToNResponse.html",
-          "hash": "eUwDhsG6VN31VawSA5h61g=="
+          "hash": "Lyc2Awb5731hZzHcfG0zIg=="
         }
       },
       "is_incremental": false,
@@ -289,7 +289,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageBase.html",
-          "hash": "W2aKiveA3/7QTrfeBavuaw=="
+          "hash": "sao1/kIbD98rPu1+mLRC6Q=="
         }
       },
       "is_incremental": false,
@@ -301,7 +301,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageLengthCategory.html",
-          "hash": "SbGKTnZ1MxEKCuOm23nShA=="
+          "hash": "0+W7AYaS0PlSaDyMp1ZrWQ=="
         }
       },
       "is_incremental": false,
@@ -313,7 +313,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageResponseCode.html",
-          "hash": "xj2RnIi1cZB8TBnEuCM/Nw=="
+          "hash": "ZbxfF09sXX82Njf8o+468A=="
         }
       },
       "is_incremental": false,
@@ -325,7 +325,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.MessageType.html",
-          "hash": "013MRNrcMMYQ39ZKdceFcw=="
+          "hash": "XeQH2wAwgN6qykjEFBWzpg=="
         }
       },
       "is_incremental": false,
@@ -337,7 +337,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.OperationCode.html",
-          "hash": "b7qKEN2PoLG9tbuMNmPQcg=="
+          "hash": "sRhxv2C7NaZV66hXgqWZVA=="
         }
       },
       "is_incremental": false,
@@ -349,7 +349,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Response.html",
-          "hash": "UbQTXJeAehCCGjbj9sNRdA=="
+          "hash": "MhPQCqfNjv2l1iLquoh/8g=="
         }
       },
       "is_incremental": false,
@@ -361,7 +361,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.ResponseBase.html",
-          "hash": "uf4Aqk+jbS54yvEixN/taw=="
+          "hash": "/WBNw742FouSujQrBG4slA=="
         }
       },
       "is_incremental": false,
@@ -373,7 +373,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SerialPort.ISerialPort.html",
-          "hash": "n5gZZNKzjVJx40ZIHcKcsQ=="
+          "hash": "NX3NC4WHFA/VhRJe61gxIA=="
         }
       },
       "is_incremental": false,
@@ -385,7 +385,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SerialPort.html",
-          "hash": "/E/iKKKgilImFy/O3kC9sg=="
+          "hash": "YVx5YsJCKxVnzIxKdXB3Vw=="
         }
       },
       "is_incremental": false,
@@ -397,7 +397,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.SetUserPropertiesResponse.html",
-          "hash": "pGHTNu2wibRj/OTONTTOnA=="
+          "hash": "DOpl13myd+2gBiHNWRh4hg=="
         }
       },
       "is_incremental": false,
@@ -409,7 +409,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Utils.OperatingSystem.html",
-          "hash": "/hq7CBO77PkCptzr/EVeiA=="
+          "hash": "ZpHpLYbtA5WmXwKw5Ee89g=="
         }
       },
       "is_incremental": false,
@@ -421,7 +421,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.Utils.html",
-          "hash": "dIC/0IUF9o2tvyiwsFiKvg=="
+          "hash": "2dSaa0winmRqcZkh9ereVw=="
         }
       },
       "is_incremental": false,
@@ -433,7 +433,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Unosquare.WaveShare.FingerprintModule.html",
-          "hash": "nlvnWoOwMsOTVujUgMB3nQ=="
+          "hash": "KUeHQMszBVvALqxuW3uLZw=="
         }
       },
       "is_incremental": false,

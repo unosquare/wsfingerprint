@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Unosquare.Swan.Lite" Version="2.2.1" />
+    <PackageReference Include="Unosquare.Swan.Lite" Version="2.2.2" />
   </ItemGroup>
 
   <ItemGroup>

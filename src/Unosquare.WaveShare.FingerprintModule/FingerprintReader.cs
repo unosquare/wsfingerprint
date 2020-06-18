@@ -23,7 +23,7 @@
         
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(2);
         private static readonly TimeSpan BaudRateProbeTimeout = TimeSpan.FromMilliseconds(250);
-        private static readonly TimeSpan AcquireTimeout = TimeSpan.FromSeconds(60);
+        private static readonly TimeSpan AcquireTimeout = TimeSpan.MaxValue;
         private static readonly ManualResetEventSlim SerialPortDone = new ManualResetEventSlim(true);
 
         private bool _disposedValue; // To detect redundant calls
